@@ -2,7 +2,7 @@
 
 Proyecto en Android desarrollado por estudiantes de la Escuela Politécnica de la Universidad de Extremadura.
 
-## Integrantes
+## 🧑‍🏫 Integrantes
 
 <table>
     <tr>
