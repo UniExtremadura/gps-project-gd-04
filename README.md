@@ -1,6 +1,6 @@
 # Proyecto GPS & ASEE
 
-Proyecto en Android desarrollado por estudiantes de la Escuela Politécnica de la Universidad de Extremadura.
+Proyecto en Android 📱 desarrollado por estudiantes de la Escuela Politécnica de la Universidad de Extremadura.
 
 ## 🧑‍🏫 Integrantes
 
