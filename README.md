@@ -27,7 +27,7 @@ Proyecto en Android 📱 desarrollado por estudiantes de la Escuela Politécnica
     </tr>
     <tr>
         <td>Adrián Atienza Macías</td>
-        <td>🟤⭐ Mr. Brown</td>
+        <td>🟤 Mr. Brown ⭐</td>
         <td>adatienza@alumnos.unex.es</td>
     </tr>
 </table>
