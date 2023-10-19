@@ -1,0 +1,28 @@
+<?xml version="1.0" encoding="utf-8"?>
+<menu xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto">
+    <item
+        android:id="@+id/recetasFragment"
+        android:enabled="true"
+        android:icon="@drawable/food"
+        android:title="@string/recetas_option"
+        app:showAsAction="ifRoom" />
+    <item
+        android:id="@+id/listaFragment"
+        android:enabled="true"
+        android:icon="@drawable/shopping"
+        android:title="@string/lista_option"
+        app:showAsAction="ifRoom" />
+    <item
+        android:id="@+id/ingredientesFragment"
+        android:enabled="true"
+        android:icon="@drawable/fridge"
+        android:title="@string/ingredientes_option"
+        app:showAsAction="ifRoom" />
+    <item
+        android:id="@+id/equipamientoFragment"
+        android:enabled="true"
+        android:icon="@drawable/microwave"
+        android:title="@string/equipamiento_option"
+        app:showAsAction="ifRoom" />
+</menu>

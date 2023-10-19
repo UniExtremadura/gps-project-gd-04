@@ -1,0 +1,20 @@
+<resources>
+    <string name="app_name">La Nevera de GePeTo</string>
+    <string name="user_string">user</string>
+    <string name="password_string">password</string>
+    <string name="tv_login">login</string>
+    <string name="valid_user_msg">Credentials valid!</string>
+    <string name="invalid_user_msg">Credentials no valid</string>
+    <string name="tv_register">join</string>
+    <string name="repeat_password">repeat password</string>
+    <string name="visit_website">trakt.tv</string>
+    <string name="greeting">Hello, %s!</string>
+    <string name="recetas_option">Recetas</string>
+    <string name="lista_option">Lista</string>
+    <string name="equipamiento_option">Equipamiento</string>
+    <string name="favoritas_option">Favoritas</string>
+    <string name="ingredientes_option">Ingredientes</string>
+    <string name="hello_blank_fragment">Hello blank fragment</string>
+    <string name="action_settings">settings</string>
+    <string name="action_search">search</string>
+</resources>

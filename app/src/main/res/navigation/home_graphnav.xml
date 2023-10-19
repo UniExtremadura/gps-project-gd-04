@@ -1,0 +1,28 @@
+<?xml version="1.0" encoding="utf-8"?>
+<navigation xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/home_graphnav"
+    app:startDestination="@id/recetasFragment">
+
+    <fragment
+        android:id="@+id/recetasFragment"
+        android:name="es.unex.giis.asee.gepeto.view.home.recetas.RecetasFragment"
+        android:label="@string/recetas_option"
+        tools:layout="@layout/fragment_recetas" />
+    <fragment
+        android:id="@+id/listaFragment"
+        android:name="es.unex.giis.asee.gepeto.view.home.ListaFragment"
+        android:label="@string/lista_option"
+        tools:layout="@layout/fragment_lista" />
+    <fragment
+        android:id="@+id/ingredientesFragment"
+        android:name="es.unex.giis.asee.gepeto.view.home.IngredientesFragment"
+        android:label="@string/ingredientes_option"
+        tools:layout="@layout/fragment_ingredientes" />
+    <fragment
+        android:id="@+id/equipamientoFragment"
+        android:name="es.unex.giis.asee.gepeto.view.home.EquipamientoFragment"
+        android:label="@string/equipamiento_option"
+        tools:layout="@layout/fragment_equipamiento" />
+</navigation>
