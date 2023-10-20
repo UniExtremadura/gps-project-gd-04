@@ -6,6 +6,7 @@ import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.view.Menu
 import android.view.MenuItem
+import android.view.View
 import android.widget.Toast
 import androidx.appcompat.widget.SearchView
 import androidx.fragment.app.Fragment
@@ -20,8 +21,10 @@ import es.unex.giis.asee.gepeto.model.User
 import es.unex.giis.asee.gepeto.view.home.recetas.FavoritasFragment
 import es.unex.giis.asee.gepeto.view.home.recetas.RecetasFragment
 import es.unex.giis.asee.gepeto.databinding.ActivityHomeBinding
+import es.unex.giis.asee.gepeto.model.Receta
+import es.unex.giis.asee.gepeto.view.home.recetas.RecetasFragmentDirections
 
-class HomeActivity : AppCompatActivity() {
+class HomeActivity : AppCompatActivity(), RecetasFragment.OnShowClickListener {
 
     private lateinit var appBarConfiguration: AppBarConfiguration
     private lateinit var binding: ActivityHomeBinding
@@ -69,6 +72,18 @@ class HomeActivity : AppCompatActivity() {
 
         setSupportActionBar(binding.toolbar)
         setupActionBarWithNavController(navController, appBarConfiguration)
+
+        // Hide toolbar and bottom navigation when in detail fragment
+        navController.addOnDestinationChangedListener { _, destination, _ ->
+            if ((destination.id == R.id.recetaDetailFragment)){
+                //   binding.toolbar.visibility = View.GONE
+                binding.toolbar.menu.clear()
+                binding.bottomNavigation.visibility = View.GONE
+            } else {
+                binding.toolbar.visibility = View.VISIBLE
+                binding.bottomNavigation.visibility = View.VISIBLE
+            }
+        }
     }
 
     override fun onSupportNavigateUp(): Boolean {
@@ -99,6 +114,10 @@ class HomeActivity : AppCompatActivity() {
             // Invoke the superclass to handle it.
             super.onOptionsItemSelected(item)
         }
+    }
+    override fun onRecetaClick(receta: Receta) {
+        val action = RecetasFragmentDirections.actionRecetasFragmentToRecetaDetailFragment(receta)
+        navController.navigate(action)
     }
 
 }

@@ -9,7 +9,11 @@
         android:id="@+id/recetasFragment"
         android:name="es.unex.giis.asee.gepeto.view.home.recetas.RecetasFragment"
         android:label="@string/recetas_option"
-        tools:layout="@layout/fragment_recetas" />
+        tools:layout="@layout/fragment_recetas" >
+        <action
+            android:id="@+id/action_recetasFragment_to_recetaDetailFragment"
+            app:destination="@id/recetaDetailFragment" />
+    </fragment>
     <fragment
         android:id="@+id/listaFragment"
         android:name="es.unex.giis.asee.gepeto.view.home.ListaFragment"
@@ -24,5 +28,15 @@
         android:id="@+id/equipamientoFragment"
         android:name="es.unex.giis.asee.gepeto.view.home.EquipamientoFragment"
         android:label="@string/equipamiento_option"
-        tools:layout="@layout/fragment_equipamiento" />
+        tools:layout="@layout/fragment_equipamiento"/>
+
+    <fragment
+        android:id="@+id/recetaDetailFragment"
+        android:name="es.unex.giis.asee.gepeto.view.home.recetas.RecetaDetailFragment"
+        android:label="receta_detail"
+        tools:layout="@layout/fragment_receta_detail">
+        <argument
+            android:name="receta"
+            app:argType="es.unex.giis.asee.gepeto.model.Receta" />
+        </fragment>
 </navigation>
