@@ -69,7 +69,7 @@ imagen = R.drawable.platoejemplo,
 Receta(
 nombre = "Spaghetti Carbonara",
 descripcion = "Pasta italiana cocida al dente con una salsa cremosa de huevo, panceta, queso parmesano y pimienta negra.",
-favorita = true,
+favorita = false,
 ingredientes = listOf("Spaghetti", "Panceta", "Yemas de huevo", "Queso parmesano", "Pimienta negra"),
 equipamientos = listOf("Olla para cocinar pasta", "Sartén") ,
 imagen = R.drawable.platoejemplo,
@@ -78,7 +78,7 @@ imagen = R.drawable.platoejemplo,
 Receta(
 nombre = "Sushi de Salmón",
 descripcion = "Rollitos de arroz, alga nori, salmón fresco, aguacate y pepino, servidos con salsa de soja y wasabi.",
-favorita = true,
+favorita = false,
 ingredientes = listOf("Arroz para sushi", "Alga nori", "Salmón fresco", "Aguacate", "Pepino", "Salsa de soja", "Wasabi", "Alga nori", "Salmón fresco", "Aguacate", "Pepino", "Salsa de soja", "Wasabi", "Alga nori", "Salmón fresco", "Aguacate", "Pepino", "Salsa de soja", "Wasabi"),
 equipamientos = listOf("Estera de bambú para hacer sushi", "Cuchillo afilado"),
 imagen = R.drawable.platoejemplo,
@@ -86,10 +86,10 @@ imagen = R.drawable.platoejemplo,
 
 Receta(
 nombre = "Brownies de Chocolate",
-descripcion = "Deliciosos brownies de chocolate con trozos de nueces, suaves por dentro y ligeramente crujientes por fuera.",
+descripcion = "Deliciosos brownies de chocolate con trozos de nueces, suaves por dentro y ligeramente crujientes por fuera.Deliciosos brownies de chocolate con trozos de nueces, suaves por dentro y ligeramente crujientes por fuera.Deliciosos brownies de chocolate con trozos de nueces, suaves por dentro y ligeramente crujientes por fuera.Deliciosos brownies de chocolate con trozos de nueces, suaves por dentro y ligeramente crujientes por fuera.Deliciosos brownies de chocolate con trozos de nueces, suaves por dentro y ligeramente crujientes por fuera.Deliciosos brownies de chocolate con trozos de nueces, suaves por dentro y ligeramente crujientes por fuera.Deliciosos brownies de chocolate con trozos de nueces, suaves por dentro y ligeramente crujientes por fuera.Deliciosos brownies de chocolate con trozos de nueces, suaves por dentro y ligeramente crujientes por fuera.Deliciosos brownies de chocolate con trozos de nueces, suaves por dentro y ligeramente crujientes por fuera.Deliciosos brownies de chocolate con trozos de nueces, suaves por dentro y ligeramente crujientes por fuera.Deliciosos brownies de chocolate con trozos de nueces, suaves por dentro y ligeramente crujientes por fuera.Deliciosos brownies de chocolate con trozos de nueces, suaves por dentro y ligeramente crujientes por fuera.Deliciosos brownies de chocolate con trozos de nueces, suaves por dentro y ligeramente crujientes por fuera.Deliciosos brownies de chocolate con trozos de nueces, suaves por dentro y ligeramente crujientes por fuera.Deliciosos brownies de chocolate con trozos de nueces, suaves por dentro y ligeramente crujientes por fuera.Deliciosos brownies de chocolate con trozos de nueces, suaves por dentro y ligeramente crujientes por fuera.Deliciosos brownies de chocolate con trozos de nueces, suaves por dentro y ligeramente crujientes por fuera.Deliciosos brownies de chocolate con trozos de nueces, suaves por dentro y ligeramente crujientes por fuera.Deliciosos brownies de chocolate con trozos de nueces, suaves por dentro y ligeramente crujientes por fuera.Deliciosos brownies de chocolate con trozos de nueces, suaves por dentro y ligeramente crujientes por fuera.Deliciosos brownies de chocolate con trozos de nueces, suaves por dentro y ligeramente crujientes por fuera.Deliciosos brownies de chocolate con trozos de nueces, suaves por dentro y ligeramente crujientes por fuera.Deliciosos brownies de chocolate con trozos de nueces, suaves por dentro y ligeramente crujientes por fuera.Deliciosos brownies de chocolate con trozos de nueces, suaves por dentro y ligeramente crujientes por fuera.",
 favorita = true,
 ingredientes = listOf("Chocolate negro", "Mantequilla", "Azúcar", "Huevos", "Harina", "Nueces", "Mantequilla", "Azúcar", "Huevos", "Harina", "Nueces", "Mantequilla", "Azúcar", "Huevos", "Harina", "Nueces"),
-equipamientos = listOf("Molde para brownies", "Bol para mezclar"),
+equipamientos = listOf("Molde para brownies bol para mezclar", "Bol para mezclar", "Bol para mezclar", "Bol para mezclar", "Bol para mezclar", "Bol para mezclar", "Bol para mezclar", "Bol para mezclar", "Bol para mezclar", "Bol para mezclar", "Bol para mezclar", "Bol para mezclar"),
 imagen = R.drawable.platoejemplo,
 )
 )

@@ -17,4 +17,14 @@ data class Receta(
             postfix = "." // Sufijo para la cadena completa
         )
     }
+    fun listaIngredientes(): String {
+        return "Ingredientes:\n - "+ingredientes.joinToString(
+            separator = "\n - ", // Delimitador entre los elementos (coma y espacio en este caso)
+        )
+    }
+    fun listaEquipamiento(): String {
+        return "Equipamientos:\n - "+equipamientos.joinToString(
+            separator = "\n - ", // Delimitador entre los elementos (coma y espacio en este caso)
+        )
+    }
 }

@@ -6,6 +6,8 @@ import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.widget.ImageButton
+import android.widget.ImageView
 import androidx.navigation.fragment.navArgs
 import es.unex.giis.asee.gepeto.R
 import es.unex.giis.asee.gepeto.databinding.FragmentRecetaDetailBinding
@@ -34,6 +36,9 @@ class RecetaDetailFragment : Fragment() {
     private var param1: String? = null
     private var param2: String? = null
 
+
+
+
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         arguments?.let {
@@ -54,6 +59,29 @@ class RecetaDetailFragment : Fragment() {
         super.onViewCreated(view, savedInstanceState)
         val receta = args.receta
         binding.recetaDetalleNombre.text = receta.nombre
+        binding.recetaDetalleDescripcion.text = receta.descripcion
+        binding.recetaDetalleEquipamientos.text = receta.listaEquipamiento()
+        binding.recetaDetalleIngredientes.text = receta.listaIngredientes()
+        binding.recetaDetalleImagen.setImageResource(receta.imagen)
+        if (receta.favorita) {
+            binding.recetaDetalleFavorita.setImageResource(R.drawable.heart_icon_empty)
+        } else {
+            binding.recetaDetalleFavorita.setImageResource(R.drawable.heart_icon_filled)
+        }
+
+
+        binding.recetaDetalleFavorita.setOnClickListener {
+            // Lógica que se ejecuta cuando se hace clic en fav
+            if (receta.favorita) {
+                binding.recetaDetalleFavorita.setImageResource(R.drawable.heart_icon_empty)
+                receta.favorita = false
+            } else {
+                binding.recetaDetalleFavorita.setImageResource(R.drawable.heart_icon_filled)
+                receta.favorita = true
+            }
+        }
+
+
         //binding.tvDescription.text = show.description
         //binding.tvYear.text = show.year
         //binding.swFav.isChecked = show.isFavorite
