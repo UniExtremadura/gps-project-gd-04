@@ -5,7 +5,12 @@ import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.widget.Toast
+import androidx.recyclerview.widget.LinearLayoutManager
 import es.unex.giis.asee.gepeto.R
+import es.unex.giis.asee.gepeto.data.recetasPrueba
+import es.unex.giis.asee.gepeto.databinding.FragmentRecetasBinding
+import es.unex.giis.asee.gepeto.model.Receta
 
 // TODO: Rename parameter arguments, choose names that match
 // the fragment initialization parameters, e.g. ARG_ITEM_NUMBER
@@ -18,6 +23,15 @@ private const val ARG_PARAM2 = "param2"
  * create an instance of this fragment.
  */
 class RecetasFragment : Fragment() {
+    private lateinit var listener: OnShowClickListener
+    interface OnShowClickListener {
+        fun onRecetaClick(receta: Receta)
+    }
+
+    private var _binding: FragmentRecetasBinding? = null
+    private val binding get() = _binding!!
+    private lateinit var adapter: RecetasAdapter
+
     // TODO: Rename and change types of parameters
     private var param1: String? = null
     private var param2: String? = null
@@ -30,12 +44,40 @@ class RecetasFragment : Fragment() {
         }
     }
 
+
+
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
-    ): View? {
+    ): View {
         // Inflate the layout for this fragment
-        return inflater.inflate(R.layout.fragment_recetas, container, false)
+        _binding = FragmentRecetasBinding.inflate(inflater, container, false)
+        return binding.root
+    }
+
+    override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
+        super.onViewCreated(view, savedInstanceState)
+        setUpRecyclerView()
+    }
+
+    private fun setUpRecyclerView() {
+        adapter = RecetasAdapter(recetas = recetasPrueba, onClick = {
+            listener.onRecetaClick(it)
+        },
+            onLongClick = {
+                Toast.makeText(context, "long click on: "+it.nombre, Toast.LENGTH_SHORT).show()
+            }
+        )
+        with(binding) {
+            rvRecetasList.layoutManager = LinearLayoutManager(context)
+            rvRecetasList.adapter = adapter
+        }
+        android.util.Log.d("RecetasFragment", "setUpRecyclerView")
+    }
+
+    override fun onDestroyView() {
+        super.onDestroyView()
+        _binding = null // avoid memory leaks
     }
 
     companion object {
