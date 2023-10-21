@@ -22,9 +22,10 @@ import es.unex.giis.asee.gepeto.view.home.recetas.FavoritasFragment
 import es.unex.giis.asee.gepeto.view.home.recetas.RecetasFragment
 import es.unex.giis.asee.gepeto.databinding.ActivityHomeBinding
 import es.unex.giis.asee.gepeto.model.Receta
+import es.unex.giis.asee.gepeto.view.home.recetas.FavoritasFragmentDirections
 import es.unex.giis.asee.gepeto.view.home.recetas.RecetasFragmentDirections
 
-class HomeActivity : AppCompatActivity(), RecetasFragment.OnShowClickListener {
+class HomeActivity : AppCompatActivity(), RecetasFragment.OnRecetaClickListener, FavoritasFragment.OnReceta2ClickListener {
 
     private lateinit var appBarConfiguration: AppBarConfiguration
     private lateinit var binding: ActivityHomeBinding
@@ -56,7 +57,25 @@ class HomeActivity : AppCompatActivity(), RecetasFragment.OnShowClickListener {
         val user = intent.getSerializableExtra(USER_INFO) as User
 
         setUpUI(user)
+
+        //Esto y el siguiente metodo es para probar que funciona favoritas
+                // Configurar el NavController con el NavHostFragment
+                val navHostFragment = supportFragmentManager.findFragmentById(R.id.nav_host_fragment) as NavHostFragment
+                val navController = navHostFragment.navController
+
+                // Verificar si se debe navegar directamente a FavoritasFragment
+                if (shouldNavigateToFavoritas()) {
+                    val action = RecetasFragmentDirections.actionRecetasFragmentToFavoritasFragment()
+                    navController.navigate(action)
+                }
     }
+
+                private fun shouldNavigateToFavoritas(): Boolean {
+                    // Agrega lógica aquí para determinar si debes navegar directamente a FavoritasFragment.
+                    // Por ejemplo, puedes verificar algún estado o preferencia compartida.
+                    // Devuelve true si se debe navegar directamente a FavoritasFragment, de lo contrario, false.
+                    return false
+                }
 
     fun setUpUI(user: User) {
         binding.bottomNavigation.setupWithNavController(navController)
@@ -120,4 +139,8 @@ class HomeActivity : AppCompatActivity(), RecetasFragment.OnShowClickListener {
         navController.navigate(action)
     }
 
+    override fun onReceta2Click(receta: Receta) {
+        val action = FavoritasFragmentDirections.actionFavoritasFragmentToRecetaDetailFragment(receta)
+        navController.navigate(action)
+    }
 }

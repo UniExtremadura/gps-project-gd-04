@@ -23,8 +23,8 @@ private const val ARG_PARAM2 = "param2"
  * create an instance of this fragment.
  */
 class RecetasFragment : Fragment() {
-    private lateinit var listener: OnShowClickListener
-    interface OnShowClickListener {
+    private lateinit var listener: OnRecetaClickListener
+    interface OnRecetaClickListener {
         fun onRecetaClick(receta: Receta)
     }
 
@@ -38,7 +38,7 @@ class RecetasFragment : Fragment() {
 
     override fun onAttach(context: android.content.Context) {
         super.onAttach(context)
-        if (context is OnShowClickListener) {
+        if (context is OnRecetaClickListener) {
             listener = context
         } else {
             throw RuntimeException(context.toString() + " must implement OnShowClickListener")

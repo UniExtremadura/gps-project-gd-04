@@ -5,7 +5,13 @@ import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.widget.Toast
+import androidx.recyclerview.widget.LinearLayoutManager
+import com.google.android.material.tabs.TabLayoutMediator
 import es.unex.giis.asee.gepeto.R
+import es.unex.giis.asee.gepeto.data.recetasPrueba
+import es.unex.giis.asee.gepeto.databinding.FragmentFavoritasBinding
+import es.unex.giis.asee.gepeto.model.Receta
 
 // TODO: Rename parameter arguments, choose names that match
 // the fragment initialization parameters, e.g. ARG_ITEM_NUMBER
@@ -18,9 +24,27 @@ private const val ARG_PARAM2 = "param2"
  * create an instance of this fragment.
  */
 class FavoritasFragment : Fragment() {
+    private lateinit var listener: OnReceta2ClickListener
+    interface OnReceta2ClickListener {
+        fun onReceta2Click(receta: Receta)
+    }
+
+    private var _binding: FragmentFavoritasBinding? = null
+    private val binding get() = _binding!!
+    private lateinit var adapter: FavoritasAdapter
+
     // TODO: Rename and change types of parameters
     private var param1: String? = null
     private var param2: String? = null
+
+    override fun onAttach(context: android.content.Context) {
+        super.onAttach(context)
+        if (context is OnReceta2ClickListener) {
+            listener = context
+        } else {
+            throw RuntimeException(context.toString() + " must implement OnShowClickListener")
+        }
+    }
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -30,12 +54,41 @@ class FavoritasFragment : Fragment() {
         }
     }
 
+
+
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
-    ): View? {
+    ): View {
         // Inflate the layout for this fragment
-        return inflater.inflate(R.layout.fragment_favoritas, container, false)
+        _binding = FragmentFavoritasBinding.inflate(inflater, container, false)
+        return binding.root
+    }
+
+    override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
+        super.onViewCreated(view, savedInstanceState)
+        setUpRecyclerView()
+    }
+
+
+    private fun setUpRecyclerView() {
+        adapter = FavoritasAdapter(recetas = recetasPrueba, onClick = {
+            listener.onReceta2Click(it)
+        },
+            onLongClick = {
+                Toast.makeText(context, "long click on: "+it.nombre, Toast.LENGTH_SHORT).show()
+            }
+        )
+        with(binding) {
+            rvFavoritasList.layoutManager = LinearLayoutManager(context)
+            rvFavoritasList.adapter = adapter
+        }
+        android.util.Log.d("FavoritasFragment", "setUpRecyclerView")
+    }
+
+    override fun onDestroyView() {
+        super.onDestroyView()
+        _binding = null // avoid memory leaks
     }
 
     companion object {

@@ -13,6 +13,9 @@
         <action
             android:id="@+id/action_recetasFragment_to_recetaDetailFragment"
             app:destination="@id/recetaDetailFragment" />
+        <action
+            android:id="@+id/action_recetasFragment_to_favoritasFragment"
+            app:destination="@id/favoritasFragment" />
     </fragment>
     <fragment
         android:id="@+id/listaFragment"
@@ -33,10 +36,22 @@
     <fragment
         android:id="@+id/recetaDetailFragment"
         android:name="es.unex.giis.asee.gepeto.view.home.recetas.RecetaDetailFragment"
-        android:label="receta_detail"
+        android:label="Detalles de la receta"
         tools:layout="@layout/fragment_receta_detail">
         <argument
             android:name="receta"
             app:argType="es.unex.giis.asee.gepeto.model.Receta" />
-        </fragment>
+    </fragment>
+    <fragment
+        android:id="@+id/favoritasFragment"
+        android:name="es.unex.giis.asee.gepeto.view.home.recetas.FavoritasFragment"
+        android:label="@string/favoritas_option"
+        tools:layout="@layout/fragment_favoritas">
+        <action
+            android:id="@+id/action_favoritasFragment_to_recetasFragment"
+            app:destination="@id/recetasFragment" />
+        <action
+            android:id="@+id/action_favoritasFragment_to_recetaDetailFragment"
+            app:destination="@id/recetaDetailFragment" />
+    </fragment>
 </navigation>
