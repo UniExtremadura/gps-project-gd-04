@@ -7,10 +7,10 @@
     android:layout_height="match_parent"
     android:paddingTop="50dp"
     android:paddingBottom="150dp"
-    tools:context=".view.home.recetas.FavoritasFragment">
+    tools:context=".view.home.recetas.HistorialFragment">
 
     <androidx.recyclerview.widget.RecyclerView
-        android:id="@+id/rv_favoritas_list"
+        android:id="@+id/rv_historial_list"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         app:layout_constraintBottom_toBottomOf="parent"

@@ -6,11 +6,11 @@ import androidx.recyclerview.widget.RecyclerView
 import es.unex.giis.asee.gepeto.databinding.RecetaItemListBinding
 import es.unex.giis.asee.gepeto.model.Receta
 
-class RecetasAdapter(
+class HistorialAdapter(
     private val recetas: List<Receta>,
     private val onClick: (receta: Receta) -> Unit,
     private val onLongClick: (title: Receta) -> Unit
-) : RecyclerView.Adapter<RecetasAdapter.RecetaViewHolder>() {
+) : RecyclerView.Adapter<HistorialAdapter.RecetaViewHolder>() {
 
     class RecetaViewHolder(
         private val binding: RecetaItemListBinding,

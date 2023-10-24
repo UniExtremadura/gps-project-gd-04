@@ -9,13 +9,16 @@
         android:id="@+id/recetasFragment"
         android:name="es.unex.giis.asee.gepeto.view.home.recetas.RecetasFragment"
         android:label="@string/recetas_option"
-        tools:layout="@layout/fragment_recetas" >
-        <action
-            android:id="@+id/action_recetasFragment_to_recetaDetailFragment"
-            app:destination="@id/recetaDetailFragment" />
+        tools:layout="@layout/fragment_recetas">
         <action
             android:id="@+id/action_recetasFragment_to_favoritasFragment"
             app:destination="@id/favoritasFragment" />
+        <action
+            android:id="@+id/action_recetasFragment_to_historialFragment"
+            app:destination="@id/historialFragment" />
+        <action
+            android:id="@+id/action_recetasFragment_to_recetaDetailFragment"
+            app:destination="@id/recetaDetailFragment" />
     </fragment>
     <fragment
         android:id="@+id/listaFragment"
@@ -46,12 +49,10 @@
         android:id="@+id/favoritasFragment"
         android:name="es.unex.giis.asee.gepeto.view.home.recetas.FavoritasFragment"
         android:label="@string/favoritas_option"
-        tools:layout="@layout/fragment_favoritas">
-        <action
-            android:id="@+id/action_favoritasFragment_to_recetasFragment"
-            app:destination="@id/recetasFragment" />
-        <action
-            android:id="@+id/action_favoritasFragment_to_recetaDetailFragment"
-            app:destination="@id/recetaDetailFragment" />
-    </fragment>
+        tools:layout="@layout/fragment_favoritas"/>
+    <fragment
+        android:id="@+id/historialFragment"
+        android:name="es.unex.giis.asee.gepeto.view.home.recetas.HistorialFragment"
+        android:label="fragment_historial"
+        tools:layout="@layout/fragment_historial" />
 </navigation>
