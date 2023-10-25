@@ -6,7 +6,7 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:paddingTop="50dp"
-    android:paddingBottom="150dp"
+    android:paddingBottom="200dp"
     tools:context=".view.home.recetas.FavoritasFragment">
 
     <androidx.recyclerview.widget.RecyclerView
