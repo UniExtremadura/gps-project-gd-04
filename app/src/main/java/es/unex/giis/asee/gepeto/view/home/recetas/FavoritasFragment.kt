@@ -33,10 +33,6 @@ class FavoritasFragment : Fragment() {
     private val binding get() = _binding!!
     private lateinit var adapter: FavoritasAdapter
 
-    // TODO: Rename and change types of parameters
-    private var param1: String? = null
-    private var param2: String? = null
-
     override fun onAttach(context: android.content.Context) {
         super.onAttach(context)
         if (context is OnReceta2ClickListener) {
@@ -48,10 +44,7 @@ class FavoritasFragment : Fragment() {
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        arguments?.let {
-            param1 = it.getString(ARG_PARAM1)
-            param2 = it.getString(ARG_PARAM2)
-        }
+
     }
 
 

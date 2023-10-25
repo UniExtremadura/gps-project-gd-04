@@ -1,16 +1,19 @@
 package es.unex.giis.asee.gepeto.view.home
 
 import android.os.Bundle
+import android.text.Editable
+import android.text.TextWatcher
 import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.widget.EditText
+import androidx.recyclerview.widget.LinearLayoutManager
 import es.unex.giis.asee.gepeto.R
-
-// TODO: Rename parameter arguments, choose names that match
-// the fragment initialization parameters, e.g. ARG_ITEM_NUMBER
-private const val ARG_PARAM1 = "param1"
-private const val ARG_PARAM2 = "param2"
+import es.unex.giis.asee.gepeto.data.adapters.IngredientesAdapter
+import es.unex.giis.asee.gepeto.data.todosLosIngredientes
+import es.unex.giis.asee.gepeto.databinding.FragmentIngredientesBinding
+import java.util.TreeSet
 
 /**
  * A simple [Fragment] subclass.
@@ -18,43 +21,88 @@ private const val ARG_PARAM2 = "param2"
  * create an instance of this fragment.
  */
 class IngredientesFragment : Fragment() {
-    // TODO: Rename and change types of parameters
-    private var param1: String? = null
-    private var param2: String? = null
 
-    override fun onCreate(savedInstanceState: Bundle?) {
-        super.onCreate(savedInstanceState)
-        arguments?.let {
-            param1 = it.getString(ARG_PARAM1)
-            param2 = it.getString(ARG_PARAM2)
-        }
-    }
+    private lateinit var _binding: FragmentIngredientesBinding
+
+    private lateinit var todosIngredientesAdapter: IngredientesAdapter
+    private lateinit var ingredientesSeleccionadosAdapter: IngredientesAdapter
+
+    private val binding get() = _binding
+
+    private lateinit var filtroIngredientes : EditText
+
+    // Esta lista almacenará todos los cambios que se hagan en la lista de todos los ingredientes
+    private var listaIngredientes : TreeSet<String> = TreeSet<String>(todosLosIngredientes)
+    // Utilizo un treeset porque no admite duplicados y los elementos están ordenados automaticamente
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
-    ): View? {
+    ): View {
         // Inflate the layout for this fragment
-        return inflater.inflate(R.layout.fragment_ingredientes, container, false)
+        _binding = FragmentIngredientesBinding.inflate(inflater, container, false)
+        return _binding.root
     }
 
-    companion object {
-        /**
-         * Use this factory method to create a new instance of
-         * this fragment using the provided parameters.
-         *
-         * @param param1 Parameter 1.
-         * @param param2 Parameter 2.
-         * @return A new instance of fragment IngredientesFragment.
-         */
-        // TODO: Rename and change types and number of parameters
-        @JvmStatic
-        fun newInstance(param1: String, param2: String) =
-            IngredientesFragment().apply {
-                arguments = Bundle().apply {
-                    putString(ARG_PARAM1, param1)
-                    putString(ARG_PARAM2, param2)
-                }
+    override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
+        super.onViewCreated(view, savedInstanceState)
+
+        filtroIngredientes = binding.buscadorDeIngredientes.findViewById(R.id.buscador_de_ingredientes)
+
+        setUpAllRecyclerView()
+        setUpSelectedRecyclerView()
+
+        filtroIngredientes.addTextChangedListener( object : TextWatcher {
+            override fun beforeTextChanged(s: CharSequence?, start: Int, count: Int, after: Int) {
+
             }
+
+            override fun onTextChanged(s: CharSequence?, start: Int, before: Int, count: Int) {
+                val text = s.toString().trim()
+                val listaFiltrada = listaIngredientes.filter {
+                    it.contains(text, ignoreCase = true)
+                }
+                todosIngredientesAdapter.swap(TreeSet<String>(listaFiltrada))
+            }
+
+            override fun afterTextChanged(s: Editable?) {
+
+            }
+
+        } )
+    }
+
+    fun setUpAllRecyclerView () {
+        todosIngredientesAdapter = IngredientesAdapter(
+            ingredientes_list = TreeSet<String>(todosLosIngredientes),
+            onClick = {
+
+            ingredientesSeleccionadosAdapter.add(it)
+            todosIngredientesAdapter.remove(it)
+            listaIngredientes.remove(it)
+
+        })
+
+        with(binding) {
+            rvTodosIngredientes.adapter = todosIngredientesAdapter
+            rvTodosIngredientes.layoutManager = LinearLayoutManager(context)
+        }
+    }
+
+    fun setUpSelectedRecyclerView () {
+        ingredientesSeleccionadosAdapter = IngredientesAdapter(
+            ingredientes_list = TreeSet<String>(),
+            onClick = {
+
+            todosIngredientesAdapter.add(it)
+            ingredientesSeleccionadosAdapter.remove(it)
+            listaIngredientes.add(it)
+
+        })
+
+        with(binding) {
+            rvIngredientesSeleccionados.adapter = ingredientesSeleccionadosAdapter
+            rvIngredientesSeleccionados.layoutManager = LinearLayoutManager(context)
+        }
     }
 }

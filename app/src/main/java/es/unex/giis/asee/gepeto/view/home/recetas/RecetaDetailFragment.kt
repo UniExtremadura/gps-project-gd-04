@@ -55,6 +55,10 @@ class RecetaDetailFragment : Fragment() {
         return binding.root
     }
 
+    private fun getHeartIcon(favorita: Boolean): Int {
+        return if (favorita) R.drawable.filled_heart else R.drawable.empty_heart
+    }
+
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
         val receta = args.receta
@@ -63,22 +67,13 @@ class RecetaDetailFragment : Fragment() {
         binding.recetaDetalleEquipamientos.text = receta.listaEquipamiento()
         binding.recetaDetalleIngredientes.text = receta.listaIngredientes()
         binding.recetaDetalleImagen.setImageResource(receta.imagen)
-        if (receta.favorita) {
-            binding.recetaDetalleFavorita.setImageResource(R.drawable.heart_icon_empty)
-        } else {
-            binding.recetaDetalleFavorita.setImageResource(R.drawable.heart_icon_filled)
-        }
 
+        binding.recetaDetalleFavorita.setImageResource(getHeartIcon(receta.favorita))
 
         binding.recetaDetalleFavorita.setOnClickListener {
             // Lógica que se ejecuta cuando se hace clic en fav
-            if (receta.favorita) {
-                binding.recetaDetalleFavorita.setImageResource(R.drawable.heart_icon_empty)
-                receta.favorita = false
-            } else {
-                binding.recetaDetalleFavorita.setImageResource(R.drawable.heart_icon_filled)
-                receta.favorita = true
-            }
+            receta.favorita = !receta.favorita
+            binding.recetaDetalleFavorita.setImageResource(getHeartIcon(receta.favorita))
         }
 
 

@@ -1,15 +1,15 @@
 <?xml version="1.0" encoding="utf-8"?>
 <ScrollView
     xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     >
 
-<FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:tools="http://schemas.android.com/tools"
+<FrameLayout
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    xmlns:app="http://schemas.android.com/apk/res-auto"
     tools:context=".view.home.recetas.RecetaDetailFragment"
     android:paddingBottom="50dp">
 
@@ -26,37 +26,51 @@
         android:background="@drawable/rounded_elevated_background">
 
 
-        <ImageView
-            android:id="@+id/receta_detalle_imagen"
+        <RelativeLayout
             android:layout_width="match_parent"
-            android:layout_height="250dp"
-            android:scaleType="centerCrop" />
+            android:layout_height="match_parent">
+
+            <ImageView
+                android:id="@+id/receta_detalle_imagen"
+                android:layout_width="match_parent"
+                android:layout_height="250dp"
+                android:scaleType="centerCrop" />
+
+            <ImageView
+                android:id="@+id/receta_detalle_favorita"
+                android:layout_width="48dp"
+                android:layout_height="48dp"
+                android:layout_alignParentTop="true"
+                android:layout_alignParentEnd="true"
+                android:background="@android:color/transparent"
+                android:src="@drawable/heart_button_selector" />
+
+        </RelativeLayout>
 
 
-            <TextView
-                android:id="@+id/receta_detalle_nombre"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:padding="16dp"
-                android:textSize="24sp"
-                android:textStyle="bold"/>
+        <TextView
+            android:id="@+id/receta_detalle_nombre"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:padding="16dp"
+            android:textSize="24sp"
+            android:textStyle="bold"/>
 
         <View
             android:layout_width="match_parent"
             android:layout_height="1dp"
             android:background="#CCCCCC"
             android:layout_marginTop="8dp"
-            android:layout_marginBottom="8dp"
-        />
+            android:layout_marginBottom="8dp" />
 
 
-            <TextView
-                android:id="@+id/receta_detalle_ingredientes"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:padding="16dp"
-                android:textSize="18sp"
-                android:elevation="8dp"/>
+        <TextView
+            android:id="@+id/receta_detalle_ingredientes"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:padding="16dp"
+            android:textSize="18sp"
+            android:elevation="8dp"/>
 
         <View
             android:layout_width="match_parent"
@@ -87,15 +101,6 @@
                 android:padding="16dp"
                 android:textSize="18sp"
                 android:background="@drawable/rounded_elevated_background"/>
-
-        <ImageView
-            android:id="@+id/receta_detalle_favorita"
-            android:layout_width="48dp"
-            android:layout_height="48dp"
-            android:layout_gravity="top|end"
-            android:src="@drawable/heart_button_selector"
-            android:background="@android:color/transparent"
-            android:scaleType="fitCenter"/>
     </LinearLayout>
 
 

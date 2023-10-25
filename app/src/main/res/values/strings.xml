@@ -17,4 +17,9 @@
     <string name="hello_blank_fragment">Hello blank fragment</string>
     <string name="action_settings">settings</string>
     <string name="action_search">search</string>
+    <string name="crear_receta">Crear Receta</string>
+    <string name="buscar_ingrediente">Buscar ingredientes:</string>
+    <string name="ingredientes_seleccionados">Ingredienetes seleccionados:</string>
+    <string name="todos_los_ingredientes">Todos los ingredientes:\n</string>
+    <string name="switch_label">Generar mediante IA</string>
 </resources>

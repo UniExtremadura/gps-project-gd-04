@@ -27,7 +27,7 @@
                 android:layout_height="120dp"
                 android:contentDescription="previsualizacion receta"
                 android:scaleType="centerCrop"
-                android:src="@drawable/platoejemplo"
+                android:src="@drawable/ejemplo_plato"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toTopOf="parent" />
 
@@ -38,7 +38,7 @@
                 app:layout_constraintHeight_percent="0.24"
                 android:layout_marginStart="5dp"
                 android:layout_marginTop="4dp"
-                android:text="nombre"
+                android:text="Nombre de la receta"
                 android:textAppearance="@style/TextAppearance.AppCompat.Large"
                 app:layout_constraintStart_toEndOf="@id/receta_img"
                 app:layout_constraintTop_toTopOf="@id/receta_img" />
