@@ -31,6 +31,7 @@
         <item name="android:background">#4A5BB6</item>
         <item name="android:colorPrimary">#4A5BB6</item>
         <item name="android:colorPrimaryDark">#4A5BB6</item>
+        <item name="android:titleTextColor">#3F51B5</item>
     </style>
 
     <style name="Theme.GePeTo" parent="Base.Theme.GePeTo" />

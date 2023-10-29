@@ -22,4 +22,7 @@
     <string name="switch_label">Generar mediante IA</string>
     <string name="ingredientes_seleccionados">Ingredientes seleccionados:</string>
     <string name="todos_los_ingredientes">Todos los ingredientes:</string>
+    <string name="buscar_equipamiento">Buscar equipamiento:</string>
+    <string name="equipamientos_seleccionados">Equipamientos seleccionados:\n</string>
+    <string name="todos_los_equipamientos">Todos los equipamientos:</string>
 </resources>

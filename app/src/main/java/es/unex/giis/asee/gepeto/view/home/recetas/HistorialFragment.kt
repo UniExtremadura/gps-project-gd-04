@@ -7,9 +7,9 @@ import android.view.View
 import android.view.ViewGroup
 import android.widget.Toast
 import androidx.recyclerview.widget.LinearLayoutManager
+import es.unex.giis.asee.gepeto.adapters.HistorialAdapter
 import es.unex.giis.asee.gepeto.data.recetasPrueba
 import es.unex.giis.asee.gepeto.databinding.FragmentHistorialBinding
-import es.unex.giis.asee.gepeto.databinding.FragmentRecetasBinding
 import es.unex.giis.asee.gepeto.model.Receta
 
 // TODO: Rename parameter arguments, choose names that match

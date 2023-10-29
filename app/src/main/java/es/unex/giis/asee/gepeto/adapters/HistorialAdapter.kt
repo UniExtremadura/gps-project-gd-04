@@ -1,4 +1,4 @@
-package es.unex.giis.asee.gepeto.view.home.recetas
+package es.unex.giis.asee.gepeto.adapters
 
 import android.view.LayoutInflater
 import android.view.ViewGroup
@@ -6,11 +6,11 @@ import androidx.recyclerview.widget.RecyclerView
 import es.unex.giis.asee.gepeto.databinding.RecetaItemListBinding
 import es.unex.giis.asee.gepeto.model.Receta
 
-class FavoritasAdapter(
+class HistorialAdapter(
     private val recetas: List<Receta>,
     private val onClick: (receta: Receta) -> Unit,
     private val onLongClick: (title: Receta) -> Unit
-) : RecyclerView.Adapter<FavoritasAdapter.RecetaViewHolder>() {
+) : RecyclerView.Adapter<HistorialAdapter.RecetaViewHolder>() {
 
     class RecetaViewHolder(
         private val binding: RecetaItemListBinding,

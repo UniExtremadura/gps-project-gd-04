@@ -8,9 +8,10 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.EditText
+import androidx.recyclerview.widget.GridLayoutManager
 import androidx.recyclerview.widget.LinearLayoutManager
 import es.unex.giis.asee.gepeto.R
-import es.unex.giis.asee.gepeto.data.adapters.IngredientesAdapter
+import es.unex.giis.asee.gepeto.adapters.ItemSwapAdapter
 import es.unex.giis.asee.gepeto.data.todosLosIngredientes
 import es.unex.giis.asee.gepeto.databinding.FragmentIngredientesBinding
 import java.util.TreeSet
@@ -24,8 +25,8 @@ class IngredientesFragment : Fragment() {
 
     private lateinit var _binding: FragmentIngredientesBinding
 
-    private lateinit var todosIngredientesAdapter: IngredientesAdapter
-    private lateinit var ingredientesSeleccionadosAdapter: IngredientesAdapter
+    private lateinit var todosIngredientesAdapter: ItemSwapAdapter
+    private lateinit var ingredientesSeleccionadosAdapter: ItemSwapAdapter
 
     private val binding get() = _binding
 
@@ -72,9 +73,9 @@ class IngredientesFragment : Fragment() {
         } )
     }
 
-    fun setUpAllRecyclerView () {
-        todosIngredientesAdapter = IngredientesAdapter(
-            ingredientes_list = TreeSet<String>(todosLosIngredientes),
+    private fun setUpAllRecyclerView () {
+        todosIngredientesAdapter = ItemSwapAdapter(
+            itemSet = TreeSet<String>(todosLosIngredientes),
             onClick = {
 
             ingredientesSeleccionadosAdapter.add(it)
@@ -83,15 +84,15 @@ class IngredientesFragment : Fragment() {
 
         })
 
-        with(binding) {
-            rvTodosIngredientes.adapter = todosIngredientesAdapter
-            rvTodosIngredientes.layoutManager = LinearLayoutManager(context)
+        with(binding.rvTodosIngredientes) {
+            adapter = todosIngredientesAdapter
+            layoutManager = LinearLayoutManager(context)
         }
     }
 
-    fun setUpSelectedRecyclerView () {
-        ingredientesSeleccionadosAdapter = IngredientesAdapter(
-            ingredientes_list = TreeSet<String>(),
+    private fun setUpSelectedRecyclerView () {
+        ingredientesSeleccionadosAdapter = ItemSwapAdapter(
+            itemSet = TreeSet<String>(),
             onClick = {
 
             todosIngredientesAdapter.add(it)
@@ -100,9 +101,9 @@ class IngredientesFragment : Fragment() {
 
         })
 
-        with(binding) {
-            rvIngredientesSeleccionados.adapter = ingredientesSeleccionadosAdapter
-            rvIngredientesSeleccionados.layoutManager = LinearLayoutManager(context)
+        with(binding.rvIngredientesSeleccionados) {
+            adapter = ingredientesSeleccionadosAdapter
+            layoutManager = GridLayoutManager(context,3)
         }
     }
 }

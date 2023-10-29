@@ -7,8 +7,7 @@ import android.view.View
 import android.view.ViewGroup
 import android.widget.Toast
 import androidx.recyclerview.widget.LinearLayoutManager
-import com.google.android.material.tabs.TabLayoutMediator
-import es.unex.giis.asee.gepeto.R
+import es.unex.giis.asee.gepeto.adapters.FavoritasAdapter
 import es.unex.giis.asee.gepeto.data.recetasPrueba
 import es.unex.giis.asee.gepeto.databinding.FragmentFavoritasBinding
 import es.unex.giis.asee.gepeto.model.Receta

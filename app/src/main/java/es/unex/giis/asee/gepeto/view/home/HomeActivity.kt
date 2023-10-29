@@ -1,6 +1,5 @@
 package es.unex.giis.asee.gepeto.view.home
 
-import ViewPagerAdapter
 import android.content.Context
 import android.content.Intent
 import androidx.appcompat.app.AppCompatActivity
@@ -22,7 +21,6 @@ import es.unex.giis.asee.gepeto.view.home.recetas.HistorialFragment
 import es.unex.giis.asee.gepeto.databinding.ActivityHomeBinding
 import es.unex.giis.asee.gepeto.model.Receta
 
-import es.unex.giis.asee.gepeto.view.home.recetas.RecetasFragment
 import es.unex.giis.asee.gepeto.view.home.recetas.RecetasFragmentDirections
 
 class HomeActivity : AppCompatActivity(), HistorialFragment.OnRecetaClickListener, FavoritasFragment.OnReceta2ClickListener {

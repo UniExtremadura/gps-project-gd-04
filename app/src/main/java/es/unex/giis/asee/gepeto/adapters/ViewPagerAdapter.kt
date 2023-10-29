@@ -1,3 +1,5 @@
+package es.unex.giis.asee.gepeto.adapters
+
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.FragmentManager
 import androidx.lifecycle.Lifecycle
