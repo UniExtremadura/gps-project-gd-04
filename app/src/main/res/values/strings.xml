@@ -18,4 +18,8 @@
     <string name="action_settings">settings</string>
     <string name="action_search">search</string>
     <string name="crear_receta">Crear Receta</string>
+    <string name="buscar_ingrediente">Buscar Ingrediente:</string>
+    <string name="switch_label">Generar mediante IA</string>
+    <string name="ingredientes_seleccionados">Ingredientes seleccionados:</string>
+    <string name="todos_los_ingredientes">Todos los ingredientes:</string>
 </resources>

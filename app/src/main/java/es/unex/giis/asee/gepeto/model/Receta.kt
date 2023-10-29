@@ -6,8 +6,8 @@ data class Receta(
     val nombre: String,
     val descripcion: String,
     var favorita: Boolean,
-    val ingredientes: List<Ingrediente> = emptyList(),
-    val equipamientos: List<Equipamiento> = emptyList(),
+    val ingredientes: List<String> = emptyList(),
+    val equipamientos: List<String> = emptyList(),
     val imagen: Int
 ) : Serializable {
     fun getIngredientes(): String {
