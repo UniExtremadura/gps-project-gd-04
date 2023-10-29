@@ -9,6 +9,7 @@ import androidx.compose.ui.graphics.Color
 import androidx.core.content.ContextCompat
 import androidx.recyclerview.widget.RecyclerView
 import es.unex.giis.asee.gepeto.R
+import es.unex.giis.asee.gepeto.data.Session
 import es.unex.giis.asee.gepeto.databinding.RecyclerTodoItemBinding
 import es.unex.giis.asee.gepeto.utils.Tuple
 
@@ -80,12 +81,14 @@ class TodoAdapter (
 
     fun add(item: String) {
         todoList.add(Tuple(item, false))
+        Session.setValue("todoList", todoList)
         notifyDataSetChanged()
     }
 
     fun remove(item: String) {
         val index = todoList.map { it.first }.toMutableList().indexOf(item)
         todoList.removeAt(index)
+        Session.setValue("todoList", todoList)
         notifyDataSetChanged()
     }
 
