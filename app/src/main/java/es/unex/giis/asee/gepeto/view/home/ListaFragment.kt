@@ -1,16 +1,19 @@
 package es.unex.giis.asee.gepeto.view.home
 
 import android.os.Bundle
+import android.text.Editable
+import android.text.TextWatcher
 import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import es.unex.giis.asee.gepeto.R
-
-// TODO: Rename parameter arguments, choose names that match
-// the fragment initialization parameters, e.g. ARG_ITEM_NUMBER
-private const val ARG_PARAM1 = "param1"
-private const val ARG_PARAM2 = "param2"
+import androidx.recyclerview.widget.LinearLayoutManager
+import es.unex.giis.asee.gepeto.adapters.ItemSwapAdapter
+import es.unex.giis.asee.gepeto.adapters.TodoAdapter
+import es.unex.giis.asee.gepeto.data.todosLosIngredientes
+import es.unex.giis.asee.gepeto.databinding.FragmentListaBinding
+import es.unex.giis.asee.gepeto.utils.Tuple
+import java.util.TreeSet
 
 /**
  * A simple [Fragment] subclass.
@@ -18,43 +21,90 @@ private const val ARG_PARAM2 = "param2"
  * create an instance of this fragment.
  */
 class ListaFragment : Fragment() {
-    // TODO: Rename and change types of parameters
-    private var param1: String? = null
-    private var param2: String? = null
+
+    private lateinit var _binding: FragmentListaBinding
+    private val binding get() = _binding
+
+    private lateinit var todoAdapter: TodoAdapter
+    private lateinit var ingredientesAdapter: ItemSwapAdapter
+
+    private val todoList : MutableList<Tuple<String, Boolean>> = mutableListOf()
+    private var ingredientesSet: TreeSet<String> = TreeSet<String>(todosLosIngredientes)
+
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        arguments?.let {
-            param1 = it.getString(ARG_PARAM1)
-            param2 = it.getString(ARG_PARAM2)
-        }
     }
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
-    ): View? {
-        // Inflate the layout for this fragment
-        return inflater.inflate(R.layout.fragment_lista, container, false)
+    ): View {
+        _binding = FragmentListaBinding.inflate(inflater, container, false)
+        return _binding.root
     }
 
-    companion object {
-        /**
-         * Use this factory method to create a new instance of
-         * this fragment using the provided parameters.
-         *
-         * @param param1 Parameter 1.
-         * @param param2 Parameter 2.
-         * @return A new instance of fragment ListaFragment.
-         */
-        // TODO: Rename and change types and number of parameters
-        @JvmStatic
-        fun newInstance(param1: String, param2: String) =
-            ListaFragment().apply {
-                arguments = Bundle().apply {
-                    putString(ARG_PARAM1, param1)
-                    putString(ARG_PARAM2, param2)
-                }
+    override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
+
+        val filtro = binding.buscadorDeIngredientes
+
+        setUpAllRecyclerView()
+        setUpSelectedRecyclerView()
+
+        filtro.addTextChangedListener( object : TextWatcher {
+            override fun beforeTextChanged(s: CharSequence?, start: Int, count: Int, after: Int) {
+
             }
+
+            override fun onTextChanged(s: CharSequence?, start: Int, before: Int, count: Int) {
+                val text = s.toString().trim()
+                val listaFiltrada = ingredientesSet.filter {
+                    it.contains(text, ignoreCase = true)
+                }
+                ingredientesAdapter.swap(TreeSet(listaFiltrada))
+            }
+
+            override fun afterTextChanged(s: Editable?) {
+
+            }
+
+        } )
+
+    }
+
+    private fun setUpSelectedRecyclerView() {
+        todoAdapter = TodoAdapter(
+            todoList = todoList,
+            onClick = {
+                todoAdapter.check(it)
+            },
+            onLongClick = {
+                todoAdapter.remove(it)
+                ingredientesSet.add(it)
+                ingredientesAdapter.add(it)
+            }
+        )
+
+        with(binding.rvIngredientesSeleccionados) {
+            adapter = todoAdapter
+            layoutManager = LinearLayoutManager(context)
+//            setHasFixedSize(true)
+        }
+    }
+
+    private fun setUpAllRecyclerView() {
+        ingredientesAdapter = ItemSwapAdapter(
+            itemSet = ingredientesSet,
+            onClick = {
+                todoAdapter.add(it)
+                ingredientesAdapter.remove(it)
+                ingredientesSet.remove(it)
+            }
+        )
+
+        with(binding.rvTodosIngredientes) {
+            adapter = ingredientesAdapter
+            layoutManager = LinearLayoutManager(context)
+        }
     }
 }

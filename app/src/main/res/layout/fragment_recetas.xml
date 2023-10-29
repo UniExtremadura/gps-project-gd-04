@@ -29,7 +29,7 @@
         android:insetLeft="10dp"
         android:insetRight="10dp"
         android:insetBottom="150dp"
-        android:onClick="onButtonClick"
+        android:backgroundTint="@color/button_color"
         android:text="@string/crear_receta"
         android:textSize="22sp"
         app:layout_constraintBottom_toBottomOf="@+id/pager"
