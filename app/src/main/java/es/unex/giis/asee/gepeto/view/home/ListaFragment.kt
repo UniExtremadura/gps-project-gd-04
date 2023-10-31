@@ -10,6 +10,7 @@ import android.view.ViewGroup
 import androidx.recyclerview.widget.LinearLayoutManager
 import es.unex.giis.asee.gepeto.adapters.ItemSwapAdapter
 import es.unex.giis.asee.gepeto.adapters.TodoAdapter
+import es.unex.giis.asee.gepeto.data.Session
 import es.unex.giis.asee.gepeto.data.todosLosIngredientes
 import es.unex.giis.asee.gepeto.databinding.FragmentListaBinding
 import es.unex.giis.asee.gepeto.utils.Tuple
@@ -28,9 +29,31 @@ class ListaFragment : Fragment() {
     private lateinit var todoAdapter: TodoAdapter
     private lateinit var ingredientesAdapter: ItemSwapAdapter
 
-    private val todoList : MutableList<Tuple<String, Boolean>> = mutableListOf()
-    private var ingredientesSet: TreeSet<String> = TreeSet<String>(todosLosIngredientes)
+    private fun getSessionTodo (): MutableList<Tuple<String, Boolean>> {
+        if (Session.getValue("todoList") == null) {
+            return mutableListOf<Tuple<String, Boolean>>()
+        }
 
+        return Session.getValue("todoList") as MutableList<Tuple<String, Boolean>>
+    }
+
+    private fun getSessionIngredients() : TreeSet<String> {
+        val ingedientesSet = TreeSet<String>(todosLosIngredientes)
+
+        if (getSessionTodo().isEmpty()) {
+            return ingedientesSet
+        }
+
+        for (item in getSessionTodo()) {
+            ingedientesSet.remove(item.first)
+        }
+
+        return ingedientesSet
+    }
+
+    private val todoList : MutableList<Tuple<String, Boolean>> = getSessionTodo()
+
+    private var ingredientesSet: TreeSet<String> = getSessionIngredients()
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
