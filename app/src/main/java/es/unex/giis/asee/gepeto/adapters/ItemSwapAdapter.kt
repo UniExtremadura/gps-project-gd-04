@@ -65,4 +65,8 @@ class ItemSwapAdapter (
         itemSet = newItemSet
         notifyDataSetChanged()
     }
+
+    fun getSet(): TreeSet<String> {
+        return itemSet
+    }
 }

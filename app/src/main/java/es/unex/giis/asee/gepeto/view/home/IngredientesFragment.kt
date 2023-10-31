@@ -12,6 +12,7 @@ import androidx.recyclerview.widget.GridLayoutManager
 import androidx.recyclerview.widget.LinearLayoutManager
 import es.unex.giis.asee.gepeto.R
 import es.unex.giis.asee.gepeto.adapters.ItemSwapAdapter
+import es.unex.giis.asee.gepeto.data.Session
 import es.unex.giis.asee.gepeto.data.todosLosIngredientes
 import es.unex.giis.asee.gepeto.databinding.FragmentIngredientesBinding
 import java.util.TreeSet
@@ -32,8 +33,23 @@ class IngredientesFragment : Fragment() {
 
     private lateinit var filtroIngredientes : EditText
 
+    private fun getIngredientes () : TreeSet<String> {
+        val ingredientes = Session.getValue("ingredientesSeleccionados") as TreeSet<*>? ?: TreeSet<String>()
+        val ingredientesFiltrados = TreeSet<String>(todosLosIngredientes)
+
+        if (ingredientes.isEmpty()) {
+            return ingredientesFiltrados
+        }
+
+        for ( item in ingredientes ) {
+            ingredientesFiltrados.remove(item)
+        }
+
+        return ingredientesFiltrados
+    }
+
     // Esta lista almacenará todos los cambios que se hagan en la lista de todos los ingredientes
-    private var listaIngredientes : TreeSet<String> = TreeSet<String>(todosLosIngredientes)
+    private var listaIngredientes : TreeSet<String> = getIngredientes()
     // Utilizo un treeset porque no admite duplicados y los elementos están ordenados automaticamente
 
     override fun onCreateView(
@@ -82,6 +98,7 @@ class IngredientesFragment : Fragment() {
             todosIngredientesAdapter.remove(it)
             listaIngredientes.remove(it)
 
+            Session.setValue("ingredientesSeleccionados", ingredientesSeleccionadosAdapter.getSet())
         })
 
         with(binding.rvTodosIngredientes) {
@@ -92,13 +109,14 @@ class IngredientesFragment : Fragment() {
 
     private fun setUpSelectedRecyclerView () {
         ingredientesSeleccionadosAdapter = ItemSwapAdapter(
-            itemSet = TreeSet<String>(),
+            itemSet = Session.getValue("ingredientesSeleccionados") as TreeSet<String>? ?: TreeSet<String>(),
             onClick = {
 
             todosIngredientesAdapter.add(it)
             ingredientesSeleccionadosAdapter.remove(it)
             listaIngredientes.add(it)
 
+            Session.setValue("ingredientesSeleccionados", ingredientesSeleccionadosAdapter.getSet())
         })
 
         with(binding.rvIngredientesSeleccionados) {

@@ -10,6 +10,7 @@ import android.view.ViewGroup
 import androidx.recyclerview.widget.GridLayoutManager
 import androidx.recyclerview.widget.LinearLayoutManager
 import es.unex.giis.asee.gepeto.adapters.ItemSwapAdapter
+import es.unex.giis.asee.gepeto.data.Session
 import es.unex.giis.asee.gepeto.data.equipamientosDeCocina
 import es.unex.giis.asee.gepeto.data.todosLosIngredientes
 import es.unex.giis.asee.gepeto.databinding.FragmentEquipamientoBinding
@@ -29,7 +30,22 @@ class EquipamientoFragment : Fragment() {
 
     private val binding get() = _binding
 
-    private val equipamientosSet : TreeSet<String> = TreeSet<String>(equipamientosDeCocina)
+    private fun getEquipamientos () : TreeSet<String> {
+        val equipamientos = Session.getValue("equipamientosSeleccionados") as TreeSet<*>? ?: TreeSet<String>()
+        val equipamientosFiltrados = TreeSet<String>(equipamientosDeCocina)
+
+        if (equipamientos.isEmpty()) {
+            return equipamientosFiltrados
+        }
+
+        for ( item in equipamientos ) {
+            equipamientosFiltrados.remove(item)
+        }
+
+        return equipamientosFiltrados
+    }
+
+    private val equipamientosSet : TreeSet<String> = getEquipamientos()
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -74,13 +90,14 @@ class EquipamientoFragment : Fragment() {
 
     private fun setUpAllRecyclerView () {
         equipamientosAdapter = ItemSwapAdapter(
-            itemSet = TreeSet(equipamientosSet),
+            itemSet = equipamientosSet,
             onClick = {
 
                 seleccionadosAdapter.add(it)
                 equipamientosAdapter.remove(it)
                 equipamientosSet.remove(it)
 
+                Session.setValue("equipamientosSeleccionados", seleccionadosAdapter.getSet())
             })
 
         with(binding.rvTodosEquipamientos) {
@@ -91,13 +108,14 @@ class EquipamientoFragment : Fragment() {
 
     private fun setUpSelectedRecyclerView () {
         seleccionadosAdapter = ItemSwapAdapter(
-            itemSet = TreeSet<String>(),
+            itemSet = Session.getValue("equipamientosSeleccionados") as TreeSet<String>? ?: TreeSet<String>(),
             onClick = {
 
                 equipamientosAdapter.add(it)
                 seleccionadosAdapter.remove(it)
                 equipamientosSet.add(it)
 
+                Session.setValue("equipamientosSeleccionados", seleccionadosAdapter.getSet())
             })
 
         with(binding.rvEquipamientosSeleccionados) {
