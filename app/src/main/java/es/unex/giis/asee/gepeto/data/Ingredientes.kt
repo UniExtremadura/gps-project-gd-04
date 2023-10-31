@@ -11,6 +11,7 @@ val todosLosIngredientes = listOf(
     "Arroz para sushi",
     "Azúcar",
     "Carne de cerdo",
+    "Carne halal",
     "Carne picada",
     "Cebolla",
     "Chocolate negro",
