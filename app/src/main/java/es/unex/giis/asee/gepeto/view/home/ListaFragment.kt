@@ -29,29 +29,23 @@ class ListaFragment : Fragment() {
     private lateinit var todoAdapter: TodoAdapter
     private lateinit var ingredientesAdapter: ItemSwapAdapter
 
-    private fun getSessionTodo (): MutableList<Tuple<String, Boolean>> {
-        if (Session.getValue("todoList") == null) {
-            return mutableListOf<Tuple<String, Boolean>>()
-        }
-
-        return Session.getValue("todoList") as MutableList<Tuple<String, Boolean>>
-    }
-
     private fun getSessionIngredients() : TreeSet<String> {
+        val todoList = Session.getValue("todoList") as MutableList<Tuple<String, Boolean>>? ?: mutableListOf()
         val ingedientesSet = TreeSet<String>(todosLosIngredientes)
 
-        if (getSessionTodo().isEmpty()) {
+        if (todoList.isEmpty()) {
             return ingedientesSet
         }
 
-        for (item in getSessionTodo()) {
+        for (item in todoList) {
             ingedientesSet.remove(item.first)
         }
 
         return ingedientesSet
     }
 
-    private val todoList : MutableList<Tuple<String, Boolean>> = getSessionTodo()
+    private val todoList : MutableList<Tuple<String, Boolean>> =
+        Session.getValue("todoList") as MutableList<Tuple<String, Boolean>>? ?: mutableListOf()
 
     private var ingredientesSet: TreeSet<String> = getSessionIngredients()
 
