@@ -1,8 +1,6 @@
 package es.unex.giis.asee.gepeto.view.home
 
 import android.os.Bundle
-import android.text.Editable
-import android.text.TextWatcher
 import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
@@ -14,6 +12,7 @@ import es.unex.giis.asee.gepeto.data.Session
 import es.unex.giis.asee.gepeto.data.todosLosIngredientes
 import es.unex.giis.asee.gepeto.databinding.FragmentListaBinding
 import es.unex.giis.asee.gepeto.utils.Tuple
+import es.unex.giis.asee.gepeto.utils.filtrarLista
 import java.util.TreeSet
 
 /**
@@ -30,22 +29,22 @@ class ListaFragment : Fragment() {
     private lateinit var ingredientesAdapter: ItemSwapAdapter
 
     private fun getSessionIngredients() : TreeSet<String> {
-        val todoList = Session.getValue("todoList") as MutableList<Tuple<String, Boolean>>? ?: mutableListOf()
+        val todoList = Session.getValue("todoList") as HashMap<String, Boolean>? ?: hashMapOf()
         val ingedientesSet = TreeSet<String>(todosLosIngredientes)
 
         if (todoList.isEmpty()) {
             return ingedientesSet
         }
 
-        for (item in todoList) {
-            ingedientesSet.remove(item.first)
+        for ((key, value) in todoList) {
+            ingedientesSet.remove(key)
         }
 
         return ingedientesSet
     }
 
-    private val todoList : MutableList<Tuple<String, Boolean>> =
-        Session.getValue("todoList") as MutableList<Tuple<String, Boolean>>? ?: mutableListOf()
+    private val todoList : HashMap<String, Boolean> =
+        Session.getValue("todoList") as HashMap<String, Boolean>? ?: hashMapOf()
 
     private var ingredientesSet: TreeSet<String> = getSessionIngredients()
 
@@ -63,35 +62,19 @@ class ListaFragment : Fragment() {
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
 
-        val filtro = binding.buscadorDeIngredientes
-
         setUpAllRecyclerView()
         setUpSelectedRecyclerView()
 
-        filtro.addTextChangedListener( object : TextWatcher {
-            override fun beforeTextChanged(s: CharSequence?, start: Int, count: Int, after: Int) {
-
-            }
-
-            override fun onTextChanged(s: CharSequence?, start: Int, before: Int, count: Int) {
-                val text = s.toString().trim()
-                val listaFiltrada = ingredientesSet.filter {
-                    it.contains(text, ignoreCase = true)
-                }
-                ingredientesAdapter.swap(TreeSet(listaFiltrada))
-            }
-
-            override fun afterTextChanged(s: Editable?) {
-
-            }
-
-        } )
-
+        filtrarLista(
+            binding.buscadorDeIngredientes,
+            ingredientesSet,
+            ingredientesAdapter
+        )
     }
 
     private fun setUpSelectedRecyclerView() {
         todoAdapter = TodoAdapter(
-            todoList = todoList,
+            todoMap = todoList,
             onClick = {
                 todoAdapter.check(it)
             },

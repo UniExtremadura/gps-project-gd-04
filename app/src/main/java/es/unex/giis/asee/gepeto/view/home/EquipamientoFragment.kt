@@ -14,6 +14,7 @@ import es.unex.giis.asee.gepeto.data.Session
 import es.unex.giis.asee.gepeto.data.equipamientosDeCocina
 import es.unex.giis.asee.gepeto.data.todosLosIngredientes
 import es.unex.giis.asee.gepeto.databinding.FragmentEquipamientoBinding
+import es.unex.giis.asee.gepeto.utils.filtrarLista
 import java.util.TreeSet
 
 /**
@@ -62,29 +63,14 @@ class EquipamientoFragment : Fragment() {
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
 
-        val filtro = binding.buscadorDeEquipamientos
-
         setUpAllRecyclerView()
         setUpSelectedRecyclerView()
 
-        filtro.addTextChangedListener( object : TextWatcher {
-            override fun beforeTextChanged(s: CharSequence?, start: Int, count: Int, after: Int) {
-
-            }
-
-            override fun onTextChanged(s: CharSequence?, start: Int, before: Int, count: Int) {
-                val text = s.toString().trim()
-                val listaFiltrada = equipamientosSet.filter {
-                    it.contains(text, ignoreCase = true)
-                }
-                equipamientosAdapter.swap(TreeSet<String>(listaFiltrada))
-            }
-
-            override fun afterTextChanged(s: Editable?) {
-
-            }
-
-        } )
+        filtrarLista(
+            binding.buscadorDeEquipamientos,
+            equipamientosSet,
+            equipamientosAdapter
+        )
 
     }
 

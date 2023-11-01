@@ -40,7 +40,7 @@ class RecetasFragment : Fragment() {
 
         navController = findNavController()
         binding.crearRecetaButton.setOnClickListener {
-            navController.navigate(R.id.action_recetasFragment_to_ingredientesFragment)
+            navController.navigate(R.id.ingredientesFragment)
         }
 
         return binding.root

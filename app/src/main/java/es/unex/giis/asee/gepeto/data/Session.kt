@@ -10,4 +10,12 @@ object Session {
     fun setValue(key: String, value: Any) {
         data[key] = value
     }
+
+    fun removeValue(key: String) {
+        data.remove(key)
+    }
+
+    fun clear() {
+        data.clear()
+    }
 }

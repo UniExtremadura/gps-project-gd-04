@@ -15,6 +15,7 @@ import es.unex.giis.asee.gepeto.adapters.ItemSwapAdapter
 import es.unex.giis.asee.gepeto.data.Session
 import es.unex.giis.asee.gepeto.data.todosLosIngredientes
 import es.unex.giis.asee.gepeto.databinding.FragmentIngredientesBinding
+import es.unex.giis.asee.gepeto.utils.filtrarLista
 import java.util.TreeSet
 
 /**
@@ -64,29 +65,14 @@ class IngredientesFragment : Fragment() {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
-        filtroIngredientes = binding.buscadorDeIngredientes.findViewById(R.id.buscador_de_ingredientes)
-
         setUpAllRecyclerView()
         setUpSelectedRecyclerView()
 
-        filtroIngredientes.addTextChangedListener( object : TextWatcher {
-            override fun beforeTextChanged(s: CharSequence?, start: Int, count: Int, after: Int) {
-
-            }
-
-            override fun onTextChanged(s: CharSequence?, start: Int, before: Int, count: Int) {
-                val text = s.toString().trim()
-                val listaFiltrada = listaIngredientes.filter {
-                    it.contains(text, ignoreCase = true)
-                }
-                todosIngredientesAdapter.swap(TreeSet<String>(listaFiltrada))
-            }
-
-            override fun afterTextChanged(s: Editable?) {
-
-            }
-
-        } )
+        filtrarLista(
+            binding.buscadorDeIngredientes,
+            listaIngredientes,
+            todosIngredientesAdapter
+        )
     }
 
     private fun setUpAllRecyclerView () {
