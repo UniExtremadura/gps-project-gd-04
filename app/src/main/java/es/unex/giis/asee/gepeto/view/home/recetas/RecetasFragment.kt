@@ -22,12 +22,13 @@ import es.unex.giis.asee.gepeto.databinding.FragmentRecetasBinding
  */
 class RecetasFragment : Fragment() {
 
-    private lateinit var viewPager: ViewPager2
-    private lateinit var tabLayout: TabLayout
-    private lateinit var button: Button
     private lateinit var navController: NavController
     private var _binding: FragmentRecetasBinding? = null
     private val binding get() = _binding!!
+
+    interface OnShowClickListener {
+        fun onShowClick()
+    }
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,

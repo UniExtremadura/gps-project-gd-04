@@ -32,7 +32,11 @@
         android:id="@+id/ingredientesFragment"
         android:name="es.unex.giis.asee.gepeto.view.home.IngredientesFragment"
         android:label="@string/ingredientes_option"
-        tools:layout="@layout/fragment_ingredientes" />
+        tools:layout="@layout/fragment_ingredientes" >
+        <action
+            android:id="@+id/action_ingredientesFragment_to_observacionesFragment"
+            app:destination="@id/observacionesFragment" />
+    </fragment>
     <fragment
         android:id="@+id/equipamientoFragment"
         android:name="es.unex.giis.asee.gepeto.view.home.EquipamientoFragment"
@@ -58,4 +62,15 @@
         android:name="es.unex.giis.asee.gepeto.view.home.recetas.HistorialFragment"
         android:label="fragment_historial"
         tools:layout="@layout/fragment_historial" />
+    <fragment
+        android:id="@+id/observacionesFragment"
+        android:name="es.unex.giis.asee.gepeto.view.home.ObservacionesFragment"
+        android:label="@string/observaciones_option"
+        tools:layout="@layout/fragment_observaciones" >
+
+        <argument
+            android:name="ingredientes"
+            app:argType="string"/>
+
+    </fragment>
 </navigation>

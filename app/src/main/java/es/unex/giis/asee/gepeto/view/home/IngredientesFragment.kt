@@ -1,21 +1,18 @@
 package es.unex.giis.asee.gepeto.view.home
 
 import android.os.Bundle
-import android.text.Editable
-import android.text.TextWatcher
 import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import android.widget.EditText
 import androidx.recyclerview.widget.GridLayoutManager
 import androidx.recyclerview.widget.LinearLayoutManager
-import es.unex.giis.asee.gepeto.R
 import es.unex.giis.asee.gepeto.adapters.ItemSwapAdapter
 import es.unex.giis.asee.gepeto.data.Session
 import es.unex.giis.asee.gepeto.data.todosLosIngredientes
 import es.unex.giis.asee.gepeto.databinding.FragmentIngredientesBinding
 import es.unex.giis.asee.gepeto.utils.filtrarLista
+import java.lang.RuntimeException
 import java.util.TreeSet
 
 /**
@@ -26,13 +23,16 @@ import java.util.TreeSet
 class IngredientesFragment : Fragment() {
 
     private lateinit var _binding: FragmentIngredientesBinding
+    private val binding get() = _binding
 
     private lateinit var todosIngredientesAdapter: ItemSwapAdapter
     private lateinit var ingredientesSeleccionadosAdapter: ItemSwapAdapter
 
-    private val binding get() = _binding
+    private lateinit var listener: OnCrearRecetaListener
 
-    private lateinit var filtroIngredientes : EditText
+    interface OnCrearRecetaListener {
+        fun onCrearRecetaClick(ingredientes: TreeSet<String> )
+    }
 
     private fun getIngredientes () : TreeSet<String> {
         val ingredientes = Session.getValue("ingredientesSeleccionados") as TreeSet<*>? ?: TreeSet<String>()
@@ -62,17 +62,35 @@ class IngredientesFragment : Fragment() {
         return _binding.root
     }
 
+    override fun onAttach(context: android.content.Context) {
+        super.onAttach(context)
+        if ( context is OnCrearRecetaListener ) {
+            listener = context
+        } else {
+            throw RuntimeException(context.toString() + " must implement OnShowClickListener")
+        }
+    }
+
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
         setUpAllRecyclerView()
         setUpSelectedRecyclerView()
+        setUpButtonListener()
 
         filtrarLista(
             binding.buscadorDeIngredientes,
             listaIngredientes,
             todosIngredientesAdapter
         )
+    }
+
+    private fun setUpButtonListener() {
+        with(binding) {
+            btnCrearReceta.setOnClickListener() {
+                listener.onCrearRecetaClick(ingredientesSeleccionadosAdapter.getSet())
+            }
+        }
     }
 
     private fun setUpAllRecyclerView () {

@@ -22,8 +22,13 @@ import es.unex.giis.asee.gepeto.databinding.ActivityHomeBinding
 import es.unex.giis.asee.gepeto.model.Receta
 
 import es.unex.giis.asee.gepeto.view.home.recetas.RecetasFragmentDirections
+import java.util.TreeSet
 
-class HomeActivity : AppCompatActivity(), HistorialFragment.OnRecetaClickListener, FavoritasFragment.OnReceta2ClickListener {
+class HomeActivity :
+    AppCompatActivity(),
+    HistorialFragment.OnRecetaClickListener,
+    FavoritasFragment.OnReceta2ClickListener,
+    IngredientesFragment.OnCrearRecetaListener {
 
     private lateinit var appBarConfiguration: AppBarConfiguration
     private lateinit var binding: ActivityHomeBinding
@@ -76,7 +81,8 @@ class HomeActivity : AppCompatActivity(), HistorialFragment.OnRecetaClickListene
 
         // Hide toolbar and bottom navigation when in detail fragment
         navController.addOnDestinationChangedListener { _, destination, _ ->
-            if ((destination.id == R.id.recetaDetailFragment)){
+            if ((destination.id == R.id.recetaDetailFragment) or
+                (destination.id == R.id.observacionesFragment)){
                 //   binding.toolbar.visibility = View.GONE
                 binding.toolbar.menu.clear()
                 binding.bottomNavigation.visibility = View.GONE
@@ -125,4 +131,14 @@ class HomeActivity : AppCompatActivity(), HistorialFragment.OnRecetaClickListene
         val action = RecetasFragmentDirections.actionRecetasFragmentToRecetaDetailFragment(receta)
         navController.navigate(action)
     }
+
+    override fun onCrearRecetaClick(ingredientes: TreeSet<String>) {
+        val action = IngredientesFragmentDirections
+            .actionIngredientesFragmentToObservacionesFragment(
+                ingredientes.joinToString(separator = ", ", prefix = "", postfix = ".")
+            )
+        navController.navigate(action)
+    }
 }
+
+
