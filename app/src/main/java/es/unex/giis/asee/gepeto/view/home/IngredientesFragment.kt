@@ -18,11 +18,7 @@ import es.unex.giis.asee.gepeto.databinding.FragmentIngredientesBinding
 import es.unex.giis.asee.gepeto.utils.filtrarLista
 import java.util.TreeSet
 
-/**
- * A simple [Fragment] subclass.
- * Use the [IngredientesFragment.newInstance] factory method to
- * create an instance of this fragment.
- */
+
 class IngredientesFragment : Fragment() {
 
     private lateinit var _binding: FragmentIngredientesBinding
@@ -31,8 +27,6 @@ class IngredientesFragment : Fragment() {
     private lateinit var ingredientesSeleccionadosAdapter: ItemSwapAdapter
 
     private val binding get() = _binding
-
-    private lateinit var filtroIngredientes : EditText
 
     private fun getIngredientes () : TreeSet<String> {
         val ingredientes = Session.getValue("ingredientesSeleccionados") as TreeSet<*>? ?: TreeSet<String>()
@@ -50,8 +44,9 @@ class IngredientesFragment : Fragment() {
     }
 
     // Esta lista almacenará todos los cambios que se hagan en la lista de todos los ingredientes
-    private var listaIngredientes : TreeSet<String> = getIngredientes()
     // Utilizo un treeset porque no admite duplicados y los elementos están ordenados automaticamente
+    private var listaIngredientes : TreeSet<String> = getIngredientes()
+
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
