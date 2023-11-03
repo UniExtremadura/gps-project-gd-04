@@ -15,7 +15,11 @@ import es.unex.giis.asee.gepeto.utils.filtrarLista
 import java.lang.RuntimeException
 import java.util.TreeSet
 
-
+/**
+ * A simple [Fragment] subclass.
+ * Use the [IngredientesFragment.newInstance] factory method to
+ * create an instance of this fragment.
+ */
 class IngredientesFragment : Fragment() {
 
     private lateinit var _binding: FragmentIngredientesBinding
