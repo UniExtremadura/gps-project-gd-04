@@ -26,4 +26,7 @@
     <string name="buscar_equipamiento">Buscar equipamiento:</string>
     <string name="equipamientos_seleccionados">Equipamientos seleccionados:\n</string>
     <string name="todos_los_equipamientos">Todos los equipamientos:</string>
+    <string name="advertencia_label">Debe introducrise al menos un ingrediente.</string>
+    <string name="preview_de_la_receta">Preview de la receta</string>
+    <string name="me_gusta_alt_label">Me Gusta</string>
 </resources>

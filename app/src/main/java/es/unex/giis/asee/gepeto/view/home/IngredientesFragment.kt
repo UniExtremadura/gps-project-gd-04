@@ -15,11 +15,7 @@ import es.unex.giis.asee.gepeto.utils.filtrarLista
 import java.lang.RuntimeException
 import java.util.TreeSet
 
-/**
- * A simple [Fragment] subclass.
- * Use the [IngredientesFragment.newInstance] factory method to
- * create an instance of this fragment.
- */
+
 class IngredientesFragment : Fragment() {
 
     private lateinit var _binding: FragmentIngredientesBinding
@@ -67,7 +63,7 @@ class IngredientesFragment : Fragment() {
         if ( context is OnCrearRecetaListener ) {
             listener = context
         } else {
-            throw RuntimeException(context.toString() + " must implement OnShowClickListener")
+            throw RuntimeException(context.toString() + " must implement OnCrearRecetaListener")
         }
     }
 
@@ -77,6 +73,8 @@ class IngredientesFragment : Fragment() {
         setUpAllRecyclerView()
         setUpSelectedRecyclerView()
         setUpButtonListener()
+
+
 
         filtrarLista(
             binding.buscadorDeIngredientes,
@@ -88,7 +86,13 @@ class IngredientesFragment : Fragment() {
     private fun setUpButtonListener() {
         with(binding) {
             btnCrearReceta.setOnClickListener() {
-                listener.onCrearRecetaClick(ingredientesSeleccionadosAdapter.getSet())
+                val ingredientes = ingredientesSeleccionadosAdapter.getSet()
+
+                if (ingredientes.isEmpty()) {
+                    advertenciaLabel.visibility = View.VISIBLE
+                } else {
+                    listener.onCrearRecetaClick(ingredientesSeleccionadosAdapter.getSet())
+                }
             }
         }
     }
@@ -97,6 +101,12 @@ class IngredientesFragment : Fragment() {
         todosIngredientesAdapter = ItemSwapAdapter(
             itemSet = TreeSet<String>(todosLosIngredientes),
             onClick = {
+
+            with(binding.advertenciaLabel) {
+                if (visibility == View.VISIBLE) {
+                    visibility = View.GONE
+                }
+            }
 
             ingredientesSeleccionadosAdapter.add(it)
             todosIngredientesAdapter.remove(it)

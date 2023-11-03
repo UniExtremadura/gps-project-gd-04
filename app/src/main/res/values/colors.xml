@@ -10,4 +10,6 @@
     <color name="gray">#FF808080</color>
     <color name="todo_label">#DCDCDC</color>
     <color name="button_color">#4A5BB5</color>
+    <color name="title_color">#3F51B5</color>
+    <color name="red">#EB281A</color>
 </resources>

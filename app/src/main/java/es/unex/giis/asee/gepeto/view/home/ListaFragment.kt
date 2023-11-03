@@ -15,11 +15,7 @@ import es.unex.giis.asee.gepeto.utils.Tuple
 import es.unex.giis.asee.gepeto.utils.filtrarLista
 import java.util.TreeSet
 
-/**
- * A simple [Fragment] subclass.
- * Use the [ListaFragment.newInstance] factory method to
- * create an instance of this fragment.
- */
+
 class ListaFragment : Fragment() {
 
     private lateinit var _binding: FragmentListaBinding
@@ -48,9 +44,6 @@ class ListaFragment : Fragment() {
 
     private var ingredientesSet: TreeSet<String> = getSessionIngredients()
 
-    override fun onCreate(savedInstanceState: Bundle?) {
-        super.onCreate(savedInstanceState)
-    }
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,

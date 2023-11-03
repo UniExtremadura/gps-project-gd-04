@@ -12,16 +12,7 @@ import es.unex.giis.asee.gepeto.data.recetasPrueba
 import es.unex.giis.asee.gepeto.databinding.FragmentHistorialBinding
 import es.unex.giis.asee.gepeto.model.Receta
 
-// TODO: Rename parameter arguments, choose names that match
-// the fragment initialization parameters, e.g. ARG_ITEM_NUMBER
-private const val ARG_PARAM1 = "param1"
-private const val ARG_PARAM2 = "param2"
 
-/**
- * A simple [Fragment] subclass.
- * Use the [HistorialFragment.newInstance] factory method to
- * create an instance of this fragment.
- */
 class HistorialFragment : Fragment() {
     private lateinit var listener: OnRecetaClickListener
     interface OnRecetaClickListener {
@@ -40,11 +31,6 @@ class HistorialFragment : Fragment() {
             throw RuntimeException(context.toString() + " must implement OnShowClickListener")
         }
     }
-
-    override fun onCreate(savedInstanceState: Bundle?) {
-        super.onCreate(savedInstanceState)
-    }
-
 
 
     override fun onCreateView(

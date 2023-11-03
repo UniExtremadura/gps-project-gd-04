@@ -20,6 +20,7 @@ import es.unex.giis.asee.gepeto.view.home.recetas.FavoritasFragment
 import es.unex.giis.asee.gepeto.view.home.recetas.HistorialFragment
 import es.unex.giis.asee.gepeto.databinding.ActivityHomeBinding
 import es.unex.giis.asee.gepeto.model.Receta
+import es.unex.giis.asee.gepeto.view.home.recetas.RecetasFragment
 
 import es.unex.giis.asee.gepeto.view.home.recetas.RecetasFragmentDirections
 import java.util.TreeSet
@@ -28,7 +29,8 @@ class HomeActivity :
     AppCompatActivity(),
     HistorialFragment.OnRecetaClickListener,
     FavoritasFragment.OnReceta2ClickListener,
-    IngredientesFragment.OnCrearRecetaListener {
+    IngredientesFragment.OnCrearRecetaListener,
+    ObservacionesFragment.OnGenerarRecetaListener {
 
     private lateinit var appBarConfiguration: AppBarConfiguration
     private lateinit var binding: ActivityHomeBinding
@@ -40,16 +42,12 @@ class HomeActivity :
 
     companion object {
         const val USER_INFO = "USER_INFO"
-        fun start(
-            context: Context,
-            user: User,
-        ) {
+        fun start( context: Context, user: User ) {
             val intent = Intent(context, HomeActivity::class.java).apply {
                 putExtra(USER_INFO, user)
             }
             context.startActivity(intent)
         }
-
     }
 
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -61,8 +59,6 @@ class HomeActivity :
 
         setUpUI(user)
     }
-
-
 
     fun setUpUI(user: User) {
         binding.bottomNavigation.setupWithNavController(navController)
@@ -137,6 +133,12 @@ class HomeActivity :
             .actionIngredientesFragmentToObservacionesFragment(
                 ingredientes.joinToString(separator = ", ", prefix = "", postfix = ".")
             )
+        navController.navigate(action)
+    }
+
+    override fun onGenerarRecetaClick(receta: Receta) {
+        val action = ObservacionesFragmentDirections
+            .actionObservacionesFragmentToRecetaDetailFragment(receta)
         navController.navigate(action)
     }
 }

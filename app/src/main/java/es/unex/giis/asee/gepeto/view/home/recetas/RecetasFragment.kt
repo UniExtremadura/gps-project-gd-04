@@ -1,5 +1,6 @@
 package es.unex.giis.asee.gepeto.view.home.recetas
 
+import android.content.Context
 import es.unex.giis.asee.gepeto.adapters.ViewPagerAdapter
 import android.os.Bundle
 import androidx.fragment.app.Fragment
@@ -8,27 +9,22 @@ import android.view.View
 import android.view.ViewGroup
 import android.widget.Button
 import androidx.navigation.NavController
+import androidx.navigation.Navigation
 import androidx.navigation.fragment.findNavController
 import androidx.viewpager2.widget.ViewPager2
 import com.google.android.material.tabs.TabLayout
 import com.google.android.material.tabs.TabLayoutMediator
 import es.unex.giis.asee.gepeto.R
 import es.unex.giis.asee.gepeto.databinding.FragmentRecetasBinding
+import es.unex.giis.asee.gepeto.view.home.IngredientesFragment
+import java.lang.RuntimeException
+import java.util.TreeSet
 
-/**
- * A simple [Fragment] subclass.
- * Use the [RecetasFragment.newInstance] factory method to
- * create an instance of this fragment.
- */
+
 class RecetasFragment : Fragment() {
 
-    private lateinit var navController: NavController
     private var _binding: FragmentRecetasBinding? = null
     private val binding get() = _binding!!
-
-    interface OnShowClickListener {
-        fun onShowClick()
-    }
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
@@ -39,9 +35,9 @@ class RecetasFragment : Fragment() {
         _binding = FragmentRecetasBinding.inflate(inflater, container, false)
         setUpTabs()
 
-        navController = findNavController()
+        // Accion del boton: Crear Receta. Redirige a IngredientesFragment
         binding.crearRecetaButton.setOnClickListener {
-            navController.navigate(R.id.ingredientesFragment)
+            findNavController().navigate(R.id.ingredientesFragment)
         }
 
         return binding.root
@@ -54,7 +50,6 @@ class RecetasFragment : Fragment() {
         val viewPagerAdapter = ViewPagerAdapter(childFragmentManager, viewLifecycleOwner.lifecycle)
         viewPager.adapter = viewPagerAdapter
 
-
         TabLayoutMediator(tabLayout, viewPager) { tab, position ->
             when (position) {
                 0 -> tab.text = "Historial"
@@ -62,5 +57,4 @@ class RecetasFragment : Fragment() {
             }
         }.attach()
     }
-
 }

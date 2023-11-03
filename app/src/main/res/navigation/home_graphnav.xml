@@ -19,9 +19,6 @@
         <action
             android:id="@+id/action_recetasFragment_to_recetaDetailFragment"
             app:destination="@id/recetaDetailFragment" />
-        <action
-            android:id="@+id/action_recetasFragment_to_ingredientesFragment"
-            app:destination="@id/ingredientesFragment" />
     </fragment>
     <fragment
         android:id="@+id/listaFragment"
@@ -71,6 +68,9 @@
         <argument
             android:name="ingredientes"
             app:argType="string"/>
+        <action
+            android:id="@+id/action_observacionesFragment_to_recetaDetailFragment"
+            app:destination="@id/recetaDetailFragment" />
 
     </fragment>
 </navigation>

@@ -3,10 +3,4 @@
     <solid android:color="#FFFFFF" /> <!-- Color de fondo del TextView -->
     <corners android:radius="20dp" /> <!-- Radio de las esquinas, ajusta según tu preferencia -->
     <padding android:left="8dp" android:right="8dp" android:top="8dp" android:bottom="8dp" /> <!-- Margen interno -->
-    <item>
-        <shape>
-            <solid android:color="#44000000" /> <!-- Color de la sombra -->
-            <corners android:radius="8dp" /> <!-- Radio de las esquinas para la sombra -->
-        </shape>
-    </item>
 </shape>
