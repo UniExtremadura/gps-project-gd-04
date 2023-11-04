@@ -3,12 +3,14 @@ package es.unex.giis.asee.gepeto.model
 import java.io.Serializable
 
 data class Receta(
+    val idReceta: String,
     val nombre: String,
     val descripcion: String,
     var favorita: Boolean,
     val ingredientes: List<String> = emptyList(),
     val equipamientos: List<String> = emptyList(),
-    val imagen: Int
+    val imagen: Int,
+    val imagenPath: String
 ) : Serializable {
     fun getIngredientes(): String {
         return ingredientes.joinToString(

@@ -9,6 +9,16 @@
     android:paddingBottom="200dp"
     tools:context=".view.home.recetas.HistorialFragment">
 
+    <ProgressBar
+        android:id="@+id/spinner"
+        android:layout_width="50dp"
+        android:layout_height="50dp"
+        android:visibility="gone"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"/>
+
     <androidx.recyclerview.widget.RecyclerView
         android:id="@+id/rv_historial_list"
         android:layout_width="match_parent"

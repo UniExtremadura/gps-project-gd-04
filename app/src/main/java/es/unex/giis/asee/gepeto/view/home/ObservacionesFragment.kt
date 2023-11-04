@@ -6,12 +6,17 @@ import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.widget.Toast
 import androidx.navigation.fragment.navArgs
 import es.unex.giis.asee.gepeto.R
+import es.unex.giis.asee.gepeto.api.APICallback
+import es.unex.giis.asee.gepeto.api.APIError
+import es.unex.giis.asee.gepeto.api.getNetworkService
 import es.unex.giis.asee.gepeto.data.Session
 import es.unex.giis.asee.gepeto.data.recetasPrueba
 import es.unex.giis.asee.gepeto.databinding.FragmentObservacionesBinding
 import es.unex.giis.asee.gepeto.model.Receta
+import es.unex.giis.asee.gepeto.utils.BACKGROUND
 import java.lang.RuntimeException
 import kotlin.random.Random
 import java.util.StringJoiner

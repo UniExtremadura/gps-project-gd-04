@@ -9,6 +9,7 @@ import android.view.ViewGroup
 import android.widget.ImageButton
 import android.widget.ImageView
 import androidx.navigation.fragment.navArgs
+import com.bumptech.glide.Glide
 import es.unex.giis.asee.gepeto.R
 import es.unex.giis.asee.gepeto.databinding.FragmentRecetaDetailBinding
 import es.unex.giis.asee.gepeto.databinding.FragmentRecetasBinding
@@ -41,7 +42,12 @@ class RecetaDetailFragment : Fragment() {
         binding.recetaDetalleDescripcion.text = receta.descripcion
         binding.recetaDetalleEquipamientos.text = receta.listaEquipamiento()
         binding.recetaDetalleIngredientes.text = receta.listaIngredientes()
-        binding.recetaDetalleImagen.setImageResource(receta.imagen)
+        //binding.recetaDetalleImagen.setImageResource(receta.imagen)
+        val imageUrl = receta.imagenPath
+
+        Glide.with(requireContext()) // Usa el contexto de tu fragmento o actividad
+            .load(imageUrl)
+            .into(binding.recetaDetalleImagen)
 
         binding.recetaDetalleFavorita.setImageResource(getHeartIcon(receta.favorita))
 
