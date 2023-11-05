@@ -71,7 +71,7 @@ interface MealsAPI {
     */
 
     //Devuelve todos los ingredientes
-    @GET("list.php")
+    @GET("list.php?i=list")
     fun getIngredientsList(): Call<IngredientList>
 
 }
