@@ -1,16 +1,26 @@
 package es.unex.giis.asee.gepeto.view.home
 
 import android.os.Bundle
+import android.util.Log
 import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.widget.Toast
 import androidx.recyclerview.widget.GridLayoutManager
 import androidx.recyclerview.widget.LinearLayoutManager
 import es.unex.giis.asee.gepeto.adapters.ItemSwapAdapter
+import es.unex.giis.asee.gepeto.api.APICallback
+import es.unex.giis.asee.gepeto.api.APIError
+import es.unex.giis.asee.gepeto.api.getNetworkService
 import es.unex.giis.asee.gepeto.data.Session
+import es.unex.giis.asee.gepeto.data.api.Ingredient
+import es.unex.giis.asee.gepeto.data.api.Meal
+import es.unex.giis.asee.gepeto.data.toShowIngredients
 import es.unex.giis.asee.gepeto.data.todosLosIngredientes
 import es.unex.giis.asee.gepeto.databinding.FragmentIngredientesBinding
+import es.unex.giis.asee.gepeto.model.Ingrediente
+import es.unex.giis.asee.gepeto.utils.BACKGROUND
 import es.unex.giis.asee.gepeto.utils.filtrarLista
 import java.lang.RuntimeException
 import java.util.TreeSet
@@ -24,6 +34,8 @@ class IngredientesFragment : Fragment() {
 
     private lateinit var _binding: FragmentIngredientesBinding
     private val binding get() = _binding
+
+    private var _ingredients: List<Ingrediente> = emptyList()
 
     private lateinit var todosIngredientesAdapter: ItemSwapAdapter
     private lateinit var ingredientesSeleccionadosAdapter: ItemSwapAdapter
@@ -74,6 +86,35 @@ class IngredientesFragment : Fragment() {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
+        if (_ingredients.isEmpty()) {
+            fetchIngredients(object : APICallback {
+                override fun onSuccessIngredient(ingredients: List<Ingredient?>) {
+                    Log.d("IngredientFragment", "APICallback onCompleted")
+                    val ingredients = ingredients.map { it?.toShowIngredients() }
+                    // Actualizo la UI en el hilo principal
+                    activity?.runOnUiThread {
+                        _ingredients = ingredients?.filterNotNull() ?: emptyList()
+                        todosIngredientesAdapter.updateData(_ingredients)
+                        binding.spinner.visibility = View.GONE
+                    }
+                }
+
+
+                override fun onError(cause : Throwable) {
+                    Log.e("IngredientsFragment", "APICallback onError")
+                    // Actualizo la UI en el hilo principal
+                    activity?.runOnUiThread {
+                        Toast.makeText(context, "Error al obtener los datos", Toast.LENGTH_SHORT).show()
+                        binding.spinner.visibility = View.GONE
+                    }
+                }
+
+                override fun onCompletedMeal(Meal: List<Meal?>) {
+                    TODO("Not yet implemented")
+                }
+            })
+        }
+
         setUpAllRecyclerView()
         setUpSelectedRecyclerView()
         setUpButtonListener()
@@ -86,6 +127,34 @@ class IngredientesFragment : Fragment() {
             todosIngredientesAdapter
         )
     }
+
+    private fun fetchIngredients(apiCallback: APICallback){
+        BACKGROUND.submit {
+            try {
+
+                // Utiliza la letra aleatoria en la llamada a la API
+                val result = getNetworkService().getIngredientsList().execute()
+
+                if(result.isSuccessful){
+                    apiCallback.onSuccessIngredient(result.body()!!.ingredients)
+                } else {
+                    apiCallback.onError(APIError("API Response Error: ${result.errorBody()}", null))
+                }
+
+
+            } catch (cause: Throwable) {
+                // Actualizo la UI en el hilo principal si algo falla
+                activity?.runOnUiThread {
+                    Toast.makeText(context, "Error al obtener los datos", Toast.LENGTH_SHORT).show()
+                    binding.spinner.visibility = View.GONE
+                }
+                Log.e("ListaFragment", "APICallback error")
+                //Si algo lanza una excepción, informo al Caller
+                throw APIError("Unable to fetch data from API", cause)
+            }
+        }
+    }
+
 
     private fun setUpButtonListener() {
         with(binding) {
@@ -106,18 +175,18 @@ class IngredientesFragment : Fragment() {
             itemSet = TreeSet<String>(todosLosIngredientes),
             onClick = {
 
-            with(binding.advertenciaLabel) {
-                if (visibility == View.VISIBLE) {
-                    visibility = View.GONE
+                with(binding.advertenciaLabel) {
+                    if (visibility == View.VISIBLE) {
+                        visibility = View.GONE
+                    }
                 }
-            }
 
-            ingredientesSeleccionadosAdapter.add(it)
-            todosIngredientesAdapter.remove(it)
-            listaIngredientes.remove(it)
+                ingredientesSeleccionadosAdapter.add(it)
+                todosIngredientesAdapter.remove(it)
+                listaIngredientes.remove(it)
 
-            Session.setValue("ingredientesSeleccionados", ingredientesSeleccionadosAdapter.getSet())
-        })
+                Session.setValue("ingredientesSeleccionados", ingredientesSeleccionadosAdapter.getSet())
+            })
 
         with(binding.rvTodosIngredientes) {
             adapter = todosIngredientesAdapter
@@ -130,12 +199,12 @@ class IngredientesFragment : Fragment() {
             itemSet = Session.getValue("ingredientesSeleccionados") as TreeSet<String>? ?: TreeSet<String>(),
             onClick = {
 
-            todosIngredientesAdapter.add(it)
-            ingredientesSeleccionadosAdapter.remove(it)
-            listaIngredientes.add(it)
+                todosIngredientesAdapter.add(it)
+                ingredientesSeleccionadosAdapter.remove(it)
+                listaIngredientes.add(it)
 
-            Session.setValue("ingredientesSeleccionados", ingredientesSeleccionadosAdapter.getSet())
-        })
+                Session.setValue("ingredientesSeleccionados", ingredientesSeleccionadosAdapter.getSet())
+            })
 
         with(binding.rvIngredientesSeleccionados) {
             adapter = ingredientesSeleccionadosAdapter

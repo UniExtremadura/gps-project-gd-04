@@ -1,7 +1,9 @@
 package es.unex.giis.asee.gepeto.data
 
 import es.unex.giis.asee.gepeto.R
+import es.unex.giis.asee.gepeto.data.api.Ingredient
 import es.unex.giis.asee.gepeto.data.api.Meal
+import es.unex.giis.asee.gepeto.model.Ingrediente
 import es.unex.giis.asee.gepeto.model.Receta
 
 fun Meal.toShowMeal() = Receta(
@@ -55,4 +57,10 @@ fun Meal.toShowMeal() = Receta(
     ),
     imagen = R.drawable.ejemplo_plato,
     imagenPath = strMealThumb ?: ""
+)
+
+fun Ingredient.toShowIngredients() = Ingrediente(
+    idIngrediente = idIngredient ?: "",
+    nombre = strIngredient ?: "",
+    descripcion = strDescription ?: ""
 )

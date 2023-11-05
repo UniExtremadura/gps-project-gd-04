@@ -14,7 +14,7 @@
         android:layout_height="163dp"
         android:layout_marginTop="8dp"
         android:contentDescription="@string/app_name"
-        android:src="@drawable/logo_clone"
+        android:src="@drawable/oig"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.662"
         app:layout_constraintStart_toStartOf="parent"

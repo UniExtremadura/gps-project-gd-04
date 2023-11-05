@@ -20,13 +20,41 @@ data class Receta(
         )
     }
     fun listaIngredientes(): String {
-        return "Ingredientes:\n - "+ingredientes.joinToString(
-            separator = "\n - ", // Delimitador entre los elementos (coma y espacio en este caso)
-        )
+        //Filtramos los ingredientes que no estén vacíos
+        val ingredientesNoVacios = ingredientes.filter { it.isNotBlank() }
+
+        //Si no hay ingredientes, devolvemos un mensaje
+        return if (ingredientesNoVacios.isEmpty()) {
+            "No hay ingredientes."
+        } else {
+            //Si hay ingredientes, los devolvemos separados por "-"
+            "Ingredientes:\n\n - " + ingredientesNoVacios.joinToString(
+                separator = "\n - "
+            )
+        }
     }
+
     fun listaEquipamiento(): String {
-        return "Equipamientos:\n - "+equipamientos.joinToString(
-            separator = "\n - ", // Delimitador entre los elementos (coma y espacio en este caso)
-        )
+        //Filtramos los ingredientes que no estén vacíos
+        val equipamientoNoVacios = equipamientos.filter { it.isNotBlank() }
+
+        //Si no hay ingredientes, devolvemos un mensaje
+        return if (equipamientoNoVacios.isEmpty()) {
+            "No hay equipamiento."
+        } else {
+            //Si hay ingredientes, los devolvemos separados por "-"
+            "Equipamiento / Medidas:\n\n - " + equipamientoNoVacios.joinToString(
+                separator = "\n - "
+            )
+        }
+    }
+
+    fun showDescripcion(): String {
+
+        return if (descripcion.isBlank()) {
+            "No hay descripción."
+        } else {
+            "Descripción:\n\n$descripcion"
+        }
     }
 }

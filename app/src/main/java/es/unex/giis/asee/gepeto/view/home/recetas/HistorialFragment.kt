@@ -1,6 +1,5 @@
 package es.unex.giis.asee.gepeto.view.home.recetas
 
-import MealList
 import android.os.Bundle
 import android.util.Log
 import androidx.fragment.app.Fragment
@@ -13,12 +12,15 @@ import es.unex.giis.asee.gepeto.adapters.HistorialAdapter
 import es.unex.giis.asee.gepeto.api.APICallback
 import es.unex.giis.asee.gepeto.api.APIError
 import es.unex.giis.asee.gepeto.api.getNetworkService
+import es.unex.giis.asee.gepeto.data.api.Ingredient
 import es.unex.giis.asee.gepeto.data.api.Meal
 import es.unex.giis.asee.gepeto.data.recetasPrueba
 import es.unex.giis.asee.gepeto.data.toShowMeal
 import es.unex.giis.asee.gepeto.databinding.FragmentHistorialBinding
 import es.unex.giis.asee.gepeto.model.Receta
 import es.unex.giis.asee.gepeto.utils.BACKGROUND
+import kotlin.random.Random
+
 
 
 class HistorialFragment : Fragment() {
@@ -59,7 +61,7 @@ class HistorialFragment : Fragment() {
 
         if (_meals.isEmpty()) {
             fetchMeals(object : APICallback {
-                override fun onCompleted(meals: List<Meal?>) {
+                override fun onCompletedMeal(meals: List<Meal?>) {
                     Log.d("HistorialFragment", "APICallback onCompleted")
                     val meals = meals.map { it?.toShowMeal() }
                     // Actualizo la UI en el hilo principal
@@ -70,7 +72,6 @@ class HistorialFragment : Fragment() {
                     }
                 }
 
-
                 override fun onError(cause : Throwable) {
                     Log.e("HistorialFragment", "APICallback onError")
                     // Actualizo la UI en el hilo principal
@@ -79,6 +80,10 @@ class HistorialFragment : Fragment() {
                         binding.spinner.visibility = View.GONE
                     }
                 }
+
+                override fun onSuccessIngredient(Ingredient: List<Ingredient?>) {
+                    TODO("Not yet implemented")
+                }
             })
         }
     }
@@ -86,12 +91,18 @@ class HistorialFragment : Fragment() {
     private fun fetchMeals(apiCallback: APICallback){
         BACKGROUND.submit {
             try {
+                // Simula un tiempo de espera de 2 segundos
+                Thread.sleep(1000)
 
-                // Usar una llamada bloqueante para hacer una petición
-                val result = getNetworkService().getListOfMealsByFirstLetter("b").execute()
+                // Genera una letra aleatoria en minúsculas
+                val letras = "abcdefghjklmnoprstvw"
+                val letraAleatoria = letras[Random.nextInt(letras.length)]
+
+                // Utiliza la letra aleatoria en la llamada a la API
+                val result = getNetworkService().getListOfMealsByFirstLetter(letraAleatoria.toString()).execute()
 
                 if(result.isSuccessful){
-                    apiCallback.onCompleted(result.body()!!.meals)
+                    apiCallback.onCompletedMeal(result.body()!!.meals)
                 } else {
                     apiCallback.onError(APIError("API Response Error: ${result.errorBody()}", null))
                 }

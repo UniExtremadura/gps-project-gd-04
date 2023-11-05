@@ -39,7 +39,7 @@ class RecetaDetailFragment : Fragment() {
         super.onViewCreated(view, savedInstanceState)
         val receta = args.receta
         binding.recetaDetalleNombre.text = receta.nombre
-        binding.recetaDetalleDescripcion.text = receta.descripcion
+        binding.recetaDetalleDescripcion.text = receta.showDescripcion()
         binding.recetaDetalleEquipamientos.text = receta.listaEquipamiento()
         binding.recetaDetalleIngredientes.text = receta.listaIngredientes()
         //binding.recetaDetalleImagen.setImageResource(receta.imagen)

@@ -1,7 +1,9 @@
 package es.unex.giis.asee.gepeto.api
 
 import MealList
+import IngredientList
 import es.unex.giis.asee.gepeto.data.api.Meal
+import es.unex.giis.asee.gepeto.data.api.Ingredient
 import okhttp3.OkHttpClient
 import okhttp3.logging.HttpLoggingInterceptor
 import retrofit2.Call
@@ -66,17 +68,18 @@ interface MealsAPI {
     // Devuelve todas Categorias
     @GET("categories.php")
     fun getCategories(): Call<CategoriesList>
-
-    // Devuelve todos los ingredientes
-    @GET("list.php")
-    fun getIngredientsList(): Call<IngredientsList>
     */
+
+    //Devuelve todos los ingredientes
+    @GET("list.php")
+    fun getIngredientsList(): Call<IngredientList>
 
 }
 
 class APIError(message: String, cause: Throwable?) : Throwable(message, cause)
 
 interface APICallback {
-    fun onCompleted(Meal: List<Meal?>)
+    fun onCompletedMeal(Meal: List<Meal?>)
     fun onError(cause: Throwable)
+    fun onSuccessIngredient(Ingredient: List<Ingredient?>)
 }

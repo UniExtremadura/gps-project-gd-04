@@ -1,8 +1,6 @@
 package es.unex.giis.asee.gepeto.view.home
 
 import android.os.Bundle
-import android.text.Editable
-import android.text.TextWatcher
 import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
@@ -12,7 +10,6 @@ import androidx.recyclerview.widget.LinearLayoutManager
 import es.unex.giis.asee.gepeto.adapters.ItemSwapAdapter
 import es.unex.giis.asee.gepeto.data.Session
 import es.unex.giis.asee.gepeto.data.equipamientosDeCocina
-import es.unex.giis.asee.gepeto.data.todosLosIngredientes
 import es.unex.giis.asee.gepeto.databinding.FragmentEquipamientoBinding
 import es.unex.giis.asee.gepeto.utils.filtrarLista
 import java.util.TreeSet

@@ -2,12 +2,18 @@ package es.unex.giis.asee.gepeto.adapters
 
 import android.view.ViewGroup
 import androidx.recyclerview.widget.RecyclerView
+import es.unex.giis.asee.gepeto.data.api.Ingredient
 import es.unex.giis.asee.gepeto.databinding.RecyclerSwapItemBinding
+import es.unex.giis.asee.gepeto.model.Ingrediente
+import es.unex.giis.asee.gepeto.model.Receta
 import java.util.TreeSet
 
-class ItemSwapAdapter (
+class ItemSwapAdapter(
     private var itemSet: TreeSet<String>,
-    private val onClick: (item: String) -> Unit
+    private val onClick: (item: String) -> Unit,
+
+    private var ingredients: List<Ingrediente> = emptyList()
+
 ) : RecyclerView.Adapter<ItemSwapAdapter.ItemViewHolder>() {
 
     class ItemViewHolder (
@@ -69,4 +75,11 @@ class ItemSwapAdapter (
     fun getSet(): TreeSet<String> {
         return itemSet
     }
+
+    fun updateData(newIngredients: List<Ingrediente>) {
+        this.ingredients = newIngredients
+        notifyDataSetChanged()
+    }
+
+
 }

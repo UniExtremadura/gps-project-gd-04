@@ -63,5 +63,4 @@ class HistorialAdapter(
         this.recetas = newRecetas
         notifyDataSetChanged()
     }
-
 }
