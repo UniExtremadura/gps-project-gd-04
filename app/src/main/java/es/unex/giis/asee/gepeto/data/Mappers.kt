@@ -60,7 +60,5 @@ fun Meal.toShowMeal() = Receta(
 )
 
 fun Ingredient.toShowIngredients() = Ingrediente(
-    idIngrediente = idIngredient ?: "",
     nombre = strIngredient ?: "",
-    descripcion = strDescription ?: ""
 )

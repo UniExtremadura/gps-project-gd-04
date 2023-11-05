@@ -13,11 +13,20 @@ data class Receta(
     val imagenPath: String
 ) : Serializable {
     fun getIngredientes(): String {
-        return ingredientes.joinToString(
-            separator = ", ", // Delimitador entre los elementos (coma y espacio en este caso)
-            prefix = "Ingredientes: ", // Prefijo para la cadena completa
-            postfix = "." // Sufijo para la cadena completa
-        )
+        //Filtramos los ingredientes que no estén vacíos
+        val ingredientesNoVacios = ingredientes.filter { it.isNotBlank() }
+
+        //Si no hay ingredientes, devolvemos un mensaje
+        return if (ingredientesNoVacios.isEmpty()) {
+            "No hay ingredientes."
+        } else {
+            //Si hay ingredientes, los devolvemos separados por "-"
+            ingredientesNoVacios.joinToString(
+                separator = ", ",
+                postfix = ".",
+                prefix = "Ingredientes: ",
+            )
+        }
     }
     fun listaIngredientes(): String {
         //Filtramos los ingredientes que no estén vacíos

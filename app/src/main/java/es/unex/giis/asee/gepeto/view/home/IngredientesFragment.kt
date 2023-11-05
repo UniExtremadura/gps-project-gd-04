@@ -48,7 +48,7 @@ class IngredientesFragment : Fragment() {
 
     private fun getIngredientes () : TreeSet<String> {
         val ingredientes = Session.getValue("ingredientesSeleccionados") as TreeSet<*>? ?: TreeSet<String>()
-        val ingredientesFiltrados = TreeSet<String>(todosLosIngredientes)
+        val ingredientesFiltrados = TreeSet<String>()
 
         if (ingredientes.isEmpty()) {
             return ingredientesFiltrados
@@ -93,9 +93,15 @@ class IngredientesFragment : Fragment() {
                     val ingredients = ingredients.map { it?.toShowIngredients() }
                     // Actualizo la UI en el hilo principal
                     activity?.runOnUiThread {
-                        _ingredients = ingredients?.filterNotNull() ?: emptyList()
+                        _ingredients = ((ingredients?.filterNotNull() ?: emptyList()))
                         todosIngredientesAdapter.updateData(_ingredients)
                         binding.spinner.visibility = View.GONE
+
+                        //Añadimos los ingredientes a la lista de todos los ingredientes
+                        listaIngredientes.addAll(_ingredients.map { it.nombre })
+                        if(todosIngredientesAdapter != null){
+                            todosIngredientesAdapter.swap(listaIngredientes)
+                        }
                     }
                 }
 
@@ -115,11 +121,11 @@ class IngredientesFragment : Fragment() {
             })
         }
 
+        binding.spinner.visibility = View.GONE
+
         setUpAllRecyclerView()
         setUpSelectedRecyclerView()
         setUpButtonListener()
-
-
 
         filtrarLista(
             binding.buscadorDeIngredientes,
@@ -134,6 +140,8 @@ class IngredientesFragment : Fragment() {
 
                 // Utiliza la letra aleatoria en la llamada a la API
                 val result = getNetworkService().getIngredientsList().execute()
+
+                binding.spinner.visibility = View.GONE
 
                 if(result.isSuccessful){
                     apiCallback.onSuccessIngredient(result.body()!!.ingredients)
@@ -155,10 +163,12 @@ class IngredientesFragment : Fragment() {
         }
     }
 
-
     private fun setUpButtonListener() {
         with(binding) {
             btnCrearReceta.setOnClickListener() {
+
+                binding.spinner.visibility = View.GONE
+
                 val ingredientes = ingredientesSeleccionadosAdapter.getSet()
 
                 if (ingredientes.isEmpty()) {
@@ -172,7 +182,9 @@ class IngredientesFragment : Fragment() {
 
     private fun setUpAllRecyclerView () {
         todosIngredientesAdapter = ItemSwapAdapter(
-            itemSet = TreeSet<String>(todosLosIngredientes),
+
+            itemSet = TreeSet<String>(listaIngredientes),
+
             onClick = {
 
                 with(binding.advertenciaLabel) {
@@ -180,6 +192,8 @@ class IngredientesFragment : Fragment() {
                         visibility = View.GONE
                     }
                 }
+
+                binding.spinner.visibility = View.GONE
 
                 ingredientesSeleccionadosAdapter.add(it)
                 todosIngredientesAdapter.remove(it)
@@ -202,6 +216,8 @@ class IngredientesFragment : Fragment() {
                 todosIngredientesAdapter.add(it)
                 ingredientesSeleccionadosAdapter.remove(it)
                 listaIngredientes.add(it)
+
+                binding.spinner.visibility = View.GONE
 
                 Session.setValue("ingredientesSeleccionados", ingredientesSeleccionadosAdapter.getSet())
             })
