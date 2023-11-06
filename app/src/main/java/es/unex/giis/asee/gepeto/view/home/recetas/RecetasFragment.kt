@@ -17,7 +17,6 @@ import androidx.viewpager2.widget.ViewPager2
 import com.google.android.material.tabs.TabLayout
 import com.google.android.material.tabs.TabLayoutMediator
 import es.unex.giis.asee.gepeto.R
-import es.unex.giis.asee.gepeto.api.APICallback
 import es.unex.giis.asee.gepeto.api.APIError
 import es.unex.giis.asee.gepeto.api.getNetworkService
 import es.unex.giis.asee.gepeto.databinding.FragmentRecetasBinding

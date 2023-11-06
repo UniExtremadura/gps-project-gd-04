@@ -1,11 +1,10 @@
 package es.unex.giis.asee.gepeto.adapters
 
+import android.annotation.SuppressLint
 import android.view.ViewGroup
 import androidx.recyclerview.widget.RecyclerView
-import es.unex.giis.asee.gepeto.data.api.Ingredient
 import es.unex.giis.asee.gepeto.databinding.RecyclerSwapItemBinding
 import es.unex.giis.asee.gepeto.model.Ingrediente
-import es.unex.giis.asee.gepeto.model.Receta
 import java.util.TreeSet
 
 class ItemSwapAdapter(
@@ -53,11 +52,13 @@ class ItemSwapAdapter(
         return itemSet.indexOf(item)
     }
 
+    @SuppressLint("NotifyDataSetChanged")
     fun remove(item: String) {
         itemSet.remove(item)
         notifyDataSetChanged()
     }
 
+    @SuppressLint("NotifyDataSetChanged")
     fun add(item: String) {
         itemSet.add(item)
         notifyDataSetChanged()
@@ -67,6 +68,7 @@ class ItemSwapAdapter(
         return itemSet
     }
 
+    @SuppressLint("NotifyDataSetChanged")
     fun swap(newItemSet: TreeSet<String>) {
         itemSet = newItemSet
         notifyDataSetChanged()
@@ -76,6 +78,7 @@ class ItemSwapAdapter(
         return itemSet
     }
 
+    @SuppressLint("NotifyDataSetChanged")
     fun updateData(newIngredients: List<Ingrediente>) {
         this.ingredients = newIngredients
         notifyDataSetChanged()

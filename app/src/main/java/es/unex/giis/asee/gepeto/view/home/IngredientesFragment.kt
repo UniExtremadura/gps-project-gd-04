@@ -7,10 +7,10 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.Toast
+import androidx.lifecycle.lifecycleScope
 import androidx.recyclerview.widget.GridLayoutManager
 import androidx.recyclerview.widget.LinearLayoutManager
 import es.unex.giis.asee.gepeto.adapters.ItemSwapAdapter
-import es.unex.giis.asee.gepeto.api.APICallback
 import es.unex.giis.asee.gepeto.api.APIError
 import es.unex.giis.asee.gepeto.api.getNetworkService
 import es.unex.giis.asee.gepeto.data.Session
@@ -22,6 +22,7 @@ import es.unex.giis.asee.gepeto.databinding.FragmentIngredientesBinding
 import es.unex.giis.asee.gepeto.model.Ingrediente
 import es.unex.giis.asee.gepeto.utils.BACKGROUND
 import es.unex.giis.asee.gepeto.utils.filtrarLista
+import kotlinx.coroutines.launch
 import java.lang.RuntimeException
 import java.util.TreeSet
 
@@ -86,42 +87,26 @@ class IngredientesFragment : Fragment() {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
-        if (_ingredients.isEmpty()) {
-            fetchIngredients(object : APICallback {
-                override fun onSuccessIngredient(ingredients: List<Ingredient?>) {
-                    Log.d("IngredientFragment", "APICallback onCompleted")
-                    val ingredients = ingredients.map { it?.toShowIngredients() }
-                    // Actualizo la UI en el hilo principal
-                    activity?.runOnUiThread {
-                        _ingredients = ((ingredients?.filterNotNull() ?: emptyList()))
-                        todosIngredientesAdapter.updateData(_ingredients)
-                        binding.spinner.visibility = View.GONE
+        lifecycleScope.launch {
+            if(_ingredients.isEmpty()){
+                binding.spinner.visibility = View.VISIBLE
 
-                        //Añadimos los ingredientes a la lista de todos los ingredientes
-                        listaIngredientes.addAll(_ingredients.map { it.nombre })
-                        if(todosIngredientesAdapter != null){
-                            todosIngredientesAdapter.swap(listaIngredientes)
-                        }
+                try {
+                    _ingredients = fetchIngredients().filterNotNull().map { it.toShowIngredients() }
+                    todosIngredientesAdapter.updateData(_ingredients)
+
+                    //Añadimos los ingredientes a la lista de todos los ingredientes
+                    listaIngredientes.addAll(_ingredients.map { it.nombre })
+                    if(todosIngredientesAdapter != null){
+                        todosIngredientesAdapter.swap(listaIngredientes)
                     }
+                } catch (e: APIError) {
+                    Toast.makeText(context, e.message, Toast.LENGTH_SHORT).show()
+                } finally {
+                    binding.spinner.visibility = View.GONE
                 }
-
-
-                override fun onError(cause : Throwable) {
-                    Log.e("IngredientsFragment", "APICallback onError")
-                    // Actualizo la UI en el hilo principal
-                    activity?.runOnUiThread {
-                        Toast.makeText(context, "Error al obtener los datos", Toast.LENGTH_SHORT).show()
-                        binding.spinner.visibility = View.GONE
-                    }
-                }
-
-                override fun onCompletedMeal(Meal: List<Meal?>) {
-                    TODO("Not yet implemented")
-                }
-            })
+            }
         }
-
-        binding.spinner.visibility = View.GONE
 
         setUpAllRecyclerView()
         setUpSelectedRecyclerView()
@@ -134,40 +119,20 @@ class IngredientesFragment : Fragment() {
         )
     }
 
-    private fun fetchIngredients(apiCallback: APICallback){
-        BACKGROUND.submit {
-            try {
-
-                // Utiliza la letra aleatoria en la llamada a la API
-                val result = getNetworkService().getIngredientsList().execute()
-
-                binding.spinner.visibility = View.GONE
-
-                if(result.isSuccessful){
-                    apiCallback.onSuccessIngredient(result.body()!!.ingredients)
-                } else {
-                    apiCallback.onError(APIError("API Response Error: ${result.errorBody()}", null))
-                }
-
-
-            } catch (cause: Throwable) {
-                // Actualizo la UI en el hilo principal si algo falla
-                activity?.runOnUiThread {
-                    Toast.makeText(context, "Error al obtener los datos", Toast.LENGTH_SHORT).show()
-                    binding.spinner.visibility = View.GONE
-                }
-                Log.e("ListaFragment", "APICallback error")
-                //Si algo lanza una excepción, informo al Caller
-                throw APIError("Unable to fetch data from API", cause)
-            }
+    private suspend fun fetchIngredients(): List<Ingredient>{
+        var ingredients = listOf<Ingredient>()
+        try {
+            ingredients = getNetworkService().getIngredientsList().ingredients
+        } catch (cause: Throwable) {
+            throw APIError("Error al obtener los datos", cause)
         }
+
+        return ingredients
     }
 
     private fun setUpButtonListener() {
         with(binding) {
             btnCrearReceta.setOnClickListener() {
-
-                binding.spinner.visibility = View.GONE
 
                 val ingredientes = ingredientesSeleccionadosAdapter.getSet()
 
@@ -193,8 +158,6 @@ class IngredientesFragment : Fragment() {
                     }
                 }
 
-                binding.spinner.visibility = View.GONE
-
                 ingredientesSeleccionadosAdapter.add(it)
                 todosIngredientesAdapter.remove(it)
                 listaIngredientes.remove(it)
@@ -216,8 +179,6 @@ class IngredientesFragment : Fragment() {
                 todosIngredientesAdapter.add(it)
                 ingredientesSeleccionadosAdapter.remove(it)
                 listaIngredientes.add(it)
-
-                binding.spinner.visibility = View.GONE
 
                 Session.setValue("ingredientesSeleccionados", ingredientesSeleccionadosAdapter.getSet())
             })

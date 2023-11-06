@@ -9,7 +9,6 @@ import android.view.ViewGroup
 import android.widget.Toast
 import androidx.navigation.fragment.navArgs
 import es.unex.giis.asee.gepeto.R
-import es.unex.giis.asee.gepeto.api.APICallback
 import es.unex.giis.asee.gepeto.api.APIError
 import es.unex.giis.asee.gepeto.api.getNetworkService
 import es.unex.giis.asee.gepeto.data.Session

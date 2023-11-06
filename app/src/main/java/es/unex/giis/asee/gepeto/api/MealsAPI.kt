@@ -38,9 +38,9 @@ interface MealsAPI {
 
     // Devuelve una lista de comidas por 1º letra
     @GET("search.php")
-    fun getListOfMealsByFirstLetter(
+    suspend fun getListOfMealsByFirstLetter(
         @Query("f") firstLetter: String
-    ): Call<MealList>
+    ): MealList
 
     // Devuelve 1 comida por ID
     @GET("lookup.php")
@@ -72,14 +72,7 @@ interface MealsAPI {
 
     //Devuelve todos los ingredientes
     @GET("list.php?i=list")
-    fun getIngredientsList(): Call<IngredientList>
+    suspend fun getIngredientsList(): IngredientList
 
 }
-
 class APIError(message: String, cause: Throwable?) : Throwable(message, cause)
-
-interface APICallback {
-    fun onCompletedMeal(Meal: List<Meal?>)
-    fun onError(cause: Throwable)
-    fun onSuccessIngredient(Ingredient: List<Ingredient?>)
-}

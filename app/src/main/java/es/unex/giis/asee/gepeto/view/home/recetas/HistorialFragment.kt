@@ -7,9 +7,9 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.Toast
+import androidx.lifecycle.lifecycleScope
 import androidx.recyclerview.widget.LinearLayoutManager
 import es.unex.giis.asee.gepeto.adapters.HistorialAdapter
-import es.unex.giis.asee.gepeto.api.APICallback
 import es.unex.giis.asee.gepeto.api.APIError
 import es.unex.giis.asee.gepeto.api.getNetworkService
 import es.unex.giis.asee.gepeto.data.api.Ingredient
@@ -19,6 +19,7 @@ import es.unex.giis.asee.gepeto.data.toShowMeal
 import es.unex.giis.asee.gepeto.databinding.FragmentHistorialBinding
 import es.unex.giis.asee.gepeto.model.Receta
 import es.unex.giis.asee.gepeto.utils.BACKGROUND
+import kotlinx.coroutines.launch
 import kotlin.random.Random
 
 
@@ -60,65 +61,41 @@ class HistorialFragment : Fragment() {
         setUpRecyclerView()
 
         if (_meals.isEmpty()) {
-            fetchMeals(object : APICallback {
-                override fun onCompletedMeal(meals: List<Meal?>) {
-                    Log.d("HistorialFragment", "APICallback onCompleted")
-                    val meals = meals.map { it?.toShowMeal() }
-                    // Actualizo la UI en el hilo principal
-                    activity?.runOnUiThread {
-                        _meals = meals?.filterNotNull() ?: recetasPrueba
+
+            binding.spinner.visibility = View.VISIBLE
+
+            lifecycleScope.launch {
+                if (_meals.isEmpty()){
+                    binding.spinner.visibility = View.VISIBLE
+
+                    try {
+                        _meals = fetchMeals().filterNotNull().map { it.toShowMeal() }
                         adapter.updateData(_meals)
+                    } catch (e: APIError) {
+                        Toast.makeText(context, e.message, Toast.LENGTH_SHORT).show()
+                    } finally {
                         binding.spinner.visibility = View.GONE
                     }
                 }
-
-                override fun onError(cause : Throwable) {
-                    Log.e("HistorialFragment", "APICallback onError")
-                    // Actualizo la UI en el hilo principal
-                    activity?.runOnUiThread {
-                        Toast.makeText(context, "Error al obtener los datos", Toast.LENGTH_SHORT).show()
-                        binding.spinner.visibility = View.GONE
-                    }
-                }
-
-                override fun onSuccessIngredient(Ingredient: List<Ingredient?>) {
-                    TODO("Not yet implemented")
-                }
-            })
+            }
         }
     }
 
-    private fun fetchMeals(apiCallback: APICallback){
-        BACKGROUND.submit {
-            try {
-                // Simula un tiempo de espera de 2 segundos
-                Thread.sleep(1000)
+    private suspend fun fetchMeals(): List<Meal>{
+        var meals = listOf<Meal>()
+        try {
+            // Genera una letra aleatoria en minúsculas
+            val letras = "abcdefghjklmnoprstvw"
+            val letraAleatoria = letras[Random.nextInt(letras.length)]
 
-                // Genera una letra aleatoria en minúsculas
-                val letras = "abcdefghjklmnoprstvw"
-                val letraAleatoria = letras[Random.nextInt(letras.length)]
+            // Utiliza la letra aleatoria en la llamada a la API
+            meals = getNetworkService().getListOfMealsByFirstLetter(letraAleatoria.toString()).meals
 
-                // Utiliza la letra aleatoria en la llamada a la API
-                val result = getNetworkService().getListOfMealsByFirstLetter(letraAleatoria.toString()).execute()
-
-                if(result.isSuccessful){
-                    apiCallback.onCompletedMeal(result.body()!!.meals)
-                } else {
-                    apiCallback.onError(APIError("API Response Error: ${result.errorBody()}", null))
-                }
-
-
-            } catch (cause: Throwable) {
-                // Actualizo la UI en el hilo principal si algo falla
-                activity?.runOnUiThread {
-                    Toast.makeText(context, "Error al obtener los datos", Toast.LENGTH_SHORT).show()
-                    binding.spinner.visibility = View.GONE
-                }
-                Log.e("ListaFragment", "APICallback error")
-                //Si algo lanza una excepción, informo al Caller
-                throw APIError("Unable to fetch data from API", cause)
-            }
+        } catch (cause: Throwable) {
+            throw APIError("Error al obtener los datos", cause)
         }
+
+        return meals
     }
 
     private fun setUpRecyclerView() {
