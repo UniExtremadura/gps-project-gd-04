@@ -47,6 +47,7 @@ class RecetaDetailFragment : Fragment() {
 
         Glide.with(requireContext()) // Usa el contexto de tu fragmento o actividad
             .load(imageUrl)
+            .placeholder(R.drawable.ejemplo_plato)
             .into(binding.recetaDetalleImagen)
 
         binding.recetaDetalleFavorita.setImageResource(getHeartIcon(receta.favorita))

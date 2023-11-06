@@ -1,7 +1,6 @@
 package es.unex.giis.asee.gepeto.view.home.recetas
 
 import android.os.Bundle
-import android.util.Log
 import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
@@ -12,21 +11,16 @@ import androidx.recyclerview.widget.LinearLayoutManager
 import es.unex.giis.asee.gepeto.adapters.HistorialAdapter
 import es.unex.giis.asee.gepeto.api.APIError
 import es.unex.giis.asee.gepeto.api.getNetworkService
-import es.unex.giis.asee.gepeto.data.api.Ingredient
-import es.unex.giis.asee.gepeto.data.api.Meal
-import es.unex.giis.asee.gepeto.data.recetasPrueba
-import es.unex.giis.asee.gepeto.data.toShowMeal
+import es.unex.giis.asee.gepeto.data.api.Recipes
+import es.unex.giis.asee.gepeto.data.toShowRecipe
 import es.unex.giis.asee.gepeto.databinding.FragmentHistorialBinding
 import es.unex.giis.asee.gepeto.model.Receta
-import es.unex.giis.asee.gepeto.utils.BACKGROUND
 import kotlinx.coroutines.launch
-import kotlin.random.Random
-
 
 
 class HistorialFragment : Fragment() {
 
-    private var _meals: List<Receta> = emptyList()
+    private var _recipes: List<Receta> = emptyList()
 
     private lateinit var listener: OnRecetaClickListener
     interface OnRecetaClickListener {
@@ -60,17 +54,17 @@ class HistorialFragment : Fragment() {
         super.onViewCreated(view, savedInstanceState)
         setUpRecyclerView()
 
-        if (_meals.isEmpty()) {
+        if (_recipes.isEmpty()) {
 
             binding.spinner.visibility = View.VISIBLE
 
             lifecycleScope.launch {
-                if (_meals.isEmpty()){
+                if (_recipes.isEmpty()){
                     binding.spinner.visibility = View.VISIBLE
 
                     try {
-                        _meals = fetchMeals().filterNotNull().map { it.toShowMeal() }
-                        adapter.updateData(_meals)
+                        _recipes = fetchMeals().filterNotNull().map { it.toShowRecipe() }
+                        adapter.updateData(_recipes)
                     } catch (e: APIError) {
                         Toast.makeText(context, e.message, Toast.LENGTH_SHORT).show()
                     } finally {
@@ -81,25 +75,23 @@ class HistorialFragment : Fragment() {
         }
     }
 
-    private suspend fun fetchMeals(): List<Meal>{
-        var meals = listOf<Meal>()
+    private suspend fun fetchMeals(): Recipes{
+        var recipes: Recipes
         try {
             // Genera una letra aleatoria en minúsculas
-            val letras = "abcdefghjklmnoprstvw"
-            val letraAleatoria = letras[Random.nextInt(letras.length)]
 
             // Utiliza la letra aleatoria en la llamada a la API
-            meals = getNetworkService().getListOfMealsByFirstLetter(letraAleatoria.toString()).meals
+            recipes = getNetworkService().getMealByIngredients(ingredients = "apples,+flour,+sugar")
 
         } catch (cause: Throwable) {
             throw APIError("Error al obtener los datos", cause)
         }
 
-        return meals
+        return recipes
     }
 
     private fun setUpRecyclerView() {
-        adapter = HistorialAdapter(recetas = _meals, onClick = {
+        adapter = HistorialAdapter(recetas = _recipes, onClick = {
             listener.onRecetaClick(it)
         },
             onLongClick = {

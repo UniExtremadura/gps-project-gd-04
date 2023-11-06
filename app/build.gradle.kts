@@ -74,4 +74,7 @@ dependencies {
     implementation("com.squareup.okhttp3:logging-interceptor:4.9.1")
     implementation("com.github.bumptech.glide:glide:5.0.0-rc01")
 
+    implementation("org.apache.poi:poi:5.1.0")
+    implementation("org.apache.poi:poi-ooxml:5.1.0")
+
 }
