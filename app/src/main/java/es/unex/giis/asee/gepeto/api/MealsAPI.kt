@@ -1,15 +1,13 @@
 package es.unex.giis.asee.gepeto.api
 
-import MealList
-import IngredientList
-import es.unex.giis.asee.gepeto.data.api.Meal
-import es.unex.giis.asee.gepeto.data.api.Ingredient
 import es.unex.giis.asee.gepeto.data.api.Recipes
+import es.unex.giis.asee.gepeto.data.api.Instructions
+import es.unex.giis.asee.gepeto.model.Pasos
 import okhttp3.OkHttpClient
 import okhttp3.logging.HttpLoggingInterceptor
-import retrofit2.Call
 import retrofit2.converter.gson.GsonConverterFactory
 import retrofit2.http.GET
+import retrofit2.http.Path
 import retrofit2.http.Query
 
 private const val apikey = "apiKey=1541f2b0ab204bc8ab6a8b69be301e86"
@@ -53,21 +51,10 @@ interface MealsAPI {
     @GET("findByIngredients?" + apikey + "&")
     suspend fun getMealByIngredients(@Query("ingredients") ingredients: String): Recipes
 
-
-    // Devuelve una lista de comidas por categoria
-
-
-    // Devuelve 1 comida aleatoria
-
-
-    // Devuelve todas Categorias
-
-
-
-    //Devuelve todos los ingredientes
-    @GET("ingredients/list?" + apikey + "&")
-    suspend fun getIngredientsList(): IngredientList
-
+    // Devuelve los pasos de una receta
+    //GET https://api.spoonacular.com/recipes/{id}/analyzedInstructions
+    @GET("{id}/analyzedInstructions?"+ apikey)
+    suspend fun getMealSteps(@Path("id") id: String): Instructions
 
 }
 class APIError(message: String, cause: Throwable?) : Throwable(message, cause)

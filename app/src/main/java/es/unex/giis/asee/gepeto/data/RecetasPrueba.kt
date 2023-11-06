@@ -3,7 +3,9 @@ package es.unex.giis.asee.gepeto.data
 import es.unex.giis.asee.gepeto.model.Receta
 import es.unex.giis.asee.gepeto.R
 
-val recetasPrueba: List<Receta> = listOf(
+val recetasPrueba: List<Receta> = emptyList<Receta>()
+
+/*listOf(
     Receta(
         idReceta = "1",
         nombre = "Tacos al Pastor",
@@ -131,3 +133,5 @@ val recetasPrueba: List<Receta> = listOf(
         imagenPath = ""
     )
 )
+
+ */

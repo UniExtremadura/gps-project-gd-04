@@ -81,7 +81,7 @@ class HistorialFragment : Fragment() {
             // Genera una letra aleatoria en minúsculas
 
             // Utiliza la letra aleatoria en la llamada a la API
-            recipes = getNetworkService().getMealByIngredients(ingredients = "apples,+flour,+sugar")
+            recipes = getNetworkService().getMealByIngredients(ingredients = "flour,+sugar")
 
         } catch (cause: Throwable) {
             throw APIError("Error al obtener los datos", cause)

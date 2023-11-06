@@ -3,7 +3,9 @@ package es.unex.giis.asee.gepeto.data
 import es.unex.giis.asee.gepeto.R
 import es.unex.giis.asee.gepeto.data.api.Ingredient
 import es.unex.giis.asee.gepeto.data.api.RecipesItem
+import es.unex.giis.asee.gepeto.data.api.StepsItem
 import es.unex.giis.asee.gepeto.model.Ingrediente
+import es.unex.giis.asee.gepeto.model.Pasos
 import es.unex.giis.asee.gepeto.model.Receta
 
 fun RecipesItem.toShowRecipe() = Receta(
@@ -19,7 +21,7 @@ fun RecipesItem.toShowRecipe() = Receta(
      */
     idReceta = id.toString(),
     nombre = title ?: "",
-    descripcion = "",
+    descripcion = emptyList(),
     favorita = false,
     //apend de usedIngredients, missedIngredients, unusedIngredients
     ingredientes = usedIngredients.map { it.name } + missedIngredients.map { it.name },
@@ -30,4 +32,8 @@ fun RecipesItem.toShowRecipe() = Receta(
 
 fun Ingredient.toShowIngredients() = Ingrediente(
     nombre = strIngredient ?: "",
+)
+
+fun StepsItem.toShowRecipe() = Pasos (
+    descripcion = steps.map { it.step},
 )

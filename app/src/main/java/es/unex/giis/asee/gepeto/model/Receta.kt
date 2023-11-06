@@ -5,7 +5,7 @@ import java.io.Serializable
 data class Receta(
     val idReceta: String,
     val nombre: String,
-    val descripcion: String,
+    val descripcion: List<Pasos>,
     var favorita: Boolean,
     val ingredientes: List<String> = emptyList(),
     val equipamientos: List<String> = emptyList(),
@@ -60,7 +60,7 @@ data class Receta(
 
     fun showDescripcion(): String {
 
-        return if (descripcion.isBlank()) {
+        return if (descripcion.isEmpty()) {
             "No hay descripción."
         } else {
             "Descripción:\n\n$descripcion"
