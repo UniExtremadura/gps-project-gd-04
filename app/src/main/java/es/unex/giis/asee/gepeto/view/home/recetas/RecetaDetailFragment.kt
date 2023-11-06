@@ -52,7 +52,7 @@ class RecetaDetailFragment : Fragment() {
                 try {
                     _steps = fetchPasos().filterNotNull().map { it.toShowRecipe() }
 
-                    val descripcionText = _steps.flatMap { it.descripcion }.joinToString("\n", prefix = "Pasos:\n")
+                    val descripcionText = _steps.flatMap { it.descripcion }.joinToString("\n\n - ", prefix = "Pasos:\n\n - ")
 
                     binding.recetaDetalleDescripcion.text = descripcionText
 
