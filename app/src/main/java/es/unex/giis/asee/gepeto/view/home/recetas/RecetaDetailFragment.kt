@@ -12,9 +12,11 @@ import com.bumptech.glide.Glide
 import es.unex.giis.asee.gepeto.R
 import es.unex.giis.asee.gepeto.api.APIError
 import es.unex.giis.asee.gepeto.api.getNetworkService
+import es.unex.giis.asee.gepeto.data.api.Equipment
 import es.unex.giis.asee.gepeto.data.api.Instructions
 import es.unex.giis.asee.gepeto.data.toShowRecipe
 import es.unex.giis.asee.gepeto.databinding.FragmentRecetaDetailBinding
+import es.unex.giis.asee.gepeto.model.Equipamiento
 import es.unex.giis.asee.gepeto.model.Pasos
 import kotlinx.coroutines.launch
 
@@ -28,6 +30,8 @@ class RecetaDetailFragment : Fragment() {
     private val args: RecetaDetailFragmentArgs by navArgs()
 
     private var _steps: List<Pasos> = emptyList()
+
+    private var _equipments: List<Equipamiento> = emptyList()
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
@@ -43,7 +47,9 @@ class RecetaDetailFragment : Fragment() {
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
+
         val receta = args.receta
+
         binding.recetaDetalleNombre.text = receta.nombre
 
         lifecycleScope.launch {
