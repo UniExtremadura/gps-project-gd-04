@@ -78,7 +78,8 @@ class HomeActivity :
         // Hide toolbar and bottom navigation when in detail fragment
         navController.addOnDestinationChangedListener { _, destination, _ ->
             if ((destination.id == R.id.recetaDetailFragment) or
-                (destination.id == R.id.observacionesFragment)){
+                (destination.id == R.id.observacionesFragment) or
+                (destination.id == R.id.settingsFragment)){
                 //   binding.toolbar.visibility = View.GONE
                 binding.toolbar.menu.clear()
                 binding.bottomNavigation.visibility = View.GONE
@@ -108,7 +109,8 @@ class HomeActivity :
     override fun onOptionsItemSelected(item: MenuItem) = when (item.itemId) {
         R.id.action_settings -> {
             // User chooses the "Settings" item. Show the app settings UI.
-            Toast.makeText(this, "Settings option", Toast.LENGTH_SHORT).show()
+            val action = RecetasFragmentDirections.actionHomeToSettingsFragment()
+            navController.navigate(action)
             true
         }
 

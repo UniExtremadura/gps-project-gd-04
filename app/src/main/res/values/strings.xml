@@ -29,4 +29,13 @@
     <string name="advertencia_label">Debe introducrise al menos un ingrediente.</string>
     <string name="preview_de_la_receta">Preview de la receta</string>
     <string name="me_gusta_alt_label">Me Gusta</string>
+    <string name="login_header">Preferencias de login</string>
+    <string name="autologin_title">Recordar mi usuario</string>
+    <string name="username_title">user</string>
+    <string name="password_title">password</string>
+    <string name="suggestions_header">Cajón de sugerencias</string>
+    <string name="suggestions_title">Sugerencia</string>
+    <string name="send_suggestion_title">Enviar sugerencia</string>
+    <string name="reset_suggestion_title">Resetear sugerencia</string>
+    <string name="edit_suggestion_title">Escribir sugerencia</string>
 </resources>
