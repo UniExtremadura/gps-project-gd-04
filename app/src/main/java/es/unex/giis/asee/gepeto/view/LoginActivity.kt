@@ -78,7 +78,6 @@ class LoginActivity : AppCompatActivity() {
         }
     }
 
-
     private fun notifyInvalidCredentials(msg: String) {
         Toast.makeText(this, msg, Toast.LENGTH_SHORT).show()
     }
