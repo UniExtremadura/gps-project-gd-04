@@ -1,0 +1,107 @@
+<?xml version="1.0" encoding="utf-8"?>
+<FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context=".view.home.ObservacionesFragment">
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:orientation="vertical"
+        android:padding="8dp">
+
+        <TextView
+            android:id="@+id/ingredientes_label"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="Ingredientes seleccionados:"
+            android:textColor="@color/title_color"
+            android:textSize="22dp"
+            android:textStyle="bold"/>
+
+        <TextView
+            android:id="@+id/ingredientes"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:textStyle="italic"
+            android:textSize="18dp"
+            android:background="@color/todo_label"
+            android:padding="3dp"
+            android:layout_marginTop="10dp"/>
+
+        <TextView
+            android:id="@+id/equipamiento_label"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="10dp"
+            android:text="Equipamiento seleccionados:"
+            android:textColor="@color/title_color"
+            android:textSize="22dp"
+            android:textStyle="bold"/>
+
+        <TextView
+            android:id="@+id/equipamiento"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:textStyle="italic"
+            android:textSize="18dp"
+            android:background="@color/todo_label"
+            android:padding="3dp"
+            android:layout_marginTop="10dp"/>
+
+        <TextView
+            android:id="@+id/observaciones_label"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="Observaciones:"
+            android:textSize="22dp"
+            android:textColor="@color/title_color"
+            android:textStyle="bold"
+            android:layout_marginTop="20dp"/>
+
+        <EditText
+            android:id="@+id/observaciones_input"
+            android:hint="Sin gluten, sin lactosa..."
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:inputType="text|textMultiLine"
+            android:gravity="top"
+            android:minHeight="100dp"
+            android:maxHeight="300dp"
+            android:autofillHints="gluten, lactosa"
+            android:textSize="18dp"/>
+
+        <LinearLayout
+            android:id="@+id/switch_and_label"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal" >
+
+            <com.google.android.material.switchmaterial.SwitchMaterial
+
+                android:id="@+id/ia_generator_switch"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content" />
+
+            <TextView
+                android:id="@+id/switch_label"
+                android:layout_height="match_parent"
+                android:layout_width="wrap_content"
+                android:text="@string/switch_label"
+                android:textSize="18sp"
+                android:layout_marginTop="11dp"/>
+
+        </LinearLayout>
+
+        <Button
+            android:id="@+id/crear_receta_btn"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:backgroundTint="@color/button_color"
+            android:textSize="22sp"
+            android:text="@string/crear_receta"/>
+
+    </LinearLayout>
+
+</FrameLayout>

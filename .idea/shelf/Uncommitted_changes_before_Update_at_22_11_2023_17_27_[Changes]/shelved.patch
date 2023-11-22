@@ -1,0 +1,2893 @@
+Index: app/src/main/res/values/themes.xml
+IDEA additional info:
+Subsystem: com.intellij.openapi.diff.impl.patch.CharsetEP
+<+>UTF-8
+===================================================================
+diff --git a/app/src/main/res/values/themes.xml b/app/src/main/res/values/themes.xml
+new file mode 100644
+--- /dev/null	(date 1700668423648)
++++ b/app/src/main/res/values/themes.xml	(date 1700668423648)
+@@ -0,0 +1,39 @@
++<!--<resources xmlns:tools="http://schemas.android.com/tools">-->
++<!--    &lt;!&ndash; Base application theme. &ndash;&gt;-->
++<!--    <style name="Theme.LaNeveraDeGepeto" parent="Theme.MaterialComponents.DayNight.DarkActionBar">-->
++<!--        &lt;!&ndash; Primary brand color. &ndash;&gt;-->
++<!--        <item name="colorPrimary">@color/purple_500</item>-->
++<!--        <item name="colorPrimaryVariant">@color/purple_700</item>-->
++<!--        <item name="colorOnPrimary">@color/white</item>-->
++<!--        &lt;!&ndash; Secondary brand color. &ndash;&gt;-->
++<!--        <item name="colorSecondary">@color/teal_200</item>-->
++<!--        <item name="colorSecondaryVariant">@color/teal_700</item>-->
++<!--        <item name="colorOnSecondary">@color/black</item>-->
++<!--        &lt;!&ndash; Status bar color. &ndash;&gt;-->
++<!--        <item name="android:statusBarColor">?attr/colorPrimaryVariant</item>-->
++<!--        &lt;!&ndash; Customize your theme here. &ndash;&gt;-->
++<!--    </style>-->
++<!--</resources>-->
++
++<resources xmlns:tools="http://schemas.android.com/tools">
++    <!-- Base application theme. -->
++    <style name="Base.Theme.GePeTo" parent="Theme.Material3.DayNight.NoActionBar">
++        <!-- Customize your light theme here. -->
++        <!-- <item name="colorPrimary">@color/my_light_primary</item> -->
++        <item name="backgroundColor">#4A5BB6</item>
++    </style>
++
++    <style name="Toolbar" parent="ThemeOverlay.AppCompat.ActionBar">
++        //toolbar back arrow color
++        <item name="android:textColorSecondary">@android:color/white</item>
++        //toolbar title color
++        <item name="android:textColorPrimary">@android:color/white</item>
++        <item name="android:background">#4A5BB6</item>
++        <item name="android:colorPrimary">#4A5BB6</item>
++        <item name="android:colorPrimaryDark">#4A5BB6</item>
++        <item name="android:titleTextColor">#3F51B5</item>
++    </style>
++
++
++    <style name="Theme.GePeTo" parent="Base.Theme.GePeTo" />
++</resources>
+\ No newline at end of file
+Index: app/src/main/res/xml/preferences.xml
+IDEA additional info:
+Subsystem: com.intellij.openapi.diff.impl.patch.CharsetEP
+<+>UTF-8
+===================================================================
+diff --git a/app/src/main/res/xml/preferences.xml b/app/src/main/res/xml/preferences.xml
+new file mode 100644
+--- /dev/null	(date 1700263136944)
++++ b/app/src/main/res/xml/preferences.xml	(date 1700263136944)
+@@ -0,0 +1,42 @@
++<?xml version="1.0" encoding="utf-8"?>
++<PreferenceScreen xmlns:app="http://schemas.android.com/apk/res-auto"
++    xmlns:android="http://schemas.android.com/apk/res/android">
++
++    <PreferenceCategory
++        android:layout_width="wrap_content"
++        android:layout_height="wrap_content"
++        android:title="@string/login_header">
++
++        <SwitchPreference
++            android:defaultValue="false"
++            android:key="rememberme"
++            android:title="@string/autologin_title" />
++        <EditTextPreference
++            android:defaultValue="prueba"
++            android:key="username"
++            android:selectAllOnFocus="true"
++            android:singleLine="false"
++            android:title="@string/username_title"
++            app:useSimpleSummaryProvider="true" />
++        <EditTextPreference
++            android:layout_width="wrap_content"
++            android:layout_height="wrap_content"
++            android:defaultValue="12345"
++            android:selectAllOnFocus="true"
++            android:singleLine="false"
++            android:title="@string/password_title"
++            app:key="password"
++            app:useSimpleSummaryProvider="true" />
++    </PreferenceCategory>
++
++    <PreferenceCategory
++        android:layout_width="wrap_content"
++        android:layout_height="wrap_content"
++        android:title="@string/suggestions_header">
++
++        <Preference
++            android:key="edit_suggestion"
++            android:title="@string/edit_suggestion_title" />
++
++    </PreferenceCategory>
++</PreferenceScreen>
+\ No newline at end of file
+Index: app/src/main/res/xml/backup_rules.xml
+IDEA additional info:
+Subsystem: com.intellij.openapi.diff.impl.patch.CharsetEP
+<+>UTF-8
+===================================================================
+diff --git a/app/src/main/res/xml/backup_rules.xml b/app/src/main/res/xml/backup_rules.xml
+new file mode 100644
+--- /dev/null	(date 1700059744883)
++++ b/app/src/main/res/xml/backup_rules.xml	(date 1700059744883)
+@@ -0,0 +1,13 @@
++<?xml version="1.0" encoding="utf-8"?><!--
++   Sample backup rules file; uncomment and customize as necessary.
++   See https://developer.android.com/guide/topics/data/autobackup
++   for details.
++   Note: This file is ignored for devices older that API 31
++   See https://developer.android.com/about/versions/12/backup-restore
++-->
++<full-backup-content>
++    <!--
++   <include domain="sharedpref" path="."/>
++   <exclude domain="sharedpref" path="device.xml"/>
++-->
++</full-backup-content>
+\ No newline at end of file
+Index: app/src/main/res/mipmap-anydpi-v26/ic_launcher.xml
+IDEA additional info:
+Subsystem: com.intellij.openapi.diff.impl.patch.CharsetEP
+<+>UTF-8
+===================================================================
+diff --git a/app/src/main/res/mipmap-anydpi-v26/ic_launcher.xml b/app/src/main/res/mipmap-anydpi-v26/ic_launcher.xml
+new file mode 100644
+--- /dev/null	(date 1700059744861)
++++ b/app/src/main/res/mipmap-anydpi-v26/ic_launcher.xml	(date 1700059744861)
+@@ -0,0 +1,5 @@
++<?xml version="1.0" encoding="utf-8"?>
++<adaptive-icon xmlns:android="http://schemas.android.com/apk/res/android">
++    <background android:drawable="@color/app_icon_background"/>
++    <foreground android:drawable="@mipmap/app_icon"/>
++</adaptive-icon>
+\ No newline at end of file
+Index: app/src/main/res/mipmap-anydpi-v26/ic_launcher_round.xml
+IDEA additional info:
+Subsystem: com.intellij.openapi.diff.impl.patch.CharsetEP
+<+>UTF-8
+===================================================================
+diff --git a/app/src/main/res/mipmap-anydpi-v26/ic_launcher_round.xml b/app/src/main/res/mipmap-anydpi-v26/ic_launcher_round.xml
+new file mode 100644
+--- /dev/null	(date 1700059744862)
++++ b/app/src/main/res/mipmap-anydpi-v26/ic_launcher_round.xml	(date 1700059744862)
+@@ -0,0 +1,5 @@
++<?xml version="1.0" encoding="utf-8"?>
++<adaptive-icon xmlns:android="http://schemas.android.com/apk/res/android">
++    <background android:drawable="@color/app_icon_background"/>
++    <foreground android:drawable="@mipmap/app_icon"/>
++</adaptive-icon>
+\ No newline at end of file
+Index: app/src/main/res/layout/activity_home.xml
+IDEA additional info:
+Subsystem: com.intellij.openapi.diff.impl.patch.CharsetEP
+<+>UTF-8
+===================================================================
+diff --git a/app/src/main/res/layout/activity_home.xml b/app/src/main/res/layout/activity_home.xml
+new file mode 100644
+--- /dev/null	(date 1700059744845)
++++ b/app/src/main/res/layout/activity_home.xml	(date 1700059744845)
+@@ -0,0 +1,44 @@
++<?xml version="1.0" encoding="utf-8"?>
++<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
++    xmlns:app="http://schemas.android.com/apk/res-auto"
++    xmlns:tools="http://schemas.android.com/tools"
++    android:layout_width="match_parent"
++    android:layout_height="match_parent"
++    tools:context=".view.home.HomeActivity">
++
++    <androidx.appcompat.widget.Toolbar
++        android:id="@+id/toolbar"
++        android:layout_width="match_parent"
++        android:layout_height="?attr/actionBarSize"
++        android:background="#4A5BB6"
++        android:elevation="4dp"
++        android:popupTheme="@style/ThemeOverlay.AppCompat.Light"
++        android:theme="@style/Toolbar"
++        app:layout_constraintStart_toStartOf="parent"
++        app:layout_constraintTop_toTopOf="parent" />
++
++
++    <androidx.fragment.app.FragmentContainerView
++        android:id="@+id/nav_host_fragment"
++        android:name="androidx.navigation.fragment.NavHostFragment"
++
++        android:layout_width="match_parent"
++        android:layout_height="wrap_content"
++        app:layout_constraintLeft_toLeftOf="parent"
++        app:layout_constraintRight_toRightOf="parent"
++        app:layout_constraintBottom_toTopOf="@+id/bottom_navigation"
++        app:layout_constraintTop_toBottomOf="@+id/toolbar"
++        app:layout_constraintVertical_bias="0.0"
++
++        app:defaultNavHost="true"
++        app:navGraph="@navigation/home_graphnav"/>
++
++
++    <com.google.android.material.bottomnavigation.BottomNavigationView
++        android:id="@+id/bottom_navigation"
++        android:layout_width="match_parent"
++        android:layout_height="wrap_content"
++        app:layout_constraintBottom_toBottomOf="parent"
++        app:menu="@menu/bottom_menu" />
++
++</androidx.constraintlayout.widget.ConstraintLayout>
+\ No newline at end of file
+Index: app/src/main/res/xml/data_extraction_rules.xml
+IDEA additional info:
+Subsystem: com.intellij.openapi.diff.impl.patch.CharsetEP
+<+>UTF-8
+===================================================================
+diff --git a/app/src/main/res/xml/data_extraction_rules.xml b/app/src/main/res/xml/data_extraction_rules.xml
+new file mode 100644
+--- /dev/null	(date 1700059744884)
++++ b/app/src/main/res/xml/data_extraction_rules.xml	(date 1700059744884)
+@@ -0,0 +1,19 @@
++<?xml version="1.0" encoding="utf-8"?><!--
++   Sample data extraction rules file; uncomment and customize as necessary.
++   See https://developer.android.com/about/versions/12/backup-restore#xml-changes
++   for details.
++-->
++<data-extraction-rules>
++    <cloud-backup>
++        <!-- TODO: Use <include> and <exclude> to control what is backed up.
++        <include .../>
++        <exclude .../>
++        -->
++    </cloud-backup>
++    <!--
++    <device-transfer>
++        <include .../>
++        <exclude .../>
++    </device-transfer>
++    -->
++</data-extraction-rules>
+\ No newline at end of file
+Index: app/src/main/AndroidManifest.xml
+IDEA additional info:
+Subsystem: com.intellij.openapi.diff.impl.patch.CharsetEP
+<+>UTF-8
+===================================================================
+diff --git a/app/src/main/AndroidManifest.xml b/app/src/main/AndroidManifest.xml
+new file mode 100644
+--- /dev/null	(date 1700670334272)
++++ b/app/src/main/AndroidManifest.xml	(date 1700670334272)
+@@ -0,0 +1,34 @@
++<?xml version="1.0" encoding="utf-8"?>
++<manifest xmlns:android="http://schemas.android.com/apk/res/android"
++    xmlns:tools="http://schemas.android.com/tools">
++
++    <uses-permission android:name="android.permission.INTERNET" />
++
++    <application
++        android:allowBackup="true"
++        android:dataExtractionRules="@xml/data_extraction_rules"
++        android:fullBackupContent="@xml/backup_rules"
++        android:icon="@mipmap/ic_launcher"
++        android:label="@string/app_name"
++        android:roundIcon="@mipmap/ic_launcher_round"
++        android:supportsRtl="true"
++        android:theme="@style/Theme.GePeTo"
++        tools:targetApi="31">
++        <activity
++            android:name=".view.LoginActivity"
++            android:exported="false" />
++        <activity
++            android:name=".view.home.HomeActivity"
++            android:exported="true">
++            <intent-filter>
++                <action android:name="android.intent.action.MAIN" />
++
++                <category android:name="android.intent.category.LAUNCHER" />
++            </intent-filter>
++        </activity>
++        <activity
++            android:name=".view.JoinActivity"
++            android:exported="false" />
++    </application>
++
++</manifest>
+\ No newline at end of file
+Index: app/src/main/res/drawable/recipe_book.xml
+IDEA additional info:
+Subsystem: com.intellij.openapi.diff.impl.patch.CharsetEP
+<+>UTF-8
+===================================================================
+diff --git a/app/src/main/res/drawable/recipe_book.xml b/app/src/main/res/drawable/recipe_book.xml
+new file mode 100644
+--- /dev/null	(date 1700255613773)
++++ b/app/src/main/res/drawable/recipe_book.xml	(date 1700255613773)
+@@ -0,0 +1,11 @@
++<vector xmlns:android="http://schemas.android.com/apk/res/android"
++    android:width="800dp"
++    android:height="800dp"
++    android:viewportWidth="346.23"
++    android:viewportHeight="346.23">
++  <path
++      android:pathData="M48.93,8v289.38c0,4.42 -3.58,8 -8,8c-4.42,0 -8,-3.58 -8,-8V8c0,-4.42 3.58,-8 8,-8C45.35,0 48.93,3.58 48.93,8zM313.3,13.25v278.88c0,4.42 -3.58,8 -8,8H157.68v38.1c0,2.71 -1.37,5.24 -3.65,6.71c-2.27,1.48 -5.14,1.7 -7.61,0.59l-19.78,-8.83l-19.8,8.83c-1.04,0.46 -2.15,0.69 -3.26,0.69c-1.52,0 -3.04,-0.44 -4.36,-1.29c-2.27,-1.48 -3.64,-4 -3.64,-6.71v-38.1H72.9c-4.42,0 -8,-3.58 -8,-8V13.25c0,-4.42 3.58,-8 8,-8h232.4C309.72,5.25 313.3,8.83 313.3,13.25zM141.68,300.13h-30.1v25.77l11.8,-5.26c2.07,-0.93 4.44,-0.93 6.52,0l11.78,5.26V300.13zM297.3,21.25H80.9v262.88h68.78h147.62V21.25zM118.63,138.66c0,-17.12 13.93,-31.05 31.05,-31.05c2.76,0 5.48,0.36 8.11,1.07c5.42,-9.37 15.48,-15.39 26.85,-15.39c11.16,0 21.32,6.12 26.8,15.4c2.64,-0.72 5.38,-1.09 8.16,-1.09c17.12,0 31.05,13.93 31.05,31.05c0,17.12 -13.93,31.05 -31.05,31.05c-0.65,0 -1.29,-0.02 -1.94,-0.06v34.44c0,4.42 -3.58,8 -8,8h-50.03c-4.42,0 -8,-3.58 -8,-8v-34.44c-0.64,0.04 -1.29,0.06 -1.94,0.06C132.56,169.71 118.63,155.78 118.63,138.66zM134.63,138.66c0,8.3 6.75,15.05 15.05,15.05c2.28,0 4.46,-0.49 6.48,-1.46c2.48,-1.19 5.39,-1.02 7.72,0.44c2.33,1.47 3.74,4.02 3.74,6.77v36.63h34.03v-36.63c0,-2.75 1.41,-5.3 3.74,-6.77c2.33,-1.46 5.24,-1.63 7.72,-0.44c2.03,0.97 4.2,1.46 6.48,1.46c8.3,0 15.05,-6.75 15.05,-15.05s-6.75,-15.05 -15.05,-15.05c-2.9,0 -5.71,0.82 -8.14,2.38c-2.2,1.42 -4.95,1.67 -7.37,0.68c-2.42,-0.99 -4.2,-3.1 -4.77,-5.65c-1.52,-6.8 -7.7,-11.73 -14.68,-11.73c-6.98,0 -13.16,4.93 -14.68,11.73c-0.57,2.55 -2.36,4.66 -4.77,5.65c-2.42,0.99 -5.17,0.74 -7.36,-0.68c-2.42,-1.56 -5.24,-2.38 -8.14,-2.38C141.38,123.61 134.63,130.36 134.63,138.66z"
++      android:strokeWidth="3.8085189999999995"
++      android:fillColor="#000000"
++      android:strokeColor="#000000"/>
++</vector>
+Index: build.gradle.kts
+IDEA additional info:
+Subsystem: com.intellij.openapi.diff.impl.patch.CharsetEP
+<+>UTF-8
+===================================================================
+diff --git a/build.gradle.kts b/build.gradle.kts
+new file mode 100644
+--- /dev/null	(date 1700669947283)
++++ b/build.gradle.kts	(date 1700669947283)
+@@ -0,0 +1,7 @@
++// Top-level build file where you can add configuration options common to all sub-projects/modules.
++plugins {
++    id("com.android.application") version "8.1.4" apply false
++    id("org.jetbrains.kotlin.android") version "1.9.0" apply false
++    id("androidx.navigation.safeargs.kotlin") version "2.5.3" apply false
++    id("com.google.devtools.ksp") version "1.9.10-1.0.13" apply false
++}
+\ No newline at end of file
+Index: app/src/main/res/layout/fragment_lista.xml
+IDEA additional info:
+Subsystem: com.intellij.openapi.diff.impl.patch.CharsetEP
+<+>UTF-8
+===================================================================
+diff --git a/app/src/main/res/layout/fragment_lista.xml b/app/src/main/res/layout/fragment_lista.xml
+new file mode 100644
+--- /dev/null	(date 1700059744851)
++++ b/app/src/main/res/layout/fragment_lista.xml	(date 1700059744851)
+@@ -0,0 +1,117 @@
++<?xml version="1.0" encoding="utf-8"?>
++<FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
++    xmlns:tools="http://schemas.android.com/tools"
++    android:layout_width="match_parent"
++    android:layout_height="match_parent"
++    xmlns:app="http://schemas.android.com/apk/res-auto"
++    tools:context=".view.home.ListaFragment">
++
++    <RelativeLayout
++        android:layout_width="match_parent"
++        android:layout_height="wrap_content"
++        tools:ignore="UselessParent">
++
++        <ScrollView
++            android:layout_width="match_parent"
++            android:layout_height="match_parent">
++
++            <androidx.constraintlayout.widget.ConstraintLayout
++                android:layout_width="match_parent"
++                android:layout_height="wrap_content"
++                android:padding="16dp">
++
++                <TextView
++                    android:id="@+id/ingredientes_seleccionados"
++                    android:layout_width="match_parent"
++                    android:layout_height="wrap_content"
++                    android:text="@string/ingredientes_seleccionados"
++
++                    app:layout_constraintTop_toTopOf="parent"
++
++                    android:paddingTop="80dp"
++
++                    android:textColor="#3F51B5"
++                    android:textSize="22sp"
++                    android:textStyle="bold"
++                    tools:text="Buscar ingredientes:" />
++
++                <androidx.recyclerview.widget.RecyclerView
++                    android:id="@+id/rvIngredientesSeleccionados"
++                    android:layout_width="match_parent"
++                    android:layout_height="wrap_content"
++                    app:layout_constraintEnd_toEndOf="parent"
++                    app:layout_constraintStart_toStartOf="parent"
++                    app:layout_constraintTop_toBottomOf="@id/ingredientes_seleccionados"
++                    android:paddingTop="10dp" >
++
++
++                </androidx.recyclerview.widget.RecyclerView>
++
++                <TextView
++                    android:id="@+id/todos_los_ingredientes"
++                    android:layout_width="match_parent"
++                    android:layout_height="wrap_content"
++                    android:text="@string/todos_los_ingredientes"
++
++                    app:layout_constraintTop_toBottomOf="@+id/rvIngredientesSeleccionados"
++                    android:paddingTop="20dp"
++
++                    android:textColor="#3F51B5"
++                    android:textSize="22sp"
++                    android:textStyle="bold"
++                    tools:text="Buscar ingredientes:" />
++
++                <androidx.recyclerview.widget.RecyclerView
++                    android:id="@+id/rvTodosIngredientes"
++                    android:layout_width="match_parent"
++                    android:layout_height="wrap_content"
++                    android:paddingBottom="150dp"
++                    app:layout_constraintTop_toBottomOf="@id/todos_los_ingredientes">
++
++
++                </androidx.recyclerview.widget.RecyclerView>
++
++            </androidx.constraintlayout.widget.ConstraintLayout>
++
++
++        </ScrollView>
++
++        <LinearLayout
++            android:id="@+id/buscador_container"
++            android:layout_width="match_parent"
++            android:layout_height="wrap_content"
++            android:orientation="vertical"
++            android:paddingStart="16dp"
++            android:paddingEnd="16dp"
++            android:paddingTop="4dp"
++            android:background="@color/white" >
++
++            <TextView
++                android:id="@+id/buscar_ingrediente"
++                android:layout_width="match_parent"
++                android:layout_height="wrap_content"
++                android:text="@string/buscar_ingrediente"
++                android:textColor="@color/title_color"
++                android:textSize="22sp"
++                android:textStyle="bold"
++
++                app:layout_constraintTop_toTopOf="parent"
++
++                tools:text="Buscar ingredientes:" />
++
++            <EditText
++                android:id="@+id/buscador_de_ingredientes"
++                style="@style/Widget.AppCompat.EditText"
++                android:layout_width="match_parent"
++                android:layout_height="wrap_content"
++
++                android:ems="10"
++
++                android:hint="Macarrones"
++                android:inputType="text"
++                android:textSize="22sp"
++                app:layout_constraintTop_toBottomOf="@+id/buscar_ingrediente" />
++
++        </LinearLayout>
++    </RelativeLayout>
++</FrameLayout>
+\ No newline at end of file
+Index: app/src/main/res/layout/activity_login.xml
+IDEA additional info:
+Subsystem: com.intellij.openapi.diff.impl.patch.CharsetEP
+<+>UTF-8
+===================================================================
+diff --git a/app/src/main/res/layout/activity_login.xml b/app/src/main/res/layout/activity_login.xml
+new file mode 100644
+--- /dev/null	(date 1700668423642)
++++ b/app/src/main/res/layout/activity_login.xml	(date 1700668423642)
+@@ -0,0 +1,168 @@
++<?xml version="1.0" encoding="utf-8"?>
++<ScrollView
++    xmlns:android="http://schemas.android.com/apk/res/android"
++    xmlns:app="http://schemas.android.com/apk/res-auto"
++    xmlns:tools="http://schemas.android.com/tools"
++    android:layout_width="match_parent"
++    android:layout_height="match_parent">
++
++    <androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
++    xmlns:app="http://schemas.android.com/apk/res-auto"
++    xmlns:tools="http://schemas.android.com/tools"
++    android:layout_width="match_parent"
++    android:layout_height="match_parent">
++
++    <ImageView
++        android:id="@+id/titulo"
++        android:layout_width="419dp"
++        android:layout_height="225dp"
++        android:scaleType="centerCrop"
++        android:src="@drawable/background_login"
++        app:layout_constraintEnd_toEndOf="parent"
++        app:layout_constraintHorizontal_bias="1.0"
++        app:layout_constraintStart_toStartOf="parent"
++        app:layout_constraintTop_toTopOf="parent" />
++
++    <TextView
++        android:id="@+id/textView"
++        android:layout_width="wrap_content"
++        android:layout_height="wrap_content"
++        android:layout_marginStart="12dp"
++        android:layout_marginTop="28dp"
++        android:text="@string/titulo"
++        android:textAlignment="center"
++        android:textSize="35sp"
++        android:textStyle="bold"
++        app:layout_constraintStart_toStartOf="parent"
++        app:layout_constraintTop_toTopOf="parent" />
++
++    <TextView
++        android:id="@+id/textView6"
++        android:layout_width="wrap_content"
++        android:layout_height="wrap_content"
++        android:layout_marginStart="104dp"
++        android:layout_marginTop="200dp"
++        android:text="@string/login"
++        android:textColor="@color/black"
++        android:textAlignment="center"
++        android:textSize="35sp"
++        android:textStyle="bold"
++        app:layout_constraintStart_toStartOf="parent"
++        app:layout_constraintTop_toTopOf="parent" />
++
++    <LinearLayout
++        android:layout_width="match_parent"
++        android:layout_height="500dp"
++        android:orientation="vertical"
++        android:padding="32dp"
++        app:layout_constraintBottom_toBottomOf="parent"
++        app:layout_constraintTop_toBottomOf="@+id/titulo">
++
++        <TextView
++            android:id="@+id/tv_username"
++            android:layout_width="match_parent"
++            android:layout_height="wrap_content"
++            android:text="@string/user_txt"
++            android:textColor="@color/black"
++            android:textSize="20sp"
++            android:textStyle="bold" />
++
++        <EditText
++            android:id="@+id/et_username"
++            android:layout_width="match_parent"
++            android:layout_height="50dp"
++            android:ems="10"
++            android:padding="12dp"
++            android:layout_marginTop="10dp"
++            android:background="@drawable/edittext_background"
++            android:inputType="textEmailAddress"
++            android:textColor="@color/gray"
++            android:hint="@string/introduce_tu_usuario"/>
++
++        <TextView
++            android:id="@+id/tv_password"
++            android:layout_width="match_parent"
++            android:layout_height="wrap_content"
++            android:layout_marginTop="32dp"
++            android:text="@string/pwd_txt"
++            android:textColor="@color/black"
++            android:textSize="20sp"
++            android:textStyle="bold" />
++
++        <EditText
++            android:id="@+id/et_password"
++            android:layout_width="match_parent"
++            android:layout_height="50dp"
++            android:ems="10"
++            android:padding="12dp"
++            android:layout_marginTop="10dp"
++            android:background="@drawable/edittext_background"
++            android:inputType="textPassword"
++            android:textColor="@color/gray"
++            android:hint="@string/introduce_tu_contraseña"
++            android:autofillHints="" />
++
++
++
++        <LinearLayout
++            android:layout_width="match_parent"
++            android:layout_height="wrap_content"
++            android:orientation="horizontal"
++            android:layout_marginTop="20dp"
++            android:gravity="center">
++
++            <Button
++                android:id="@+id/bt_login"
++                android:layout_width="150dp"
++                android:layout_height="wrap_content"
++                android:backgroundTint="#87cedb"
++                android:text="@string/tv_login"
++                android:textAllCaps="false"
++                android:textColor="#2A2929"
++                android:textSize="20sp"
++                style="?android:attr/buttonBarButtonStyle" />
++
++            <Button
++                android:id="@+id/bt_register"
++                android:layout_width="150dp"
++                android:layout_height="wrap_content"
++                android:layout_marginStart="8dp"
++                android:backgroundTint="#fab30b"
++                android:text="@string/register"
++                android:textAllCaps="false"
++                android:textColor="#2A2929"
++                android:textSize="20sp"
++                style="?android:attr/buttonBarButtonStyle" />
++
++
++        </LinearLayout>
++        <TextView
++            android:id="@+id/textView2"
++            android:layout_width="match_parent"
++            android:layout_height="wrap_content"
++            android:text="@string/recuperar_password"
++            android:textSize="15sp"
++            android:textAlignment="center"
++            android:layout_marginTop="25dp"/>
++
++        <LinearLayout
++            android:layout_width="match_parent"
++            android:layout_height="wrap_content"
++            android:orientation="horizontal"
++
++            android:gravity="center">
++
++            <Button
++                android:id="@+id/bt_restore"
++                android:layout_width="150dp"
++                android:layout_height="wrap_content"
++                android:backgroundTint="#bfbf73"
++                android:text="@string/recuperar"
++                android:textAllCaps="false"
++                android:textColor="#2A2929"
++                android:textSize="20sp" />
++
++        </LinearLayout>
++    </LinearLayout>
++</androidx.constraintlayout.widget.ConstraintLayout>
++</ScrollView>
+\ No newline at end of file
+Index: app/src/main/res/layout/fragment_equipamiento.xml
+IDEA additional info:
+Subsystem: com.intellij.openapi.diff.impl.patch.CharsetEP
+<+>UTF-8
+===================================================================
+diff --git a/app/src/main/res/layout/fragment_equipamiento.xml b/app/src/main/res/layout/fragment_equipamiento.xml
+new file mode 100644
+--- /dev/null	(date 1700059744848)
++++ b/app/src/main/res/layout/fragment_equipamiento.xml	(date 1700059744848)
+@@ -0,0 +1,117 @@
++<?xml version="1.0" encoding="utf-8"?>
++<FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
++    xmlns:tools="http://schemas.android.com/tools"
++    android:layout_width="match_parent"
++    android:layout_height="match_parent"
++    xmlns:app="http://schemas.android.com/apk/res-auto"
++    tools:context=".view.home.EquipamientoFragment">
++
++    <RelativeLayout
++        android:layout_width="match_parent"
++        android:layout_height="wrap_content"
++        tools:ignore="UselessParent">
++
++        <ScrollView
++            android:layout_width="match_parent"
++            android:layout_height="match_parent">
++
++            <androidx.constraintlayout.widget.ConstraintLayout
++                android:layout_width="match_parent"
++                android:layout_height="wrap_content"
++                android:padding="16dp">
++
++                <TextView
++                    android:id="@+id/equipamientos_seleccionados"
++                    android:layout_width="match_parent"
++                    android:layout_height="wrap_content"
++                    android:text="@string/equipamientos_seleccionados"
++
++                    app:layout_constraintTop_toTopOf="parent"
++
++                    android:paddingTop="80dp"
++
++                    android:textColor="#3F51B5"
++                    android:textSize="22sp"
++                    android:textStyle="bold"
++                    tools:text="Buscar equipamientos:" />
++
++
++                <androidx.recyclerview.widget.RecyclerView
++                    android:id="@+id/rvEquipamientosSeleccionados"
++                    android:layout_width="match_parent"
++                    android:layout_height="wrap_content"
++                    app:layout_constraintEnd_toEndOf="parent"
++                    app:layout_constraintStart_toStartOf="parent"
++                    app:layout_constraintTop_toBottomOf="@id/equipamientos_seleccionados" >
++
++                </androidx.recyclerview.widget.RecyclerView>
++
++
++                <TextView
++                    android:id="@+id/todos_los_equipamientos"
++                    android:layout_width="match_parent"
++                    android:layout_height="wrap_content"
++                    android:text="@string/todos_los_equipamientos"
++
++                    app:layout_constraintTop_toBottomOf="@+id/rvEquipamientosSeleccionados"
++                    android:paddingTop="20dp"
++                    android:paddingBottom="10dp"
++
++                    android:textColor="#3F51B5"
++                    android:textSize="22sp"
++                    android:textStyle="bold"
++                    tools:text="Buscar equipamientos:" />
++
++                <androidx.recyclerview.widget.RecyclerView
++                    android:id="@+id/rvTodosEquipamientos"
++                    android:layout_width="match_parent"
++                    android:layout_height="wrap_content"
++                    android:paddingBottom="150dp"
++                    app:layout_constraintTop_toBottomOf="@id/todos_los_equipamientos">
++
++
++                </androidx.recyclerview.widget.RecyclerView>
++
++            </androidx.constraintlayout.widget.ConstraintLayout>
++
++
++        </ScrollView>
++
++        <LinearLayout
++            android:id="@+id/buscador_container"
++            android:layout_width="match_parent"
++            android:layout_height="wrap_content"
++            android:orientation="vertical"
++            android:paddingStart="16dp"
++            android:paddingEnd="16dp"
++            android:paddingTop="4dp"
++            android:background="@color/white" >
++
++            <TextView
++                android:id="@+id/buscar_equipamiento"
++                android:layout_width="match_parent"
++                android:layout_height="wrap_content"
++                android:text="@string/buscar_equipamiento"
++                android:textColor="@color/title_color"
++                android:textSize="22sp"
++                android:textStyle="bold"
++
++                tools:text="Buscar equipamientos:" />
++
++            <EditText
++                android:id="@+id/buscador_de_equipamientos"
++                style="@style/Widget.AppCompat.EditText"
++                android:layout_width="match_parent"
++                android:layout_height="wrap_content"
++
++                android:ems="10"
++
++                android:hint="Microondas"
++                android:inputType="text"
++                android:textSize="22sp" />
++
++        </LinearLayout>
++
++    </RelativeLayout>
++
++</FrameLayout>
+\ No newline at end of file
+Index: app/src/main/res/layout/fragment_receta_detail.xml
+IDEA additional info:
+Subsystem: com.intellij.openapi.diff.impl.patch.CharsetEP
+<+>UTF-8
+===================================================================
+diff --git a/app/src/main/res/layout/fragment_receta_detail.xml b/app/src/main/res/layout/fragment_receta_detail.xml
+new file mode 100644
+--- /dev/null	(date 1700059744854)
++++ b/app/src/main/res/layout/fragment_receta_detail.xml	(date 1700059744854)
+@@ -0,0 +1,99 @@
++<?xml version="1.0" encoding="utf-8"?>
++<ScrollView
++    xmlns:android="http://schemas.android.com/apk/res/android"
++    xmlns:tools="http://schemas.android.com/tools"
++    android:layout_width="match_parent"
++    android:layout_height="wrap_content"
++    android:paddingBottom="55dp">
++
++    <LinearLayout
++
++        android:layout_width="match_parent"
++        android:layout_height="match_parent"
++        android:orientation="vertical"
++        android:layout_margin="2dp"
++        android:elevation="20dp"
++        android:background="@drawable/rounded_elevated_background"
++        tools:ignore="UselessParent">
++
++
++        <RelativeLayout
++            android:layout_width="match_parent"
++            android:layout_height="match_parent">
++
++            <ImageView
++                android:id="@+id/receta_detalle_imagen"
++                android:layout_width="match_parent"
++                android:layout_height="250dp"
++                android:scaleType="centerCrop"
++                android:contentDescription="@string/preview_de_la_receta" />
++
++            <ImageView
++                android:id="@+id/receta_detalle_favorita"
++                android:layout_width="48dp"
++                android:layout_height="48dp"
++                android:layout_alignParentTop="true"
++                android:layout_alignParentEnd="true"
++                android:background="@android:color/transparent"
++                android:src="@drawable/heart_button_selector"
++                android:contentDescription="@string/me_gusta_alt_label" />
++
++        </RelativeLayout>
++
++
++        <TextView
++            android:id="@+id/receta_detalle_nombre"
++            android:layout_width="wrap_content"
++            android:layout_height="wrap_content"
++            android:padding="16dp"
++            android:textSize="24sp"
++            android:textStyle="bold"/>
++
++        <View
++            android:layout_width="match_parent"
++            android:layout_height="1dp"
++            android:background="#CCCCCC"
++            android:layout_marginTop="8dp"
++            android:layout_marginBottom="8dp" />
++
++
++        <TextView
++            android:id="@+id/receta_detalle_ingredientes"
++            android:layout_width="match_parent"
++            android:layout_height="wrap_content"
++            android:padding="16dp"
++            android:textSize="18sp"
++            android:elevation="8dp"/>
++
++        <View
++            android:layout_width="match_parent"
++            android:layout_height="1dp"
++            android:background="#CCCCCC"
++            android:layout_marginTop="8dp"
++            android:layout_marginBottom="8dp" />
++
++            <TextView
++                android:id="@+id/receta_detalle_equipamientos"
++                android:layout_width="match_parent"
++                android:layout_height="wrap_content"
++                android:padding="16dp"
++                android:textSize="18sp"
++                android:background="@drawable/rounded_elevated_background"/>
++        <View
++            android:layout_width="match_parent"
++            android:layout_height="1dp"
++            android:background="#CCCCCC"
++            android:layout_marginTop="8dp"
++            android:layout_marginBottom="8dp"
++            />
++
++            <TextView
++                android:id="@+id/receta_detalle_descripcion"
++                android:layout_width="match_parent"
++                android:layout_height="wrap_content"
++                android:padding="16dp"
++                android:textSize="18sp"
++                android:background="@drawable/rounded_elevated_background"/>
++    </LinearLayout>
++
++</ScrollView>
+\ No newline at end of file
+Index: app/src/main/java/es/unex/giis/asee/gepeto/model/Receta.kt
+IDEA additional info:
+Subsystem: com.intellij.openapi.diff.impl.patch.CharsetEP
+<+>UTF-8
+===================================================================
+diff --git a/app/src/main/java/es/unex/giis/asee/gepeto/model/Receta.kt b/app/src/main/java/es/unex/giis/asee/gepeto/model/Receta.kt
+new file mode 100644
+--- /dev/null	(date 1700670164004)
++++ b/app/src/main/java/es/unex/giis/asee/gepeto/model/Receta.kt	(date 1700670164004)
+@@ -0,0 +1,7 @@
++package es.unex.giis.asee.gepeto.model
++
++import java.io.Serializable
++
++data class Receta(
++    val nombre: String
++) : Serializable {}
+Index: app/src/main/res/layout/fragment_favoritas.xml
+IDEA additional info:
+Subsystem: com.intellij.openapi.diff.impl.patch.CharsetEP
+<+>UTF-8
+===================================================================
+diff --git a/app/src/main/res/layout/fragment_favoritas.xml b/app/src/main/res/layout/fragment_favoritas.xml
+new file mode 100644
+--- /dev/null	(date 1700668423643)
++++ b/app/src/main/res/layout/fragment_favoritas.xml	(date 1700668423643)
+@@ -0,0 +1,52 @@
++<?xml version="1.0" encoding="utf-8"?>
++<androidx.constraintlayout.widget.ConstraintLayout
++    xmlns:android="http://schemas.android.com/apk/res/android"
++    xmlns:tools="http://schemas.android.com/tools"
++    xmlns:app="http://schemas.android.com/apk/res-auto"
++    android:layout_width="match_parent"
++    android:layout_height="match_parent"
++    android:paddingTop="50dp"
++    android:paddingBottom="150dp"
++    tools:context=".view.home.recetas.FavoritasFragment">
++
++    <RelativeLayout
++        android:layout_width="match_parent"
++        android:layout_height="wrap_content"
++        tools:ignore="MissingConstraints">
++
++        <TextView
++            android:id="@+id/no_hay_favoritas"
++            android:layout_width="match_parent"
++            android:layout_height="wrap_content"
++            app:layout_constraintBottom_toBottomOf="parent"
++            app:layout_constraintEnd_toEndOf="parent"
++            app:layout_constraintStart_toStartOf="parent"
++            app:layout_constraintTop_toTopOf="parent"
++            android:text="@string/no_hay_favortias"
++            android:textSize="24sp"
++            android:visibility="gone"
++            android:textAlignment="center"
++            android:layout_marginTop="20dp"
++            android:textColor="@color/gray"
++            />
++
++        <ProgressBar
++            android:id="@+id/spinner"
++            android:layout_width="50dp"
++            android:layout_height="50dp"
++            android:visibility="visible"
++            android:layout_centerHorizontal="true"
++            android:layout_marginTop="20dp"/>
++
++        <androidx.recyclerview.widget.RecyclerView
++            android:id="@+id/rv_favoritas_list"
++            android:layout_width="match_parent"
++            android:layout_height="match_parent"
++            app:layout_constraintBottom_toBottomOf="parent"
++            app:layout_constraintEnd_toEndOf="parent"
++            app:layout_constraintStart_toStartOf="parent"
++            app:layout_constraintTop_toTopOf="parent" />
++
++    </RelativeLayout>
++
++</androidx.constraintlayout.widget.ConstraintLayout>
+\ No newline at end of file
+Index: app/src/main/res/layout/receta_item_list.xml
+IDEA additional info:
+Subsystem: com.intellij.openapi.diff.impl.patch.CharsetEP
+<+>UTF-8
+===================================================================
+diff --git a/app/src/main/res/layout/receta_item_list.xml b/app/src/main/res/layout/receta_item_list.xml
+new file mode 100644
+--- /dev/null	(date 1700251003205)
++++ b/app/src/main/res/layout/receta_item_list.xml	(date 1700251003205)
+@@ -0,0 +1,66 @@
++<?xml version="1.0" encoding="utf-8"?>
++<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
++    android:id="@+id/cl_item"
++    android:layout_width="match_parent"
++    android:layout_height="wrap_content"
++    xmlns:app="http://schemas.android.com/apk/res-auto">
++
++    <androidx.cardview.widget.CardView
++        android:id="@+id/cv_Item"
++        android:layout_width="match_parent"
++        android:layout_height="wrap_content"
++        app:cardCornerRadius="16dp"
++        android:layout_margin="5dp"
++        android:elevation="10dp"
++        app:layout_constraintTop_toTopOf="parent"
++        app:layout_constraintStart_toStartOf="parent">
++
++        <androidx.constraintlayout.widget.ConstraintLayout
++
++            android:layout_width="match_parent"
++            android:layout_height="match_parent"
++            android:backgroundTintMode="screen">
++
++            <ImageView
++                android:id="@+id/receta_img"
++                android:layout_width="120dp"
++                android:layout_height="120dp"
++                android:contentDescription="previsualizacion receta"
++                android:scaleType="centerCrop"
++                android:src="@drawable/ejemplo_plato"
++                app:layout_constraintStart_toStartOf="parent"
++                app:layout_constraintTop_toTopOf="parent" />
++
++            <TextView
++                android:id="@+id/receta_nombre"
++                android:layout_width="wrap_content"
++                android:layout_height="0dp"
++                app:layout_constraintHeight_percent="0.24"
++                android:layout_marginStart="5dp"
++                android:layout_marginTop="4dp"
++                android:text="Nombre de la receta"
++                android:textAppearance="@style/TextAppearance.AppCompat.Large"
++                app:layout_constraintStart_toEndOf="@id/receta_img"
++                app:layout_constraintTop_toTopOf="@id/receta_img" />
++
++            <TextView
++                android:id="@+id/receta_ingredientes"
++                android:layout_width="0dp"
++                android:layout_height="0dp"
++                app:layout_constraintHeight_percent="0.76"
++                android:layout_marginTop="8dp"
++                android:text="Ingredientes"
++                android:textSize="20sp"
++                android:breakStrategy="balanced"
++                android:maxLines="3"
++                android:ellipsize="end"
++                app:layout_constraintStart_toEndOf="@+id/receta_img"
++                app:layout_constraintEnd_toEndOf="parent"
++                app:layout_constraintTop_toBottomOf="@+id/receta_nombre"/>
++
++        </androidx.constraintlayout.widget.ConstraintLayout>
++    </androidx.cardview.widget.CardView>
++
++
++
++</androidx.constraintlayout.widget.ConstraintLayout>
+\ No newline at end of file
+Index: app/src/main/res/layout/fragment_ingredientes.xml
+IDEA additional info:
+Subsystem: com.intellij.openapi.diff.impl.patch.CharsetEP
+<+>UTF-8
+===================================================================
+diff --git a/app/src/main/res/layout/fragment_ingredientes.xml b/app/src/main/res/layout/fragment_ingredientes.xml
+new file mode 100644
+--- /dev/null	(date 1700257048943)
++++ b/app/src/main/res/layout/fragment_ingredientes.xml	(date 1700257048943)
+@@ -0,0 +1,153 @@
++<?xml version="1.0" encoding="utf-8"?>
++<FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
++    xmlns:tools="http://schemas.android.com/tools"
++    android:layout_width="match_parent"
++    android:layout_height="match_parent"
++    xmlns:app="http://schemas.android.com/apk/res-auto"
++    tools:context=".view.home.IngredientesFragment">
++
++    <RelativeLayout
++        android:layout_width="match_parent"
++        android:layout_height="wrap_content"
++        tools:ignore="UselessParent">
++
++        <ScrollView
++            android:layout_width="match_parent"
++            android:layout_height="match_parent">
++
++            <androidx.constraintlayout.widget.ConstraintLayout
++                android:layout_width="match_parent"
++                android:layout_height="wrap_content"
++                android:padding="16dp">
++
++                <TextView
++                    android:id="@+id/ingredientes_seleccionados"
++                    android:layout_width="match_parent"
++                    android:layout_height="wrap_content"
++                    android:text="@string/ingredientes_seleccionados"
++
++                    app:layout_constraintTop_toTopOf="parent"
++
++                    android:paddingTop="100dp"
++
++                    android:textColor="@color/title_color"
++                    android:textSize="22sp"
++                    android:textStyle="bold"
++                    tools:text="Buscar ingredientes:" />
++
++                <androidx.recyclerview.widget.RecyclerView
++                    android:id="@+id/rvIngredientesSeleccionados"
++                    android:layout_width="match_parent"
++                    android:layout_height="wrap_content"
++                    app:layout_constraintEnd_toEndOf="parent"
++                    app:layout_constraintStart_toStartOf="parent"
++                    app:layout_constraintTop_toBottomOf="@id/ingredientes_seleccionados"
++                    android:paddingTop="10dp"
++                    android:maxHeight="200dp"
++                    android:isScrollContainer="true">
++
++
++                </androidx.recyclerview.widget.RecyclerView>
++
++                <TextView
++                    android:id="@+id/todos_los_ingredientes"
++                    android:layout_width="match_parent"
++                    android:layout_height="wrap_content"
++                    android:text="@string/todos_los_ingredientes"
++
++                    app:layout_constraintTop_toBottomOf="@+id/rvIngredientesSeleccionados"
++                    android:paddingTop="20dp"
++
++                    android:textColor="@color/title_color"
++                    android:textSize="22sp"
++                    android:textStyle="bold"
++                    tools:text="Buscar ingredientes:" />
++
++                <androidx.recyclerview.widget.RecyclerView
++                    android:id="@+id/rvTodosIngredientes"
++                    android:layout_width="match_parent"
++                    android:layout_height="wrap_content"
++                    android:paddingBottom="150dp"
++                    app:layout_constraintTop_toBottomOf="@id/todos_los_ingredientes" >
++
++
++                </androidx.recyclerview.widget.RecyclerView>
++
++            </androidx.constraintlayout.widget.ConstraintLayout>
++
++
++        </ScrollView>
++
++
++
++        <LinearLayout
++            android:id="@+id/buscador_container"
++            android:layout_width="match_parent"
++            android:layout_height="wrap_content"
++            android:orientation="vertical"
++            android:paddingStart="16dp"
++            android:paddingEnd="16dp"
++            android:paddingTop="4dp"
++            android:background="@color/white" >
++
++            <TextView
++                android:id="@+id/buscar_ingrediente"
++                android:layout_width="match_parent"
++                android:layout_height="wrap_content"
++                android:text="@string/buscar_ingrediente"
++                android:textColor="@color/title_color"
++                android:textSize="22sp"
++                android:textStyle="bold"
++
++                app:layout_constraintTop_toTopOf="parent"
++
++                tools:text="Buscar ingredientes:" />
++
++            <EditText
++                android:id="@+id/buscador_de_ingredientes"
++                style="@style/Widget.AppCompat.EditText"
++                android:layout_width="match_parent"
++                android:layout_height="wrap_content"
++
++                android:ems="10"
++
++                android:hint="Macarrones"
++                android:inputType="text"
++                android:textSize="22sp"
++                app:layout_constraintTop_toBottomOf="@+id/buscar_ingrediente" />
++
++
++            <TextView
++                android:id="@+id/advertencia_label"
++                android:layout_width="match_parent"
++                android:layout_height="wrap_content"
++
++                app:layout_constraintTop_toBottomOf="@+id/buscador_de_ingredientes"
++
++                android:textSize="18dp"
++                android:textStyle="italic"
++
++                android:layout_marginLeft="4dp"
++
++                android:visibility="gone"
++                android:text = "@string/advertencia_label"
++                android:textColor="@color/red"/>
++
++        </LinearLayout>
++
++        <Button
++            android:id="@+id/btnCrearReceta"
++            android:layout_width="wrap_content"
++            android:layout_height="wrap_content"
++            android:backgroundTint="@color/button_color"
++            android:layout_alignParentEnd="true"
++            android:layout_marginEnd="10dp"
++            android:layout_marginTop="5dp"
++            android:paddingLeft="15dp"
++            android:paddingRight="15dp"
++            android:text="@string/crear_receta_button"
++            android:textSize="19sp"/>
++
++    </RelativeLayout>
++
++</FrameLayout>
+\ No newline at end of file
+Index: app/src/main/res/layout/activity_join.xml
+IDEA additional info:
+Subsystem: com.intellij.openapi.diff.impl.patch.CharsetEP
+<+>UTF-8
+===================================================================
+diff --git a/app/src/main/res/layout/activity_join.xml b/app/src/main/res/layout/activity_join.xml
+new file mode 100644
+--- /dev/null	(date 1700668423641)
++++ b/app/src/main/res/layout/activity_join.xml	(date 1700668423641)
+@@ -0,0 +1,153 @@
++<?xml version="1.0" encoding="utf-8"?>
++<ScrollView
++    xmlns:android="http://schemas.android.com/apk/res/android"
++    xmlns:app="http://schemas.android.com/apk/res-auto"
++    xmlns:tools="http://schemas.android.com/tools"
++    android:layout_width="match_parent"
++    android:layout_height="match_parent">
++
++    <androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
++    xmlns:app="http://schemas.android.com/apk/res-auto"
++    xmlns:tools="http://schemas.android.com/tools"
++    android:layout_width="match_parent"
++    android:layout_height="match_parent">
++
++
++    <ImageView
++        android:id="@+id/titulo"
++        android:layout_width="419dp"
++        android:layout_height="225dp"
++        android:scaleType="centerCrop"
++        android:src="@drawable/background_login"
++        app:layout_constraintEnd_toEndOf="parent"
++        app:layout_constraintHorizontal_bias="1.0"
++        app:layout_constraintStart_toStartOf="parent"
++        app:layout_constraintTop_toTopOf="parent" />
++
++    <TextView
++        android:id="@+id/textView"
++        android:layout_width="wrap_content"
++        android:layout_height="wrap_content"
++        android:layout_marginStart="12dp"
++        android:layout_marginTop="28dp"
++        android:text="@string/titulo"
++        android:textAlignment="center"
++        android:textSize="35sp"
++        android:textStyle="bold"
++        app:layout_constraintStart_toStartOf="parent"
++        app:layout_constraintTop_toTopOf="parent" />
++
++    <TextView
++        android:id="@+id/textView6"
++        android:layout_width="wrap_content"
++        android:layout_height="wrap_content"
++        android:layout_marginStart="104dp"
++        android:layout_marginTop="200dp"
++        android:text="@string/register"
++        android:textColor="@color/black"
++        android:textAlignment="center"
++        android:textSize="35sp"
++        android:textStyle="bold"
++        app:layout_constraintStart_toStartOf="parent"
++        app:layout_constraintTop_toTopOf="parent" />
++
++
++    <LinearLayout
++        android:layout_width="match_parent"
++        android:layout_height="500dp"
++        android:orientation="vertical"
++        android:padding="32dp"
++        app:layout_constraintBottom_toBottomOf="parent"
++        app:layout_constraintTop_toBottomOf="@+id/titulo">
++
++        <TextView
++            android:id="@+id/tv_username"
++            android:layout_width="match_parent"
++            android:layout_height="wrap_content"
++            android:text="@string/user_txt"
++            android:textColor="@color/black"
++            android:textSize="20sp"
++            android:textStyle="bold" />
++
++        <EditText
++            android:id="@+id/et_username"
++            android:layout_width="match_parent"
++            android:layout_height="50dp"
++            android:ems="10"
++            android:padding="12dp"
++            android:layout_marginTop="10dp"
++            android:background="@drawable/edittext_background"
++            android:inputType="textPersonName"
++            android:textColor="@color/gray"
++            android:hint="@string/introduce_tu_usuario"/>
++
++        <TextView
++            android:id="@+id/tv_password"
++            android:layout_width="match_parent"
++            android:layout_height="wrap_content"
++            android:layout_marginTop="32dp"
++            android:text="@string/pwd_txt"
++            android:textColor="@color/black"
++            android:textSize="20sp"
++            android:textStyle="bold" />
++
++        <EditText
++            android:id="@+id/et_password"
++            android:layout_width="match_parent"
++            android:layout_height="50dp"
++            android:ems="10"
++            android:padding="12dp"
++            android:layout_marginTop="10dp"
++            android:background="@drawable/edittext_background"
++            android:inputType="textPassword"
++            android:textColor="@color/gray"
++            android:hint="@string/introduce_tu_contraseña"/>
++
++        <TextView
++            android:id="@+id/tv_repassword"
++            android:layout_width="match_parent"
++            android:layout_height="wrap_content"
++            android:layout_marginTop="32dp"
++            android:text="@string/repeat_password"
++            android:textColor="@color/black"
++            android:textSize="20sp"
++            android:textStyle="bold" />
++
++        <EditText
++            android:id="@+id/et_repassword"
++            android:layout_width="match_parent"
++            android:layout_height="50dp"
++            android:ems="10"
++            android:padding="12dp"
++            android:layout_marginTop="10dp"
++            android:background="@drawable/edittext_background"
++            android:inputType="textPassword"
++            android:textColor="@color/gray"
++            android:hint="@string/repeat_password"/>
++
++        <LinearLayout
++            android:layout_width="match_parent"
++            android:layout_height="wrap_content"
++            android:orientation="horizontal"
++            android:layout_marginTop="20dp"
++            android:gravity="center">
++
++
++            <Button
++                android:id="@+id/bt_register"
++                android:layout_width="200dp"
++                android:layout_height="wrap_content"
++                android:layout_marginStart="8dp"
++                android:layout_marginTop="5dp"
++                android:backgroundTint="#fab30b"
++                android:text="@string/register"
++                android:textAllCaps="false"
++                android:textColor="#2A2929"
++                android:textSize="25sp" />
++
++
++        </LinearLayout>
++
++    </LinearLayout>
++</androidx.constraintlayout.widget.ConstraintLayout>
++</ScrollView>
+\ No newline at end of file
+Index: app/src/main/res/layout/fragment_observaciones.xml
+IDEA additional info:
+Subsystem: com.intellij.openapi.diff.impl.patch.CharsetEP
+<+>UTF-8
+===================================================================
+diff --git a/app/src/main/res/layout/fragment_observaciones.xml b/app/src/main/res/layout/fragment_observaciones.xml
+new file mode 100644
+--- /dev/null	(date 1700059744853)
++++ b/app/src/main/res/layout/fragment_observaciones.xml	(date 1700059744853)
+@@ -0,0 +1,107 @@
++<?xml version="1.0" encoding="utf-8"?>
++<FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
++    xmlns:tools="http://schemas.android.com/tools"
++    android:layout_width="match_parent"
++    android:layout_height="match_parent"
++    tools:context=".view.home.ObservacionesFragment">
++
++    <LinearLayout
++        android:layout_width="match_parent"
++        android:layout_height="match_parent"
++        android:orientation="vertical"
++        android:padding="8dp">
++
++        <TextView
++            android:id="@+id/ingredientes_label"
++            android:layout_width="match_parent"
++            android:layout_height="wrap_content"
++            android:text="Ingredientes seleccionados:"
++            android:textColor="@color/title_color"
++            android:textSize="22dp"
++            android:textStyle="bold"/>
++
++        <TextView
++            android:id="@+id/ingredientes"
++            android:layout_width="match_parent"
++            android:layout_height="wrap_content"
++            android:textStyle="italic"
++            android:textSize="18dp"
++            android:background="@color/todo_label"
++            android:padding="3dp"
++            android:layout_marginTop="10dp"/>
++
++        <TextView
++            android:id="@+id/equipamiento_label"
++            android:layout_width="match_parent"
++            android:layout_height="wrap_content"
++            android:layout_marginTop="10dp"
++            android:text="Equipamiento seleccionados:"
++            android:textColor="@color/title_color"
++            android:textSize="22dp"
++            android:textStyle="bold"/>
++
++        <TextView
++            android:id="@+id/equipamiento"
++            android:layout_width="match_parent"
++            android:layout_height="wrap_content"
++            android:textStyle="italic"
++            android:textSize="18dp"
++            android:background="@color/todo_label"
++            android:padding="3dp"
++            android:layout_marginTop="10dp"/>
++
++        <TextView
++            android:id="@+id/observaciones_label"
++            android:layout_width="match_parent"
++            android:layout_height="wrap_content"
++            android:text="Observaciones:"
++            android:textSize="22dp"
++            android:textColor="@color/title_color"
++            android:textStyle="bold"
++            android:layout_marginTop="20dp"/>
++
++        <EditText
++            android:id="@+id/observaciones_input"
++            android:hint="Sin gluten, sin lactosa..."
++            android:layout_width="match_parent"
++            android:layout_height="wrap_content"
++            android:inputType="text|textMultiLine"
++            android:gravity="top"
++            android:minHeight="100dp"
++            android:maxHeight="300dp"
++            android:autofillHints="gluten, lactosa"
++            android:textSize="18dp"/>
++
++        <LinearLayout
++            android:id="@+id/switch_and_label"
++            android:layout_width="match_parent"
++            android:layout_height="wrap_content"
++            android:orientation="horizontal" >
++
++            <com.google.android.material.switchmaterial.SwitchMaterial
++
++                android:id="@+id/ia_generator_switch"
++                android:layout_width="wrap_content"
++                android:layout_height="wrap_content" />
++
++            <TextView
++                android:id="@+id/switch_label"
++                android:layout_height="match_parent"
++                android:layout_width="wrap_content"
++                android:text="@string/switch_label"
++                android:textSize="18sp"
++                android:layout_marginTop="11dp"/>
++
++        </LinearLayout>
++
++        <Button
++            android:id="@+id/crear_receta_btn"
++            android:layout_width="match_parent"
++            android:layout_height="wrap_content"
++            android:backgroundTint="@color/button_color"
++            android:textSize="22sp"
++            android:text="@string/crear_receta"/>
++
++    </LinearLayout>
++
++</FrameLayout>
+\ No newline at end of file
+Index: app/src/main/res/layout/recycler_todo_item.xml
+IDEA additional info:
+Subsystem: com.intellij.openapi.diff.impl.patch.CharsetEP
+<+>UTF-8
+===================================================================
+diff --git a/app/src/main/res/layout/recycler_todo_item.xml b/app/src/main/res/layout/recycler_todo_item.xml
+new file mode 100644
+--- /dev/null	(date 1700059744856)
++++ b/app/src/main/res/layout/recycler_todo_item.xml	(date 1700059744856)
+@@ -0,0 +1,41 @@
++<?xml version="1.0" encoding="utf-8"?>
++<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
++    android:layout_width="match_parent"
++    android:layout_height="wrap_content"
++    xmlns:app="http://schemas.android.com/apk/res-auto">
++
++    <androidx.cardview.widget.CardView
++        android:id="@+id/cv_todo_item"
++        android:layout_width="match_parent"
++        android:layout_height="wrap_content"
++        app:layout_constraintTop_toTopOf="parent"
++        app:layout_constraintStart_toStartOf="parent"
++        app:cardCornerRadius="20dp"
++        android:elevation="10dp"
++        android:layout_margin="8dp"
++        android:backgroundTint="@color/todo_label">
++
++        <LinearLayout
++            android:layout_width="match_parent"
++            android:layout_height="wrap_content"
++            android:padding="5dp" >
++
++            <CheckBox
++                android:id="@+id/cb_todo_item"
++                android:layout_width="wrap_content"
++                android:layout_height="wrap_content"
++                android:layout_gravity="center_vertical"/>
++
++            <TextView
++                android:id="@+id/todo_item_txt"
++                android:layout_width="wrap_content"
++                android:layout_height="wrap_content"
++                android:textSize="23sp"
++                android:text="Nombre del Ingrediente"
++                android:layout_gravity="center_vertical"/>
++
++        </LinearLayout>
++
++    </androidx.cardview.widget.CardView>
++
++</androidx.constraintlayout.widget.ConstraintLayout>
+\ No newline at end of file
+Index: app/src/main/res/drawable/dim_background.xml
+IDEA additional info:
+Subsystem: com.intellij.openapi.diff.impl.patch.CharsetEP
+<+>UTF-8
+===================================================================
+diff --git a/app/src/main/res/drawable/dim_background.xml b/app/src/main/res/drawable/dim_background.xml
+new file mode 100644
+--- /dev/null	(date 1700668423640)
++++ b/app/src/main/res/drawable/dim_background.xml	(date 1700668423640)
+@@ -0,0 +1,4 @@
++<layer-list xmlns:android="http://schemas.android.com/apk/res/android">
++    <item android:drawable="@android:color/black" />
++    <item android:drawable="@android:color/transparent" android:top="50dp" />
++</layer-list>
+\ No newline at end of file
+Index: app/src/main/res/layout/fragment_recetas.xml
+IDEA additional info:
+Subsystem: com.intellij.openapi.diff.impl.patch.CharsetEP
+<+>UTF-8
+===================================================================
+diff --git a/app/src/main/res/layout/fragment_recetas.xml b/app/src/main/res/layout/fragment_recetas.xml
+new file mode 100644
+--- /dev/null	(date 1700068850652)
++++ b/app/src/main/res/layout/fragment_recetas.xml	(date 1700068850652)
+@@ -0,0 +1,25 @@
++<!-- recetas_fragment.xml -->
++<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
++    xmlns:app="http://schemas.android.com/apk/res-auto"
++    xmlns:tools="http://schemas.android.com/tools"
++    android:layout_width="match_parent"
++    android:layout_height="match_parent">
++
++    <androidx.viewpager2.widget.ViewPager2
++        android:id="@+id/pager"
++        android:layout_width="match_parent"
++        android:layout_height="match_parent"
++        tools:layout_editor_absoluteX="68dp"
++        tools:layout_editor_absoluteY="16dp">
++
++
++    </androidx.viewpager2.widget.ViewPager2>
++
++    <com.google.android.material.tabs.TabLayout
++        android:id="@+id/tabLayout"
++        android:layout_width="match_parent"
++        android:layout_height="wrap_content"
++        app:layout_constraintTop_toTopOf="parent" />
++
++
++</androidx.constraintlayout.widget.ConstraintLayout>
+Index: app/src/main/res/layout/restore_pwd_popup.xml
+IDEA additional info:
+Subsystem: com.intellij.openapi.diff.impl.patch.CharsetEP
+<+>UTF-8
+===================================================================
+diff --git a/app/src/main/res/layout/restore_pwd_popup.xml b/app/src/main/res/layout/restore_pwd_popup.xml
+new file mode 100644
+--- /dev/null	(date 1700668423644)
++++ b/app/src/main/res/layout/restore_pwd_popup.xml	(date 1700668423644)
+@@ -0,0 +1,101 @@
++<?xml version="1.0" encoding="utf-8"?>
++<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
++    android:layout_width="match_parent"
++    android:layout_height="match_parent"
++    xmlns:app="http://schemas.android.com/apk/res-auto">
++
++
++
++    <LinearLayout
++
++        android:id="@+id/linearLayout"
++        android:layout_width="350sp"
++        android:layout_height="wrap_content"
++        android:orientation="vertical"
++        android:padding="32dp"
++        app:layout_constraintBottom_toBottomOf="parent"
++        app:layout_constraintEnd_toEndOf="parent"
++        app:layout_constraintStart_toStartOf="parent"
++        app:layout_constraintTop_toTopOf="parent">
++
++        <TextView
++            android:id="@+id/textView6"
++            android:layout_width="wrap_content"
++            android:layout_height="wrap_content"
++            android:text="@string/Restore"
++            android:textAlignment="center"
++            android:textColor="@color/black"
++            android:layout_marginBottom="10sp"
++            android:textSize="27sp"
++            android:textStyle="bold"
++            app:layout_constraintBottom_toTopOf="@+id/linearLayout"
++            app:layout_constraintEnd_toEndOf="parent"
++            app:layout_constraintStart_toStartOf="parent" />
++
++        <TextView
++            android:id="@+id/re_username"
++            android:layout_width="match_parent"
++            android:layout_height="wrap_content"
++            android:text="@string/user_txt"
++            android:textColor="@color/black"
++            android:textSize="20sp"
++            android:textStyle="bold" />
++
++        <EditText
++            android:id="@+id/rest_username"
++            android:layout_width="match_parent"
++            android:layout_height="50dp"
++            android:layout_marginTop="10dp"
++            android:background="@drawable/edittext_background"
++            android:ems="10"
++            android:hint="@string/introduce_tu_usuario"
++            android:inputType="textEmailAddress"
++            android:padding="12dp"
++            android:textColor="@color/gray" />
++
++        <TextView
++            android:id="@+id/re_password"
++            android:layout_width="match_parent"
++            android:layout_height="wrap_content"
++            android:layout_marginTop="32dp"
++            android:text="@string/nueva_contraseña"
++            android:textColor="@color/black"
++            android:textSize="20sp"
++            android:textStyle="bold" />
++
++        <EditText
++            android:id="@+id/new_password"
++            android:layout_width="match_parent"
++            android:layout_height="50dp"
++            android:layout_marginTop="10dp"
++            android:autofillHints=""
++            android:background="@drawable/edittext_background"
++            android:ems="10"
++            android:hint="@string/introduce_tu_nueva_contraseña"
++            android:inputType="textPassword"
++            android:padding="12dp"
++            android:textColor="@color/gray" />
++
++        <LinearLayout
++            android:layout_width="match_parent"
++            android:layout_height="70sp"
++            android:gravity="center"
++
++            android:orientation="horizontal">
++
++            <Button
++                android:id="@+id/restorebtn"
++                android:layout_width="150dp"
++                android:layout_height="wrap_content"
++                android:layout_marginTop="10sp"
++                android:backgroundTint="#bfbf73"
++                android:text="@string/restaurar"
++                android:textAllCaps="false"
++                android:textColor="#2A2929"
++                android:textSize="20sp" />
++
++        </LinearLayout>
++
++    </LinearLayout>
++
++</androidx.constraintlayout.widget.ConstraintLayout>
+\ No newline at end of file
+Index: app/src/main/res/layout/recycler_swap_item.xml
+IDEA additional info:
+Subsystem: com.intellij.openapi.diff.impl.patch.CharsetEP
+<+>UTF-8
+===================================================================
+diff --git a/app/src/main/res/layout/recycler_swap_item.xml b/app/src/main/res/layout/recycler_swap_item.xml
+new file mode 100644
+--- /dev/null	(date 1700059744855)
++++ b/app/src/main/res/layout/recycler_swap_item.xml	(date 1700059744855)
+@@ -0,0 +1,19 @@
++<?xml version="1.0" encoding="utf-8"?>
++<androidx.constraintlayout.widget.ConstraintLayout xmlns:tools="http://schemas.android.com/tools"
++    android:id="@+id/rv_item"
++    xmlns:android="http://schemas.android.com/apk/res/android"
++    android:layout_width="match_parent"
++    android:layout_height="wrap_content">
++
++    <Button
++        android:id="@+id/button_item"
++        android:layout_width="wrap_content"
++        android:layout_height="wrap_content"
++        android:layout_marginBottom="5dp"
++        android:textAlignment="textStart"
++        android:text="Macarrones"
++        android:backgroundTint="@color/button_color"
++        tools:ignore="MissingConstraints" />
++
++
++</androidx.constraintlayout.widget.ConstraintLayout>
+\ No newline at end of file
+Index: app/src/main/res/layout/fragment_historial.xml
+IDEA additional info:
+Subsystem: com.intellij.openapi.diff.impl.patch.CharsetEP
+<+>UTF-8
+===================================================================
+diff --git a/app/src/main/res/layout/fragment_historial.xml b/app/src/main/res/layout/fragment_historial.xml
+new file mode 100644
+--- /dev/null	(date 1700668423644)
++++ b/app/src/main/res/layout/fragment_historial.xml	(date 1700668423644)
+@@ -0,0 +1,53 @@
++<?xml version="1.0" encoding="utf-8"?>
++<androidx.constraintlayout.widget.ConstraintLayout
++    xmlns:android="http://schemas.android.com/apk/res/android"
++    xmlns:tools="http://schemas.android.com/tools"
++    xmlns:app="http://schemas.android.com/apk/res-auto"
++    android:layout_width="match_parent"
++    android:layout_height="match_parent"
++    android:paddingTop="50dp"
++    android:paddingBottom="150dp"
++    tools:context=".view.home.recetas.HistorialFragment">
++
++    <RelativeLayout
++        android:layout_width="match_parent"
++        android:layout_height="wrap_content"
++        tools:ignore="MissingConstraints">
++
++        <TextView
++            android:id="@+id/no_hay_recetas"
++            android:layout_width="match_parent"
++            android:layout_height="wrap_content"
++            app:layout_constraintBottom_toBottomOf="parent"
++            app:layout_constraintEnd_toEndOf="parent"
++            app:layout_constraintStart_toStartOf="parent"
++            app:layout_constraintTop_toTopOf="parent"
++            android:text="@string/no_hay_recetas"
++            android:textSize="24sp"
++            android:visibility="gone"
++            android:textAlignment="center"
++            android:layout_marginTop="20dp"
++            android:textColor="@color/gray"
++            />
++
++        <ProgressBar
++            android:id="@+id/spinner"
++            android:layout_width="50dp"
++            android:layout_height="50dp"
++            android:visibility="visible"
++            android:layout_centerHorizontal="true"
++            android:layout_marginTop="20dp"/>
++
++        <androidx.recyclerview.widget.RecyclerView
++            android:id="@+id/rv_historial_list"
++            android:layout_width="match_parent"
++            android:layout_height="match_parent"
++            app:layout_constraintBottom_toBottomOf="parent"
++            app:layout_constraintEnd_toEndOf="parent"
++            app:layout_constraintStart_toStartOf="parent"
++            app:layout_constraintTop_toTopOf="parent" />
++
++    </RelativeLayout>
++
++
++</androidx.constraintlayout.widget.ConstraintLayout>
+\ No newline at end of file
+Index: settings.gradle.kts
+IDEA additional info:
+Subsystem: com.intellij.openapi.diff.impl.patch.CharsetEP
+<+>UTF-8
+===================================================================
+diff --git a/settings.gradle.kts b/settings.gradle.kts
+new file mode 100644
+--- /dev/null	(date 1700668117222)
++++ b/settings.gradle.kts	(date 1700668117222)
+@@ -0,0 +1,18 @@
++pluginManagement {
++    repositories {
++        google()
++        mavenCentral()
++        gradlePluginPortal()
++    }
++}
++dependencyResolutionManagement {
++    repositoriesMode.set(RepositoriesMode.FAIL_ON_PROJECT_REPOS)
++    repositories {
++        google()
++        mavenCentral()
++    }
++}
++
++rootProject.name = "La Nevera de GePeTo"
++include(":app")
++ 
+\ No newline at end of file
+Index: app/src/main/java/es/unex/giis/asee/gepeto/view/LoginActivity.kt
+IDEA additional info:
+Subsystem: com.intellij.openapi.diff.impl.patch.CharsetEP
+<+>UTF-8
+===================================================================
+diff --git a/app/src/main/java/es/unex/giis/asee/gepeto/view/LoginActivity.kt b/app/src/main/java/es/unex/giis/asee/gepeto/view/LoginActivity.kt
+new file mode 100644
+--- /dev/null	(date 1700669494478)
++++ b/app/src/main/java/es/unex/giis/asee/gepeto/view/LoginActivity.kt	(date 1700669494478)
+@@ -0,0 +1,11 @@
++package es.unex.giis.asee.gepeto.view
++
++import androidx.appcompat.app.AppCompatActivity
++import android.os.Bundle
++import es.unex.giis.asee.gepeto.R
++
++class LoginActivity : AppCompatActivity() {
++    override fun onCreate(savedInstanceState: Bundle?) {
++        super.onCreate(savedInstanceState)
++    }
++}
+\ No newline at end of file
+Index: app/src/main/java/es/unex/giis/asee/gepeto/view/home/HomeActivity.kt
+IDEA additional info:
+Subsystem: com.intellij.openapi.diff.impl.patch.CharsetEP
+<+>UTF-8
+===================================================================
+diff --git a/app/src/main/java/es/unex/giis/asee/gepeto/view/home/HomeActivity.kt b/app/src/main/java/es/unex/giis/asee/gepeto/view/home/HomeActivity.kt
+new file mode 100644
+--- /dev/null	(date 1700669526450)
++++ b/app/src/main/java/es/unex/giis/asee/gepeto/view/home/HomeActivity.kt	(date 1700669526450)
+@@ -0,0 +1,11 @@
++package es.unex.giis.asee.gepeto.view.home
++
++import androidx.appcompat.app.AppCompatActivity
++import android.os.Bundle
++import es.unex.giis.asee.gepeto.R
++
++class HomeActivity : AppCompatActivity() {
++    override fun onCreate(savedInstanceState: Bundle?) {
++        super.onCreate(savedInstanceState)
++    }
++}
+\ No newline at end of file
+Index: gradle/wrapper/gradle-wrapper.properties
+IDEA additional info:
+Subsystem: com.intellij.openapi.diff.impl.patch.CharsetEP
+<+>ISO-8859-1
+===================================================================
+diff --git a/gradle/wrapper/gradle-wrapper.properties b/gradle/wrapper/gradle-wrapper.properties
+new file mode 100644
+--- /dev/null	(date 1700668119578)
++++ b/gradle/wrapper/gradle-wrapper.properties	(date 1700668119578)
+@@ -0,0 +1,6 @@
++#Wed Nov 22 16:48:39 CET 2023
++distributionBase=GRADLE_USER_HOME
++distributionPath=wrapper/dists
++distributionUrl=https\://services.gradle.org/distributions/gradle-8.0-bin.zip
++zipStoreBase=GRADLE_USER_HOME
++zipStorePath=wrapper/dists
+Index: app/src/main/res/menu/appbar_menu.xml
+IDEA additional info:
+Subsystem: com.intellij.openapi.diff.impl.patch.CharsetEP
+<+>UTF-8
+===================================================================
+diff --git a/app/src/main/res/menu/appbar_menu.xml b/app/src/main/res/menu/appbar_menu.xml
+new file mode 100644
+--- /dev/null	(date 1700668423646)
++++ b/app/src/main/res/menu/appbar_menu.xml	(date 1700668423646)
+@@ -0,0 +1,16 @@
++<?xml version="1.0" encoding="utf-8"?>
++<menu xmlns:android="http://schemas.android.com/apk/res/android"
++    xmlns:app="http://schemas.android.com/apk/res-auto">
++
++    <item android:id="@+id/action_search"
++        android:title="@string/action_search"
++        android:icon="@drawable/search"
++        app:showAsAction="ifRoom|collapseActionView"
++        app:actionViewClass="androidx.appcompat.widget.SearchView" />
++
++
++    <item android:id="@+id/action_settings"
++        android:title="@string/action_settings"
++        app:showAsAction="never"/>
++
++</menu>
+Index: app/.gitignore
+IDEA additional info:
+Subsystem: com.intellij.openapi.diff.impl.patch.CharsetEP
+<+>UTF-8
+===================================================================
+diff --git a/app/.gitignore b/app/.gitignore
+new file mode 100644
+--- /dev/null	(date 1700668116790)
++++ b/app/.gitignore	(date 1700668116790)
+@@ -0,0 +1,1 @@
++/build
+\ No newline at end of file
+Index: app/build.gradle.kts
+IDEA additional info:
+Subsystem: com.intellij.openapi.diff.impl.patch.CharsetEP
+<+>UTF-8
+===================================================================
+diff --git a/app/build.gradle.kts b/app/build.gradle.kts
+new file mode 100644
+--- /dev/null	(date 1700669969155)
++++ b/app/build.gradle.kts	(date 1700669969155)
+@@ -0,0 +1,99 @@
++plugins {
++    id("com.android.application")
++    id("org.jetbrains.kotlin.android")
++    id("androidx.navigation.safeargs.kotlin")
++    id("com.google.devtools.ksp")
++}
++
++android {
++    namespace = "es.unex.giis.asee.gepeto"
++    compileSdk = 34
++
++    defaultConfig {
++        applicationId = "es.unex.giis.asee.gepeto"
++        minSdk = 27
++        targetSdk = 34
++        versionCode = 1
++        versionName = "1.0"
++
++        testInstrumentationRunner = "androidx.test.runner.AndroidJUnitRunner"
++    }
++
++    buildTypes {
++        release {
++            isMinifyEnabled = false
++            proguardFiles(
++                getDefaultProguardFile("proguard-android-optimize.txt"),
++                "proguard-rules.pro"
++            )
++        }
++    }
++
++    viewBinding {
++        enable = true
++    }
++
++    compileOptions {
++        sourceCompatibility = JavaVersion.VERSION_1_8
++        targetCompatibility = JavaVersion.VERSION_1_8
++    }
++    kotlinOptions {
++        jvmTarget = "1.8"
++    }
++}
++
++dependencies {
++
++
++    val room_version = "2.5.0"
++
++    implementation("androidx.preference:preference-ktx:1.2.1")
++    // Jetpack Preferences
++    implementation("androidx.preference:preference-ktx:1.2.0")
++
++    implementation("androidx.room:room-runtime:$room_version")
++    annotationProcessor("androidx.room:room-compiler:$room_version")
++
++    // To use Kotlin Symbol Processing (KSP)
++    ksp("androidx.room:room-compiler:$room_version")
++
++    // optional - Kotlin Extensions and Coroutines support for Room
++    implementation("androidx.room:room-ktx:$room_version")
++
++    // optional - Test helpers
++    testImplementation("androidx.room:room-testing:$room_version")
++    val nav_version = "2.5.3"
++
++    // Kotlin
++    implementation("androidx.navigation:navigation-fragment-ktx:$nav_version")
++    implementation("androidx.navigation:navigation-ui-ktx:$nav_version")
++
++    // Feature module Support
++    implementation("androidx.navigation:navigation-dynamic-features-fragment:$nav_version")
++
++    // Testing Navigation
++    androidTestImplementation("androidx.navigation:navigation-testing:$nav_version")
++
++    // Jetpack Compose Integration
++    implementation("androidx.navigation:navigation-compose:$nav_version")
++
++    implementation("androidx.core:core-ktx:1.9.0")
++    implementation("androidx.appcompat:appcompat:1.6.1")
++    implementation("com.google.android.material:material:1.10.0")
++    implementation("androidx.constraintlayout:constraintlayout:2.1.4")
++    testImplementation("junit:junit:4.13.2")
++    androidTestImplementation("androidx.test.ext:junit:1.1.5")
++    androidTestImplementation("androidx.test.espresso:espresso-core:3.5.1")
++
++    // Retrofit dependencies
++    implementation("androidx.preference:preference-ktx:1.2.1")
++    implementation("com.google.code.gson:gson:2.10.1")
++    implementation("com.squareup.retrofit2:retrofit:2.9.0")
++    implementation("com.squareup.retrofit2:converter-gson:2.9.0")
++    implementation("com.squareup.okhttp3:logging-interceptor:4.9.1")
++    implementation("com.github.bumptech.glide:glide:5.0.0-rc01")
++
++    implementation("org.apache.poi:poi:5.1.0")
++    implementation("org.apache.poi:poi-ooxml:5.1.0")
++
++}
+\ No newline at end of file
+Index: app/src/main/res/menu/bottom_menu.xml
+IDEA additional info:
+Subsystem: com.intellij.openapi.diff.impl.patch.CharsetEP
+<+>UTF-8
+===================================================================
+diff --git a/app/src/main/res/menu/bottom_menu.xml b/app/src/main/res/menu/bottom_menu.xml
+new file mode 100644
+--- /dev/null	(date 1700255619702)
++++ b/app/src/main/res/menu/bottom_menu.xml	(date 1700255619702)
+@@ -0,0 +1,28 @@
++<?xml version="1.0" encoding="utf-8"?>
++<menu xmlns:android="http://schemas.android.com/apk/res/android"
++    xmlns:app="http://schemas.android.com/apk/res-auto">
++    <item
++        android:id="@+id/recetasFragment"
++        android:enabled="true"
++        android:icon="@drawable/recipe_book"
++        android:title="@string/recetas_option"
++        app:showAsAction="ifRoom" />
++    <item
++        android:id="@+id/listaFragment"
++        android:enabled="true"
++        android:icon="@drawable/shopping"
++        android:title="@string/lista_option"
++        app:showAsAction="ifRoom" />
++    <item
++        android:id="@+id/ingredientesFragment"
++        android:enabled="true"
++        android:icon="@drawable/food"
++        android:title="@string/ingredientes_option"
++        app:showAsAction="ifRoom" />
++    <item
++        android:id="@+id/equipamientoFragment"
++        android:enabled="true"
++        android:icon="@drawable/microwave"
++        android:title="@string/equipamiento_option"
++        app:showAsAction="ifRoom" />
++</menu>
+\ No newline at end of file
+Index: app/src/test/java/es/unex/giis/asee/gepeto/ExampleUnitTest.kt
+IDEA additional info:
+Subsystem: com.intellij.openapi.diff.impl.patch.CharsetEP
+<+>UTF-8
+===================================================================
+diff --git a/app/src/test/java/es/unex/giis/asee/gepeto/ExampleUnitTest.kt b/app/src/test/java/es/unex/giis/asee/gepeto/ExampleUnitTest.kt
+new file mode 100644
+--- /dev/null	(date 1700668117782)
++++ b/app/src/test/java/es/unex/giis/asee/gepeto/ExampleUnitTest.kt	(date 1700668117782)
+@@ -0,0 +1,17 @@
++package es.unex.giis.asee.gepeto
++
++import org.junit.Test
++
++import org.junit.Assert.*
++
++/**
++ * Example local unit test, which will execute on the development machine (host).
++ *
++ * See [testing documentation](http://d.android.com/tools/testing).
++ */
++class ExampleUnitTest {
++    @Test
++    fun addition_isCorrect() {
++        assertEquals(4, 2 + 2)
++    }
++}
+\ No newline at end of file
+Index: app/src/androidTest/java/es/unex/giis/asee/gepeto/ExampleInstrumentedTest.kt
+IDEA additional info:
+Subsystem: com.intellij.openapi.diff.impl.patch.CharsetEP
+<+>UTF-8
+===================================================================
+diff --git a/app/src/androidTest/java/es/unex/giis/asee/gepeto/ExampleInstrumentedTest.kt b/app/src/androidTest/java/es/unex/giis/asee/gepeto/ExampleInstrumentedTest.kt
+new file mode 100644
+--- /dev/null	(date 1700668117824)
++++ b/app/src/androidTest/java/es/unex/giis/asee/gepeto/ExampleInstrumentedTest.kt	(date 1700668117824)
+@@ -0,0 +1,24 @@
++package es.unex.giis.asee.gepeto
++
++import androidx.test.platform.app.InstrumentationRegistry
++import androidx.test.ext.junit.runners.AndroidJUnit4
++
++import org.junit.Test
++import org.junit.runner.RunWith
++
++import org.junit.Assert.*
++
++/**
++ * Instrumented test, which will execute on an Android device.
++ *
++ * See [testing documentation](http://d.android.com/tools/testing).
++ */
++@RunWith(AndroidJUnit4::class)
++class ExampleInstrumentedTest {
++    @Test
++    fun useAppContext() {
++        // Context of the app under test.
++        val appContext = InstrumentationRegistry.getInstrumentation().targetContext
++        assertEquals("es.unex.giis.asee.gepeto", appContext.packageName)
++    }
++}
+\ No newline at end of file
+Index: app/src/main/res/values/app_icon_background.xml
+IDEA additional info:
+Subsystem: com.intellij.openapi.diff.impl.patch.CharsetEP
+<+>UTF-8
+===================================================================
+diff --git a/app/src/main/res/values/app_icon_background.xml b/app/src/main/res/values/app_icon_background.xml
+new file mode 100644
+--- /dev/null	(date 1700059744879)
++++ b/app/src/main/res/values/app_icon_background.xml	(date 1700059744879)
+@@ -0,0 +1,4 @@
++<?xml version="1.0" encoding="utf-8"?>
++<resources>
++    <color name="app_icon_background">#86CCD9</color>
++</resources>
+\ No newline at end of file
+Index: app/src/main/res/values/colors.xml
+IDEA additional info:
+Subsystem: com.intellij.openapi.diff.impl.patch.CharsetEP
+<+>UTF-8
+===================================================================
+diff --git a/app/src/main/res/values/colors.xml b/app/src/main/res/values/colors.xml
+new file mode 100644
+--- /dev/null	(date 1700059744880)
++++ b/app/src/main/res/values/colors.xml	(date 1700059744880)
+@@ -0,0 +1,15 @@
++<?xml version="1.0" encoding="utf-8"?>
++<resources>
++    <color name="purple_200">#FFBB86FC</color>
++    <color name="purple_500">#FF6200EE</color>
++    <color name="purple_700">#FF3700B3</color>
++    <color name="teal_200">#FF03DAC5</color>
++    <color name="teal_700">#FF018786</color>
++    <color name="black">#FF000000</color>
++    <color name="white">#FFFFFFFF</color>
++    <color name="gray">#FF808080</color>
++    <color name="todo_label">#DCDCDC</color>
++    <color name="button_color">#4A5BB5</color>
++    <color name="title_color">#3F51B5</color>
++    <color name="red">#EB281A</color>
++</resources>
+\ No newline at end of file
+Index: app/src/main/res/values/strings.xml
+IDEA additional info:
+Subsystem: com.intellij.openapi.diff.impl.patch.CharsetEP
+<+>UTF-8
+===================================================================
+diff --git a/app/src/main/res/values/strings.xml b/app/src/main/res/values/strings.xml
+new file mode 100644
+--- /dev/null	(date 1700669526415)
++++ b/app/src/main/res/values/strings.xml	(date 1700669526415)
+@@ -0,0 +1,57 @@
++<resources>
++    <string name="app_name">La Nevera de GePeTo</string>
++    <string name="user_string">user</string>
++    <string name="password_string">password</string>
++    <string name="tv_login">Login</string>
++    <string name="valid_user_msg">Credentials valid!</string>
++    <string name="invalid_user_msg">Credentials no valid</string>
++    <string name="tv_register">join</string>
++    <string name="repeat_password">Repite la Contraseña</string>
++    <string name="visit_website">trakt.tv</string>
++    <string name="greeting">Hello, %s!</string>
++    <string name="recetas_option">Recetas</string>
++    <string name="lista_option">Lista</string>
++    <string name="equipamiento_option">Equipamiento</string>
++    <string name="favoritas_option">Favoritas</string>
++    <string name="ingredientes_option">Crear Receta</string>
++    <string name="observaciones_option">Observaciones</string>
++    <string name="hello_blank_fragment">Hello blank fragment</string>
++    <string name="action_settings">settings</string>
++    <string name="action_search">search</string>
++    <string name="crear_receta">Crear Receta</string>
++    <string name="buscar_ingrediente">Buscar Ingrediente:</string>
++    <string name="switch_label">Generar mediante IA</string>
++    <string name="ingredientes_seleccionados">Ingredientes seleccionados:</string>
++    <string name="todos_los_ingredientes">Todos los ingredientes:</string>
++    <string name="buscar_equipamiento">Buscar equipamiento:</string>
++    <string name="equipamientos_seleccionados">Equipamientos seleccionados:\n</string>
++    <string name="todos_los_equipamientos">Todos los equipamientos:</string>
++    <string name="advertencia_label">Debe introducrise al menos un ingrediente.</string>
++    <string name="preview_de_la_receta">Preview de la receta</string>
++    <string name="me_gusta_alt_label">Me Gusta</string>
++    <string name="login_header">Preferencias de login</string>
++    <string name="autologin_title">Recordar mi usuario</string>
++    <string name="username_title">user</string>
++    <string name="password_title">password</string>
++    <string name="suggestions_header">Cajón de sugerencias</string>
++    <string name="suggestions_title">Sugerencia</string>
++    <string name="send_suggestion_title">Enviar sugerencia</string>
++    <string name="reset_suggestion_title">Resetear sugerencia</string>
++    <string name="edit_suggestion_title">Escribir sugerencia</string>
++    <string name="crear_receta_button">Crear Receta</string>
++    <string name="recuperar">Recuperar</string>
++    <string name="recuperar_password">Recuperar contraseña</string>
++    <string name="introduce_tu_contraseña">Introduce tu Contraseña</string>
++    <string name="pwd_txt">Contraseña</string>
++    <string name="introduce_tu_usuario">Introduce tu Usuario</string>
++    <string name="user_txt">Usuario</string>
++    <string name="login">Inicia Sesión</string>
++    <string name="titulo">La Nevera de \nGePeTo</string>
++    <string name="register">Registrarse</string>
++    <string name="nueva_contraseña">Nueva Contraseña</string>
++    <string name="introduce_tu_nueva_contraseña">Introduce tu nueva Contraseña</string>
++    <string name="restaurar">Restaurar</string>
++    <string name="Restore">Recuperar Contraseña</string>
++    <string name="no_hay_recetas">No existen Recetas</string>
++    <string name="no_hay_favortias">No existen Favoritos</string>
++</resources>
+\ No newline at end of file
+Index: app/src/main/res/drawable/search.xml
+IDEA additional info:
+Subsystem: com.intellij.openapi.diff.impl.patch.CharsetEP
+<+>UTF-8
+===================================================================
+diff --git a/app/src/main/res/drawable/search.xml b/app/src/main/res/drawable/search.xml
+new file mode 100644
+--- /dev/null	(date 1700059744844)
++++ b/app/src/main/res/drawable/search.xml	(date 1700059744844)
+@@ -0,0 +1,7 @@
++<vector android:height="200dp" android:viewportHeight="24"
++    android:viewportWidth="24" android:width="200dp" xmlns:android="http://schemas.android.com/apk/res/android">
++    <path android:fillColor="#00000000"
++        android:pathData="M14.954,14.946L21,21M17,10C17,13.866 13.866,17 10,17C6.134,17 3,13.866 3,10C3,6.134 6.134,3 10,3C13.866,3 17,6.134 17,10Z"
++        android:strokeColor="#FFFFFF" android:strokeLineCap="round"
++        android:strokeLineJoin="round" android:strokeWidth="2"/>
++</vector>
+Index: app/proguard-rules.pro
+IDEA additional info:
+Subsystem: com.intellij.openapi.diff.impl.patch.CharsetEP
+<+>UTF-8
+===================================================================
+diff --git a/app/proguard-rules.pro b/app/proguard-rules.pro
+new file mode 100644
+--- /dev/null	(date 1700668116926)
++++ b/app/proguard-rules.pro	(date 1700668116926)
+@@ -0,0 +1,21 @@
++# Add project specific ProGuard rules here.
++# You can control the set of applied configuration files using the
++# proguardFiles setting in build.gradle.
++#
++# For more details, see
++#   http://developer.android.com/guide/developing/tools/proguard.html
++
++# If your project uses WebView with JS, uncomment the following
++# and specify the fully qualified class name to the JavaScript interface
++# class:
++#-keepclassmembers class fqcn.of.javascript.interface.for.webview {
++#   public *;
++#}
++
++# Uncomment this to preserve the line number information for
++# debugging stack traces.
++#-keepattributes SourceFile,LineNumberTable
++
++# If you keep the line number information, uncomment this to
++# hide the original source file name.
++#-renamesourcefileattribute SourceFile
+\ No newline at end of file
+Index: app/src/main/res/drawable/microwave.xml
+IDEA additional info:
+Subsystem: com.intellij.openapi.diff.impl.patch.CharsetEP
+<+>UTF-8
+===================================================================
+diff --git a/app/src/main/res/drawable/microwave.xml b/app/src/main/res/drawable/microwave.xml
+new file mode 100644
+--- /dev/null	(date 1700059744839)
++++ b/app/src/main/res/drawable/microwave.xml	(date 1700059744839)
+@@ -0,0 +1,4 @@
++<vector android:height="200dp" android:viewportHeight="50"
++    android:viewportWidth="50" android:width="200dp" xmlns:android="http://schemas.android.com/apk/res/android">
++    <path android:fillColor="#000000" android:pathData="M3,8C1.355,8 0,9.355 0,11L0,39C0,40.645 1.355,42 3,42L5,42L5,43C5,44.094 5.906,45 7,45L10,45C11.094,45 12,44.094 12,43L12,42L38,42L38,43C38,44.094 38.906,45 40,45L43,45C44.094,45 45,44.094 45,43L45,42L47,42C48.645,42 50,40.645 50,39L50,11C50,9.355 48.645,8 47,8ZM3,10L47,10C47.563,10 48,10.438 48,11L48,39C48,39.563 47.563,40 47,40L39.188,40C39.055,39.973 38.914,39.973 38.781,40L6.188,40C6.055,39.973 5.914,39.973 5.781,40L3,40C2.438,40 2,39.563 2,39L2,11C2,10.438 2.438,10 3,10ZM5,13L5,37L40,37L40,13ZM7,15L38,15L38,35L7,35ZM44,16C42.895,16 42,16.895 42,18C42,19.105 42.895,20 44,20C45.105,20 46,19.105 46,18C46,16.895 45.105,16 44,16ZM34.156,19.938C33.957,19.934 33.762,19.988 33.594,20.094C33.594,20.094 28.965,22 26.125,22C24.707,22 23.75,21.594 22.594,21.094C21.438,20.594 20.066,20 18.219,20C14.523,20 10.563,22.094 10.563,22.094C10.063,22.336 9.852,22.938 10.094,23.438C10.336,23.938 10.938,24.148 11.438,23.906C11.438,23.906 15.332,22 18.219,22C19.664,22 20.629,22.406 21.781,22.906C22.934,23.406 24.297,24 26.125,24C29.785,24 34.406,21.906 34.406,21.906C34.895,21.781 35.215,21.313 35.148,20.813C35.086,20.313 34.66,19.938 34.156,19.938ZM44,23C42.895,23 42,23.895 42,25C42,26.105 42.895,27 44,27C45.105,27 46,26.105 46,25C46,23.895 45.105,23 44,23ZM34.156,25.938C33.957,25.934 33.762,25.988 33.594,26.094C33.594,26.094 28.965,28 26.125,28C24.707,28 23.75,27.594 22.594,27.094C21.438,26.594 20.066,26 18.219,26C14.523,26 10.563,28.094 10.563,28.094C10.063,28.336 9.852,28.938 10.094,29.438C10.336,29.938 10.938,30.148 11.438,29.906C11.438,29.906 15.332,28 18.219,28C19.664,28 20.629,28.406 21.781,28.906C22.934,29.406 24.297,30 26.125,30C29.785,30 34.406,27.906 34.406,27.906C34.895,27.781 35.215,27.313 35.148,26.813C35.086,26.313 34.66,25.938 34.156,25.938ZM44,30C42.895,30 42,30.895 42,32C42,33.105 42.895,34 44,34C45.105,34 46,33.105 46,32C46,30.895 45.105,30 44,30ZM7,42L10,42L10,43L7,43ZM40,42L43,42L43,43L40,43Z"/>
++</vector>
+Index: app/src/main/res/drawable/ic_launcher_background.xml
+IDEA additional info:
+Subsystem: com.intellij.openapi.diff.impl.patch.CharsetEP
+<+>UTF-8
+===================================================================
+diff --git a/app/src/main/res/drawable/ic_launcher_background.xml b/app/src/main/res/drawable/ic_launcher_background.xml
+new file mode 100644
+--- /dev/null	(date 1700059744786)
++++ b/app/src/main/res/drawable/ic_launcher_background.xml	(date 1700059744786)
+@@ -0,0 +1,170 @@
++<?xml version="1.0" encoding="utf-8"?>
++<vector xmlns:android="http://schemas.android.com/apk/res/android"
++    android:width="108dp"
++    android:height="108dp"
++    android:viewportWidth="108"
++    android:viewportHeight="108">
++    <path
++        android:fillColor="#3DDC84"
++        android:pathData="M0,0h108v108h-108z" />
++    <path
++        android:fillColor="#00000000"
++        android:pathData="M9,0L9,108"
++        android:strokeWidth="0.8"
++        android:strokeColor="#33FFFFFF" />
++    <path
++        android:fillColor="#00000000"
++        android:pathData="M19,0L19,108"
++        android:strokeWidth="0.8"
++        android:strokeColor="#33FFFFFF" />
++    <path
++        android:fillColor="#00000000"
++        android:pathData="M29,0L29,108"
++        android:strokeWidth="0.8"
++        android:strokeColor="#33FFFFFF" />
++    <path
++        android:fillColor="#00000000"
++        android:pathData="M39,0L39,108"
++        android:strokeWidth="0.8"
++        android:strokeColor="#33FFFFFF" />
++    <path
++        android:fillColor="#00000000"
++        android:pathData="M49,0L49,108"
++        android:strokeWidth="0.8"
++        android:strokeColor="#33FFFFFF" />
++    <path
++        android:fillColor="#00000000"
++        android:pathData="M59,0L59,108"
++        android:strokeWidth="0.8"
++        android:strokeColor="#33FFFFFF" />
++    <path
++        android:fillColor="#00000000"
++        android:pathData="M69,0L69,108"
++        android:strokeWidth="0.8"
++        android:strokeColor="#33FFFFFF" />
++    <path
++        android:fillColor="#00000000"
++        android:pathData="M79,0L79,108"
++        android:strokeWidth="0.8"
++        android:strokeColor="#33FFFFFF" />
++    <path
++        android:fillColor="#00000000"
++        android:pathData="M89,0L89,108"
++        android:strokeWidth="0.8"
++        android:strokeColor="#33FFFFFF" />
++    <path
++        android:fillColor="#00000000"
++        android:pathData="M99,0L99,108"
++        android:strokeWidth="0.8"
++        android:strokeColor="#33FFFFFF" />
++    <path
++        android:fillColor="#00000000"
++        android:pathData="M0,9L108,9"
++        android:strokeWidth="0.8"
++        android:strokeColor="#33FFFFFF" />
++    <path
++        android:fillColor="#00000000"
++        android:pathData="M0,19L108,19"
++        android:strokeWidth="0.8"
++        android:strokeColor="#33FFFFFF" />
++    <path
++        android:fillColor="#00000000"
++        android:pathData="M0,29L108,29"
++        android:strokeWidth="0.8"
++        android:strokeColor="#33FFFFFF" />
++    <path
++        android:fillColor="#00000000"
++        android:pathData="M0,39L108,39"
++        android:strokeWidth="0.8"
++        android:strokeColor="#33FFFFFF" />
++    <path
++        android:fillColor="#00000000"
++        android:pathData="M0,49L108,49"
++        android:strokeWidth="0.8"
++        android:strokeColor="#33FFFFFF" />
++    <path
++        android:fillColor="#00000000"
++        android:pathData="M0,59L108,59"
++        android:strokeWidth="0.8"
++        android:strokeColor="#33FFFFFF" />
++    <path
++        android:fillColor="#00000000"
++        android:pathData="M0,69L108,69"
++        android:strokeWidth="0.8"
++        android:strokeColor="#33FFFFFF" />
++    <path
++        android:fillColor="#00000000"
++        android:pathData="M0,79L108,79"
++        android:strokeWidth="0.8"
++        android:strokeColor="#33FFFFFF" />
++    <path
++        android:fillColor="#00000000"
++        android:pathData="M0,89L108,89"
++        android:strokeWidth="0.8"
++        android:strokeColor="#33FFFFFF" />
++    <path
++        android:fillColor="#00000000"
++        android:pathData="M0,99L108,99"
++        android:strokeWidth="0.8"
++        android:strokeColor="#33FFFFFF" />
++    <path
++        android:fillColor="#00000000"
++        android:pathData="M19,29L89,29"
++        android:strokeWidth="0.8"
++        android:strokeColor="#33FFFFFF" />
++    <path
++        android:fillColor="#00000000"
++        android:pathData="M19,39L89,39"
++        android:strokeWidth="0.8"
++        android:strokeColor="#33FFFFFF" />
++    <path
++        android:fillColor="#00000000"
++        android:pathData="M19,49L89,49"
++        android:strokeWidth="0.8"
++        android:strokeColor="#33FFFFFF" />
++    <path
++        android:fillColor="#00000000"
++        android:pathData="M19,59L89,59"
++        android:strokeWidth="0.8"
++        android:strokeColor="#33FFFFFF" />
++    <path
++        android:fillColor="#00000000"
++        android:pathData="M19,69L89,69"
++        android:strokeWidth="0.8"
++        android:strokeColor="#33FFFFFF" />
++    <path
++        android:fillColor="#00000000"
++        android:pathData="M19,79L89,79"
++        android:strokeWidth="0.8"
++        android:strokeColor="#33FFFFFF" />
++    <path
++        android:fillColor="#00000000"
++        android:pathData="M29,19L29,89"
++        android:strokeWidth="0.8"
++        android:strokeColor="#33FFFFFF" />
++    <path
++        android:fillColor="#00000000"
++        android:pathData="M39,19L39,89"
++        android:strokeWidth="0.8"
++        android:strokeColor="#33FFFFFF" />
++    <path
++        android:fillColor="#00000000"
++        android:pathData="M49,19L49,89"
++        android:strokeWidth="0.8"
++        android:strokeColor="#33FFFFFF" />
++    <path
++        android:fillColor="#00000000"
++        android:pathData="M59,19L59,89"
++        android:strokeWidth="0.8"
++        android:strokeColor="#33FFFFFF" />
++    <path
++        android:fillColor="#00000000"
++        android:pathData="M69,19L69,89"
++        android:strokeWidth="0.8"
++        android:strokeColor="#33FFFFFF" />
++    <path
++        android:fillColor="#00000000"
++        android:pathData="M79,19L79,89"
++        android:strokeWidth="0.8"
++        android:strokeColor="#33FFFFFF" />
++</vector>
+Index: app/src/main/res/drawable/empty_heart.xml
+IDEA additional info:
+Subsystem: com.intellij.openapi.diff.impl.patch.CharsetEP
+<+>UTF-8
+===================================================================
+diff --git a/app/src/main/res/drawable/empty_heart.xml b/app/src/main/res/drawable/empty_heart.xml
+new file mode 100644
+--- /dev/null	(date 1700059744782)
++++ b/app/src/main/res/drawable/empty_heart.xml	(date 1700059744782)
+@@ -0,0 +1,4 @@
++<vector android:height="200dp" android:viewportHeight="512"
++    android:viewportWidth="512" android:width="200dp" xmlns:android="http://schemas.android.com/apk/res/android">
++    <path android:fillColor="#FF000000" android:pathData="M340.8,98.4c50.7,0 91.9,41.3 91.9,92.3c0,26.2 -10.9,49.8 -28.3,66.6L256,407.1L105,254.6c-15.8,-16.6 -25.6,-39.1 -25.6,-63.9c0,-51 41.1,-92.3 91.9,-92.3c38.2,0 70.9,23.4 84.8,56.8C269.8,121.9 302.6,98.4 340.8,98.4M340.8,83C307,83 276,98.8 256,124.8c-20,-26 -51,-41.8 -84.8,-41.8C112.1,83 64,131.3 64,190.7c0,27.9 10.6,54.4 29.9,74.6L245.1,418l10.9,11l10.9,-11l148.3,-149.8c21,-20.3 32.8,-47.9 32.8,-77.5C448,131.3 399.9,83 340.8,83L340.8,83z"/>
++</vector>
+Index: app/src/main/res/drawable/shopping.xml
+IDEA additional info:
+Subsystem: com.intellij.openapi.diff.impl.patch.CharsetEP
+<+>UTF-8
+===================================================================
+diff --git a/app/src/main/res/drawable/shopping.xml b/app/src/main/res/drawable/shopping.xml
+new file mode 100644
+--- /dev/null	(date 1700059744844)
++++ b/app/src/main/res/drawable/shopping.xml	(date 1700059744844)
+@@ -0,0 +1,24 @@
++<vector android:height="200dp" android:viewportHeight="512"
++    android:viewportWidth="512" android:width="200dp" xmlns:android="http://schemas.android.com/apk/res/android">
++    <path android:fillColor="#000000"
++        android:pathData="M491.61,95.73c-5.06,-6.18 -12.63,-9.77 -20.62,-9.77H123.66l-11.84,-40.66v0.01c-5.43,-18.18 -20.34,-31.95 -38.88,-35.92L30.48,0.3C23.3,-1.25 16.22,3.34 14.67,10.53c-1.54,7.19 3.04,14.27 10.24,15.81l42.45,9.1c9.03,1.93 16.3,8.64 18.95,17.51l77.6,266.55c-1.75,0.81 -3.44,1.7 -5.07,2.67c-8.36,4.98 -15.07,11.98 -19.57,20.15c-4.3,7.76 -6.59,16.56 -6.81,25.63h-0.03v1.38h0.03c0.17,7.09 1.68,13.89 4.3,20.1c4.2,9.93 11.18,18.32 19.98,24.26c8.79,5.95 19.48,9.44 30.85,9.43h249.57c7.36,0 13.32,-5.96 13.32,-13.31c0,-7.35 -5.96,-13.31 -13.32,-13.31l-249.57,-0.01c-3.97,0 -7.69,-0.8 -11.1,-2.23c-5.1,-2.16 -9.49,-5.79 -12.56,-10.36c-2.95,-4.39 -4.7,-9.56 -4.84,-15.23c0.15,-6.77 2.31,-12.64 6.09,-17.34c1.96,-2.42 4.38,-4.54 7.32,-6.3c2.9,-1.73 6.33,-3.11 10.34,-3.97l250.84,-40.83c16.39,-2.67 29.43,-15.2 32.74,-31.48l30.68,-150.84v-0.02c0.36,-1.75 0.53,-3.53 0.53,-5.3C497.63,106.5 495.54,100.54 491.61,95.73zM440.32,263.44c-1.1,5.43 -5.45,9.61 -10.92,10.49l-239.67,39.02l-58.33,-200.36h339.59h0.01L440.32,263.44z"
++        android:strokeColor="#000000" android:strokeWidth="10.24"/>
++    <path android:fillColor="#000000"
++        android:pathData="M218.41,444.79c-5.85,-3.96 -12.97,-6.29 -20.55,-6.28c-5.05,0 -9.92,1.03 -14.31,2.89c-6.61,2.79 -12.19,7.44 -16.16,13.3c-3.96,5.85 -6.29,12.97 -6.27,20.55c-0.01,5.04 1.02,9.91 2.89,14.31c2.8,6.61 7.44,12.2 13.3,16.16c5.86,3.97 12.99,6.29 20.56,6.29c5.04,0 9.9,-1.03 14.3,-2.89c6.61,-2.79 12.2,-7.45 16.17,-13.3c3.96,-5.85 6.28,-12.98 6.28,-20.55c0,-5.04 -1.04,-9.9 -2.89,-14.31C228.91,454.33 224.27,448.74 218.41,444.79zM211.52,481.01c-1.12,2.65 -3.01,4.93 -5.38,6.53c-2.38,1.6 -5.16,2.52 -8.27,2.53c-2.08,-0.01 -4.01,-0.42 -5.76,-1.17c-2.64,-1.1 -4.93,-3.01 -6.53,-5.36c-1.6,-2.39 -2.52,-5.18 -2.53,-8.29c0.01,-2.07 0.42,-3.99 1.16,-5.76c1.11,-2.64 3.01,-4.92 5.38,-6.53c2.38,-1.6 5.17,-2.51 8.28,-2.52c2.07,0 3.99,0.42 5.76,1.16c2.65,1.11 4.92,3.01 6.52,5.38c1.61,2.38 2.53,5.16 2.53,8.27C212.67,477.33 212.26,479.25 211.52,481.01z"
++        android:strokeColor="#000000" android:strokeWidth="10.24"/>
++    <path android:fillColor="#000000"
++        android:pathData="M419.94,444.79c-5.86,-3.96 -12.98,-6.29 -20.55,-6.28c-5.04,0 -9.91,1.03 -14.31,2.89c-6.61,2.79 -12.2,7.44 -16.16,13.3c-3.96,5.85 -6.28,12.97 -6.28,20.55c0,5.04 1.04,9.91 2.89,14.31c2.79,6.61 7.45,12.2 13.3,16.17c5.85,3.96 12.98,6.28 20.55,6.28c5.04,0 9.91,-1.03 14.31,-2.89c6.61,-2.79 12.19,-7.45 16.16,-13.3c3.96,-5.85 6.29,-12.98 6.28,-20.55c0,-5.04 -1.03,-9.9 -2.89,-14.31C430.44,454.33 425.8,448.74 419.94,444.79zM413.04,481.01c-1.11,2.65 -3.01,4.93 -5.37,6.53c-2.38,1.6 -5.18,2.52 -8.28,2.53c-2.08,-0.01 -4,-0.42 -5.76,-1.17c-2.65,-1.1 -4.92,-3.01 -6.52,-5.36c-1.61,-2.39 -2.53,-5.18 -2.53,-8.29c0,-2.07 0.41,-3.99 1.15,-5.76c1.12,-2.64 3.01,-4.92 5.38,-6.53c2.38,-1.6 5.17,-2.51 8.28,-2.52c2.08,0 4,0.42 5.76,1.16c2.64,1.11 4.93,3.01 6.52,5.38c1.6,2.38 2.52,5.16 2.53,8.27C414.2,477.33 413.79,479.25 413.04,481.01z"
++        android:strokeColor="#000000" android:strokeWidth="10.24"/>
++    <path android:fillColor="#000000"
++        android:pathData="M209.72,142.02c-2.17,-7.48 -10,-11.77 -17.48,-9.59c-7.48,2.18 -11.76,10.01 -9.58,17.48l36.52,125.06c2.19,7.47 10.02,11.77 17.49,9.58c7.47,-2.17 11.77,-10.01 9.58,-17.49L209.72,142.02z"
++        android:strokeColor="#000000" android:strokeWidth="10.24"/>
++    <path android:fillColor="#000000"
++        android:pathData="M271.39,141.78c-2.17,-7.48 -10,-11.77 -17.48,-9.59c-7.48,2.19 -11.77,10.02 -9.59,17.49l33.87,115.99c2.19,7.48 10.02,11.77 17.49,9.59c7.47,-2.18 11.77,-10.01 9.58,-17.49L271.39,141.78z"
++        android:strokeColor="#000000" android:strokeWidth="10.24"/>
++    <path android:fillColor="#000000"
++        android:pathData="M333.07,141.55c-2.18,-7.48 -10.01,-11.77 -17.48,-9.58c-7.48,2.17 -11.77,10.01 -9.59,17.48l31.3,107.19c2.18,7.48 10.02,11.77 17.49,9.59c7.47,-2.18 11.77,-10.02 9.58,-17.49L333.07,141.55z"
++        android:strokeColor="#000000" android:strokeWidth="10.24"/>
++    <path android:fillColor="#000000"
++        android:pathData="M394.73,141.3c-2.17,-7.48 -10.01,-11.76 -17.49,-9.58c-7.47,2.19 -11.76,10.02 -9.58,17.49l28.56,97.81c2.19,7.48 10.02,11.77 17.49,9.59c7.47,-2.19 11.77,-10.01 9.59,-17.49L394.73,141.3z"
++        android:strokeColor="#000000" android:strokeWidth="10.24"/>
++</vector>
+Index: app/src/main/java/es/unex/giis/asee/gepeto/view/JoinActivity.kt
+IDEA additional info:
+Subsystem: com.intellij.openapi.diff.impl.patch.CharsetEP
+<+>UTF-8
+===================================================================
+diff --git a/app/src/main/java/es/unex/giis/asee/gepeto/view/JoinActivity.kt b/app/src/main/java/es/unex/giis/asee/gepeto/view/JoinActivity.kt
+new file mode 100644
+--- /dev/null	(date 1700669471314)
++++ b/app/src/main/java/es/unex/giis/asee/gepeto/view/JoinActivity.kt	(date 1700669471314)
+@@ -0,0 +1,11 @@
++package es.unex.giis.asee.gepeto.view
++
++import androidx.appcompat.app.AppCompatActivity
++import android.os.Bundle
++import es.unex.giis.asee.gepeto.R
++
++class JoinActivity : AppCompatActivity() {
++    override fun onCreate(savedInstanceState: Bundle?) {
++        super.onCreate(savedInstanceState)
++    }
++}
+\ No newline at end of file
+Index: app/src/main/res/drawable/ic_launcher_foreground.xml
+IDEA additional info:
+Subsystem: com.intellij.openapi.diff.impl.patch.CharsetEP
+<+>UTF-8
+===================================================================
+diff --git a/app/src/main/res/drawable/ic_launcher_foreground.xml b/app/src/main/res/drawable/ic_launcher_foreground.xml
+new file mode 100644
+--- /dev/null	(date 1700059744787)
++++ b/app/src/main/res/drawable/ic_launcher_foreground.xml	(date 1700059744787)
+@@ -0,0 +1,30 @@
++<vector xmlns:android="http://schemas.android.com/apk/res/android"
++    xmlns:aapt="http://schemas.android.com/aapt"
++    android:width="108dp"
++    android:height="108dp"
++    android:viewportWidth="108"
++    android:viewportHeight="108">
++    <path android:pathData="M31,63.928c0,0 6.4,-11 12.1,-13.1c7.2,-2.6 26,-1.4 26,-1.4l38.1,38.1L107,108.928l-32,-1L31,63.928z">
++        <aapt:attr name="android:fillColor">
++            <gradient
++                android:endX="85.84757"
++                android:endY="92.4963"
++                android:startX="42.9492"
++                android:startY="49.59793"
++                android:type="linear">
++                <item
++                    android:color="#44000000"
++                    android:offset="0.0" />
++                <item
++                    android:color="#00000000"
++                    android:offset="1.0" />
++            </gradient>
++        </aapt:attr>
++    </path>
++    <path
++        android:fillColor="#FFFFFF"
++        android:fillType="nonZero"
++        android:pathData="M65.3,45.828l3.8,-6.6c0.2,-0.4 0.1,-0.9 -0.3,-1.1c-0.4,-0.2 -0.9,-0.1 -1.1,0.3l-3.9,6.7c-6.3,-2.8 -13.4,-2.8 -19.7,0l-3.9,-6.7c-0.2,-0.4 -0.7,-0.5 -1.1,-0.3C38.8,38.328 38.7,38.828 38.9,39.228l3.8,6.6C36.2,49.428 31.7,56.028 31,63.928h46C76.3,56.028 71.8,49.428 65.3,45.828zM43.4,57.328c-0.8,0 -1.5,-0.5 -1.8,-1.2c-0.3,-0.7 -0.1,-1.5 0.4,-2.1c0.5,-0.5 1.4,-0.7 2.1,-0.4c0.7,0.3 1.2,1 1.2,1.8C45.3,56.528 44.5,57.328 43.4,57.328L43.4,57.328zM64.6,57.328c-0.8,0 -1.5,-0.5 -1.8,-1.2s-0.1,-1.5 0.4,-2.1c0.5,-0.5 1.4,-0.7 2.1,-0.4c0.7,0.3 1.2,1 1.2,1.8C66.5,56.528 65.6,57.328 64.6,57.328L64.6,57.328z"
++        android:strokeWidth="1"
++        android:strokeColor="#00000000" />
++</vector>
+\ No newline at end of file
+Index: app/src/main/res/drawable/filled_heart.xml
+IDEA additional info:
+Subsystem: com.intellij.openapi.diff.impl.patch.CharsetEP
+<+>UTF-8
+===================================================================
+diff --git a/app/src/main/res/drawable/filled_heart.xml b/app/src/main/res/drawable/filled_heart.xml
+new file mode 100644
+--- /dev/null	(date 1700059744783)
++++ b/app/src/main/res/drawable/filled_heart.xml	(date 1700059744783)
+@@ -0,0 +1,4 @@
++<vector android:height="200dp" android:viewportHeight="24"
++    android:viewportWidth="24" android:width="200dp" xmlns:android="http://schemas.android.com/apk/res/android">
++    <path android:fillColor="#c0392b" android:pathData="m7,3c-1.536,0 -3.078,0.5 -4.25,1.7 -2.343,2.4 -2.279,6.1 0,8.5l9.25,9.8 9.25,-9.8c2.279,-2.4 2.343,-6.1 0,-8.5 -2.343,-2.3 -6.157,-2.3 -8.5,0l-0.75,0.8 -0.75,-0.8c-1.172,-1.2 -2.714,-1.7 -4.25,-1.7z"/>
++</vector>
+Index: app/src/main/res/drawable/food.xml
+IDEA additional info:
+Subsystem: com.intellij.openapi.diff.impl.patch.CharsetEP
+<+>UTF-8
+===================================================================
+diff --git a/app/src/main/res/drawable/food.xml b/app/src/main/res/drawable/food.xml
+new file mode 100644
+--- /dev/null	(date 1700059744783)
++++ b/app/src/main/res/drawable/food.xml	(date 1700059744783)
+@@ -0,0 +1,4 @@
++<vector android:height="200dp" android:viewportHeight="122.88"
++    android:viewportWidth="122.88" android:width="200dp" xmlns:android="http://schemas.android.com/apk/res/android">
++    <path android:fillColor="#000000" android:pathData="M29.03,104.3l20.79,-25.21l9.51,12.13L41,114.53C33.98,123.45 20.99,114.05 29.03,104.3L29.03,104.3zM53.31,46.89c1.98,-6.46 1.07,-11.98 -6.37,-20.18L28.76,4.84c-2.58,-3.03 -8.66,1.42 -6.12,5.09L37.18,27.84c2.75,3.34 -2.36,7.76 -5.2,4.32L16.94,13.64c-2.8,-3.21 -8.59,1.03 -5.66,4.7c4.24,5.1 10.8,13.43 15.04,18.53c2.94,2.99 -1.53,7.42 -4.43,3.69L6.96,22.16c-2.19,-2.38 -5.77,-0.9 -6.72,1.88c-1.02,2.97 1.49,5.14 3.2,7.34L20.1,52.9c5.17,5.99 10.95,9.54 17.67,7.53c1.03,-0.31 2.29,-0.94 3.64,-1.77l44.76,57.78c2.41,3.11 7.06,3.44 10.08,0.93l0.69,-0.57c3.4,-2.83 3.95,-8 1.04,-11.34L50.58,51C51.96,49.46 52.97,48 53.31,46.89L53.31,46.89zM65.98,59.49l7.37,-8.94C63.87,27.05 99,-4.27 116.03,10.13C136.72,27.64 105.97,69.84 84.36,59.41l-8.73,11.09L65.98,59.49L65.98,59.49z"/>
++</vector>
+Index: app/src/main/res/drawable/rounded_elevated_background.xml
+IDEA additional info:
+Subsystem: com.intellij.openapi.diff.impl.patch.CharsetEP
+<+>UTF-8
+===================================================================
+diff --git a/app/src/main/res/drawable/rounded_elevated_background.xml b/app/src/main/res/drawable/rounded_elevated_background.xml
+new file mode 100644
+--- /dev/null	(date 1700059744842)
++++ b/app/src/main/res/drawable/rounded_elevated_background.xml	(date 1700059744842)
+@@ -0,0 +1,6 @@
++<?xml version="1.0" encoding="utf-8"?>
++<shape xmlns:android="http://schemas.android.com/apk/res/android">
++    <solid android:color="#FFFFFF" /> <!-- Color de fondo del TextView -->
++    <corners android:radius="20dp" /> <!-- Radio de las esquinas, ajusta según tu preferencia -->
++    <padding android:left="8dp" android:right="8dp" android:top="8dp" android:bottom="8dp" /> <!-- Margen interno -->
++</shape>
+Index: app/src/main/res/drawable/heart_button_selector.xml
+IDEA additional info:
+Subsystem: com.intellij.openapi.diff.impl.patch.CharsetEP
+<+>UTF-8
+===================================================================
+diff --git a/app/src/main/res/drawable/heart_button_selector.xml b/app/src/main/res/drawable/heart_button_selector.xml
+new file mode 100644
+--- /dev/null	(date 1700059744785)
++++ b/app/src/main/res/drawable/heart_button_selector.xml	(date 1700059744785)
+@@ -0,0 +1,7 @@
++<?xml version="1.0" encoding="utf-8"?>
++<selector xmlns:android="http://schemas.android.com/apk/res/android">
++    <item android:drawable="@drawable/filled_heart"
++            android:state_pressed="true"
++        />
++    <item android:drawable="@drawable/empty_heart" />
++</selector>
+Index: app/src/main/res/drawable/fridge.xml
+IDEA additional info:
+Subsystem: com.intellij.openapi.diff.impl.patch.CharsetEP
+<+>UTF-8
+===================================================================
+diff --git a/app/src/main/res/drawable/fridge.xml b/app/src/main/res/drawable/fridge.xml
+new file mode 100644
+--- /dev/null	(date 1700059744785)
++++ b/app/src/main/res/drawable/fridge.xml	(date 1700059744785)
+@@ -0,0 +1,6 @@
++<vector android:height="200dp" android:viewportHeight="50"
++    android:viewportWidth="50" android:width="200dp" xmlns:android="http://schemas.android.com/apk/res/android">
++    <path android:fillColor="#000000"
++        android:pathData="M10,0C8.355,0 7,1.355 7,3L7,18.688C6.941,18.883 6.941,19.086 7,19.281L7,44C7,45.645 8.355,47 10,47L10,48C10,49.094 10.906,50 12,50L15,50C16.094,50 17,49.094 17,48L17,47L33,47L33,48C33,49.094 33.906,50 35,50L38,50C39.094,50 40,49.094 40,48L40,47C41.645,47 43,45.645 43,44L43,19.188C43.027,19.055 43.027,18.914 43,18.781L43,3C43,1.355 41.645,0 40,0ZM10,2L40,2C40.563,2 41,2.438 41,3L41,18L9,18L9,3C9,2.438 9.438,2 10,2ZM13.906,5.969C13.863,5.977 13.82,5.988 13.781,6C13.316,6.105 12.988,6.523 13,7L13,14C12.996,14.359 13.184,14.695 13.496,14.879C13.809,15.059 14.191,15.059 14.504,14.879C14.816,14.695 15.004,14.359 15,14L15,7C15.012,6.711 14.895,6.434 14.688,6.238C14.477,6.039 14.191,5.941 13.906,5.969ZM9,20L41,20L41,44C41,44.563 40.563,45 40,45L10,45C9.438,45 9,44.563 9,44ZM13.906,22.969C13.863,22.977 13.82,22.988 13.781,23C13.316,23.105 12.988,23.523 13,24L13,31C12.996,31.359 13.184,31.695 13.496,31.879C13.809,32.059 14.191,32.059 14.504,31.879C14.816,31.695 15.004,31.359 15,31L15,24C15.012,23.711 14.895,23.434 14.688,23.238C14.477,23.039 14.191,22.941 13.906,22.969ZM12,47L15,47L15,48L12,48ZM35,47L38,47L38,48L35,48Z"
++        android:strokeColor="#000000" android:strokeWidth="1.5"/>
++</vector>
+Index: app/src/main/res/drawable/crear_receta.xml
+IDEA additional info:
+Subsystem: com.intellij.openapi.diff.impl.patch.CharsetEP
+<+>UTF-8
+===================================================================
+diff --git a/app/src/main/res/drawable/crear_receta.xml b/app/src/main/res/drawable/crear_receta.xml
+new file mode 100644
+--- /dev/null	(date 1700253025223)
++++ b/app/src/main/res/drawable/crear_receta.xml	(date 1700253025223)
+@@ -0,0 +1,36 @@
++<vector xmlns:android="http://schemas.android.com/apk/res/android"
++    android:width="800dp"
++    android:height="800dp"
++    android:viewportWidth="512"
++    android:viewportHeight="512">
++  <path
++      android:pathData="M445.86,250.71c-8.56,-40.21 -30.35,-77.47 -61.37,-104.92c-3.24,-2.87 -8.19,-2.57 -11.06,0.68c-2.87,3.24 -2.57,8.19 0.68,11.06c28.52,25.24 48.56,59.49 56.43,96.44c0.78,3.68 4.04,6.21 7.66,6.21c0.54,0 1.09,-0.06 1.64,-0.17C444.06,259.11 446.76,254.95 445.86,250.71z"
++      android:strokeWidth="4.096"
++      android:fillColor="#000000"
++      android:strokeColor="#000000"/>
++  <path
++      android:pathData="M362.71,129.1c-12.28,-8.11 -25.46,-14.81 -39.2,-19.92c-4.05,-1.51 -8.57,0.56 -10.08,4.61s0.56,8.57 4.61,10.08c12.62,4.7 24.74,10.86 36.03,18.31c1.33,0.88 2.83,1.3 4.31,1.3c2.54,0 5.04,-1.24 6.55,-3.52C367.32,136.35 366.33,131.48 362.71,129.1z"
++      android:strokeWidth="4.096"
++      android:fillColor="#000000"
++      android:strokeColor="#000000"/>
++  <path
++      android:pathData="M168.18,245.55h-35.44c-4.33,0 -7.84,3.51 -7.84,7.84c0,4.33 3.51,7.84 7.84,7.84h35.44c4.33,0 7.84,-3.51 7.84,-7.84C176.02,249.06 172.51,245.55 168.18,245.55z"
++      android:strokeWidth="4.096"
++      android:fillColor="#000000"
++      android:strokeColor="#000000"/>
++  <path
++      android:pathData="M440.19,375.87c-6.07,-6.07 -14.15,-9.42 -22.73,-9.42c-8.59,0 -16.66,3.34 -22.73,9.42l-39.89,39.89l-131.47,0.1v-9.42h61.05c17.73,0 32.15,-14.42 32.15,-32.15c0,-17.73 -14.42,-32.15 -32.15,-32.15h-87.95c-4.4,0 -8.65,1.59 -11.97,4.46l-44.64,38.67c-2.04,-8.08 -9.35,-14.09 -18.06,-14.09H75.86c-10.28,0 -18.64,8.36 -18.64,18.64v97.25c0,10.28 8.36,18.64 18.64,18.64h45.92c10.28,0 18.64,-8.36 18.64,-18.64v-7.02h38.25c4.33,0 7.84,-3.51 7.84,-7.84c0,-4.33 -3.51,-7.84 -7.84,-7.84h-38.25V405.5l54.32,-47.05c0.47,-0.41 1.08,-0.64 1.71,-0.64h87.95c9.08,0 16.48,7.39 16.48,16.48c0,9.08 -7.39,16.48 -16.48,16.48h-5.95v-21.05c0,-4.33 -3.51,-7.84 -7.84,-7.84c-4.33,0 -7.84,3.51 -7.84,7.84v21.05h-47.27c-4.33,0 -7.84,3.51 -7.84,7.84v25.1c0,2.08 0.83,4.07 2.3,5.54c1.47,1.47 3.46,2.29 5.54,2.29c0,0 0,0 0.01,0l142.56,-0.11c2.08,-0 4.07,-0.83 5.53,-2.3l42.18,-42.18c3.11,-3.11 7.25,-4.82 11.65,-4.82s8.54,1.71 11.65,4.82c6.42,6.42 6.42,16.88 0,23.3l-2.06,2.06l-12.95,-12.95c-3.06,-3.06 -8.02,-3.06 -11.08,0c-3.06,3.06 -3.06,8.02 0,11.08l12.95,12.95l-40.22,40.22c-0.49,0.49 -1.15,0.76 -1.85,0.76H206.89c-4.33,0 -7.84,3.51 -7.84,7.84s3.51,7.84 7.84,7.84h167.01c4.88,0 9.48,-1.9 12.93,-5.36l53.36,-53.36C452.72,408.8 452.72,388.41 440.19,375.87zM124.76,487.08c0,1.64 -1.33,2.97 -2.97,2.97h-15.13v-35.86c0,-4.33 -3.51,-7.84 -7.84,-7.84c-4.33,0 -7.84,3.51 -7.84,7.84v35.86H75.86c-1.64,0 -2.97,-1.33 -2.97,-2.97v-97.25c0,-1.64 1.33,-2.97 2.97,-2.97h45.92c1.64,0 2.97,1.33 2.97,2.97V487.08z"
++      android:strokeWidth="4.096"
++      android:fillColor="#000000"
++      android:strokeColor="#000000"/>
++  <path
++      android:pathData="M98.83,412.11m-10.16,0a10.16,10.16 0,1 1,20.31 0a10.16,10.16 0,1 1,-20.31 0"
++      android:strokeWidth="4.096"
++      android:fillColor="#000000"
++      android:strokeColor="#000000"/>
++  <path
++      android:pathData="M493.71,270.63h-18.45c-2.15,-23.44 -7.99,-46.18 -17.48,-67.82c-11.82,-26.95 -28.67,-50.94 -50.1,-71.3c-3.14,-2.98 -8.1,-2.86 -11.08,0.28c-2.98,3.14 -2.86,8.1 0.28,11.08c19.9,18.92 35.56,41.2 46.54,66.24c8.61,19.65 14,40.26 16.1,61.52h-68.74c-4.33,0 -7.84,3.51 -7.84,7.84c0,4.33 3.51,7.84 7.84,7.84h102.92c1.44,0 2.61,1.17 2.61,2.61v12.02c0,1.44 -1.17,2.61 -2.61,2.61H18.29c-1.44,0 -2.61,-1.17 -2.61,-2.61v-12.02c0,-1.44 1.17,-2.61 2.61,-2.61h334.89c4.33,0 7.84,-3.51 7.84,-7.84c0,-4.33 -3.51,-7.84 -7.84,-7.84H52.49c0.32,-3.16 0.71,-6.29 1.16,-9.4h52.92c4.33,0 7.84,-3.51 7.84,-7.84c0,-4.33 -3.51,-7.84 -7.84,-7.84H56.61C77.39,154.65 158.89,86.61 256,86.61c43.79,0 85.54,13.64 120.75,39.43c3.49,2.56 8.4,1.8 10.95,-1.69c2.56,-3.49 1.8,-8.4 -1.69,-10.95c-30.21,-22.14 -64.9,-35.94 -101.6,-40.65l-3.2,-10.44c1.78,-1.11 3.3,-2.64 4.37,-4.52l18.36,-32.17c2.28,-3.99 2.26,-8.93 -0.05,-12.9c-2.31,-3.97 -6.59,-6.44 -11.18,-6.44h-73.43c-4.59,0 -8.88,2.47 -11.18,6.43c-2.31,3.97 -2.33,8.91 -0.05,12.9l18.36,32.17c1.07,1.88 2.59,3.41 4.37,4.52l-3.21,10.47C126.22,85.9 46.27,168.2 36.76,270.63H18.29C8.2,270.63 0,278.83 0,288.92v12.02c0,10.08 8.2,18.29 18.29,18.29h475.43c10.08,0 18.29,-8.2 18.29,-18.29v-12.02C512,278.83 503.8,270.63 493.71,270.63zM256,70.94c-3.88,0 -7.73,0.11 -11.56,0.31l2.13,-6.94h18.87l2.13,6.94C263.72,71.05 259.87,70.94 256,70.94zM224.01,21.96h63.98l-15.22,26.68h-33.53L224.01,21.96z"
++      android:strokeWidth="4.096"
++      android:fillColor="#000000"
++      android:strokeColor="#000000"/>
++</vector>
+Index: app/src/main/res/drawable/recetas.xml
+IDEA additional info:
+Subsystem: com.intellij.openapi.diff.impl.patch.CharsetEP
+<+>UTF-8
+===================================================================
+diff --git a/app/src/main/res/drawable/recetas.xml b/app/src/main/res/drawable/recetas.xml
+new file mode 100644
+--- /dev/null	(date 1700255357005)
++++ b/app/src/main/res/drawable/recetas.xml	(date 1700255357005)
+@@ -0,0 +1,26 @@
++<vector xmlns:android="http://schemas.android.com/apk/res/android"
++    android:width="800dp"
++    android:height="800dp"
++    android:viewportWidth="512.03"
++    android:viewportHeight="512.03">
++  <path
++      android:pathData="M87.68,38.02l-15.21,0l0,443.59l281.71,0l0,-15.21l-266.5,0z"
++      android:strokeWidth="7.680465"
++      android:fillColor="#000000"
++      android:strokeColor="#000000"/>
++  <path
++      android:pathData="M415.22,0H400.01h-38.23h-80.92H42.05v512.03h357.96h15.21h54.76V0H415.22zM296.07,15.21h50.51V96.66l-25.25,-23.38l-25.25,23.38V15.21zM57.26,496.82V15.21h193.18v68.25h15.21v-68.25h15.21v116.26l40.46,-37.46l40.46,37.46V15.21h38.23v481.61H57.26zM454.77,496.82h-12.17V382.76H427.39v114.07h-12.17V15.21h12.17v277.64h15.21V15.21h12.17V496.82z"
++      android:strokeWidth="7.680465"
++      android:fillColor="#000000"
++      android:strokeColor="#000000"/>
++  <path
++      android:pathData="M427.39,313.13h15.21v49.35h-15.21z"
++      android:strokeWidth="7.680465"
++      android:fillColor="#000000"
++      android:strokeColor="#000000"/>
++  <path
++      android:pathData="M173.38,261.7c2.64,0.71 5.35,1.06 8.08,1.06c3.86,0 7.78,-0.7 11.67,-2.1l30.91,53.54l-52.36,90.69l13.17,7.6l47.97,-83.08l47.97,83.08l13.17,-7.6L241.6,314.19l26,-45.04c3.87,1.3 7.94,1.97 12.04,1.97c13.57,0 26.22,-7.3 33,-19.04l16.65,-28.83c10.49,-18.18 4.24,-41.51 -13.94,-52.01c-5.79,-3.34 -12.36,-5.11 -19.01,-5.11c-13.57,0 -26.22,7.3 -33,19.04l-16.65,28.83c-9.19,15.93 -5.54,35.8 7.73,47.54l-21.61,37.43l-26.52,-45.94c5.39,-4.57 9.07,-10.2 10.78,-16.58c2.31,-8.61 0.83,-17.84 -4.27,-26.67l-28.53,-49.41l-13.17,7.6l28.53,49.41c3.04,5.26 3.99,10.49 2.75,15.13c-0.67,2.51 -2.01,4.85 -3.92,6.95l-37.79,-65.46l-13.17,7.6l37.79,65.46c-2.77,0.6 -5.46,0.59 -7.98,-0.08c-4.63,-1.24 -8.69,-4.68 -11.73,-9.94l-28.53,-49.41l-13.17,7.6l28.53,49.41C157.52,253.5 164.77,259.39 173.38,261.7zM259.87,221.61l16.65,-28.83c4.07,-7.05 11.67,-11.44 19.83,-11.44c3.98,0 7.93,1.06 11.41,3.07c10.92,6.3 14.67,20.31 8.37,31.23l-16.65,28.83c-4.07,7.05 -11.67,11.44 -19.83,11.44c-3.98,0 -7.93,-1.06 -11.4,-3.07C257.32,246.54 253.57,232.53 259.87,221.61z"
++      android:strokeWidth="7.680465"
++      android:fillColor="#000000"
++      android:strokeColor="#000000"/>
++</vector>
+Index: app/src/main/res/navigation/home_graphnav.xml
+IDEA additional info:
+Subsystem: com.intellij.openapi.diff.impl.patch.CharsetEP
+<+>UTF-8
+===================================================================
+diff --git a/app/src/main/res/navigation/home_graphnav.xml b/app/src/main/res/navigation/home_graphnav.xml
+new file mode 100644
+--- /dev/null	(date 1700059744878)
++++ b/app/src/main/res/navigation/home_graphnav.xml	(date 1700059744878)
+@@ -0,0 +1,84 @@
++<?xml version="1.0" encoding="utf-8"?>
++<navigation xmlns:android="http://schemas.android.com/apk/res/android"
++    xmlns:app="http://schemas.android.com/apk/res-auto"
++    xmlns:tools="http://schemas.android.com/tools"
++    android:id="@+id/home_graphnav"
++    app:startDestination="@id/recetasFragment">
++
++    <action
++        android:id="@+id/action_home_to_settingsFragment"
++        app:destination="@id/settingsFragment" />
++    <fragment
++        android:id="@+id/recetasFragment"
++        android:name="es.unex.giis.asee.gepeto.view.home.recetas.RecetasFragment"
++        android:label="@string/recetas_option"
++        tools:layout="@layout/fragment_recetas">
++        <action
++            android:id="@+id/action_recetasFragment_to_favoritasFragment"
++            app:destination="@id/favoritasFragment" />
++        <action
++            android:id="@+id/action_recetasFragment_to_historialFragment"
++            app:destination="@id/historialFragment" />
++        <action
++            android:id="@+id/action_recetasFragment_to_recetaDetailFragment"
++            app:destination="@id/recetaDetailFragment" />
++    </fragment>
++    <fragment
++        android:id="@+id/listaFragment"
++        android:name="es.unex.giis.asee.gepeto.view.home.ListaFragment"
++        android:label="@string/lista_option"
++        tools:layout="@layout/fragment_lista" />
++    <fragment
++        android:id="@+id/ingredientesFragment"
++        android:name="es.unex.giis.asee.gepeto.view.home.IngredientesFragment"
++        android:label="@string/ingredientes_option"
++        tools:layout="@layout/fragment_ingredientes" >
++        <action
++            android:id="@+id/action_ingredientesFragment_to_observacionesFragment"
++            app:destination="@id/observacionesFragment" />
++    </fragment>
++    <fragment
++        android:id="@+id/equipamientoFragment"
++        android:name="es.unex.giis.asee.gepeto.view.home.EquipamientoFragment"
++        android:label="@string/equipamiento_option"
++        tools:layout="@layout/fragment_equipamiento"/>
++
++    <fragment
++        android:id="@+id/recetaDetailFragment"
++        android:name="es.unex.giis.asee.gepeto.view.home.recetas.RecetaDetailFragment"
++        android:label="Detalles de la receta"
++        tools:layout="@layout/fragment_receta_detail">
++        <argument
++            android:name="receta"
++            app:argType="es.unex.giis.asee.gepeto.model.Receta" />
++    </fragment>
++    <fragment
++        android:id="@+id/favoritasFragment"
++        android:name="es.unex.giis.asee.gepeto.view.home.recetas.FavoritasFragment"
++        android:label="@string/favoritas_option"
++        tools:layout="@layout/fragment_favoritas"/>
++    <fragment
++        android:id="@+id/historialFragment"
++        android:name="es.unex.giis.asee.gepeto.view.home.recetas.HistorialFragment"
++        android:label="fragment_historial"
++        tools:layout="@layout/fragment_historial" />
++    <fragment
++        android:id="@+id/observacionesFragment"
++        android:name="es.unex.giis.asee.gepeto.view.home.ObservacionesFragment"
++        android:label="@string/observaciones_option"
++        tools:layout="@layout/fragment_observaciones" >
++
++        <argument
++            android:name="ingredientes"
++            app:argType="string"/>
++        <action
++            android:id="@+id/action_observacionesFragment_to_recetaDetailFragment"
++            app:destination="@id/recetaDetailFragment" />
++
++    </fragment>
++    <fragment
++        android:id="@+id/settingsFragment"
++        android:name="es.unex.giis.asee.gepeto.view.home.SettingsFragment"
++        android:label="Preferencias"
++        tools:layout="@layout/fragment_settings" />
++</navigation>
+\ No newline at end of file
+Index: app/src/main/res/drawable/edittext_background.xml
+IDEA additional info:
+Subsystem: com.intellij.openapi.diff.impl.patch.CharsetEP
+<+>UTF-8
+===================================================================
+diff --git a/app/src/main/res/drawable/edittext_background.xml b/app/src/main/res/drawable/edittext_background.xml
+new file mode 100644
+--- /dev/null	(date 1700577184518)
++++ b/app/src/main/res/drawable/edittext_background.xml	(date 1700577184518)
+@@ -0,0 +1,16 @@
++<?xml version="1.0" encoding="utf-8"?>
++<selector xmlns:android="http://schemas.android.com/apk/res/android">
++
++    <item>
++        <shape>
++            <solid android:color="#D7D6D7" />
++            <corners android:radius="5dp" />
++            <stroke
++                android:width="2dp"
++                android:color="@color/black">
++            </stroke>
++        </shape>
++    </item>
++
++
++</selector>
+\ No newline at end of file
+Index: app/src/main/res/drawable/login_background.xml
+IDEA additional info:
+Subsystem: com.intellij.openapi.diff.impl.patch.CharsetEP
+<+>UTF-8
+===================================================================
+diff --git a/app/src/main/res/drawable/login_background.xml b/app/src/main/res/drawable/login_background.xml
+new file mode 100644
+--- /dev/null	(date 1700577184518)
++++ b/app/src/main/res/drawable/login_background.xml	(date 1700577184518)
+@@ -0,0 +1,15 @@
++<?xml version="1.0" encoding="utf-8"?>
++<selector xmlns:android="http://schemas.android.com/apk/res/android">
++    <item>
++        <shape>
++            <corners android:radius="5dp" />
++            <stroke
++                android:width="1dp"
++                android:color="#87cedb" />
++            <gradient
++                android:startColor="#87cedb"
++                android:endColor="#fab30b"
++                android:angle="0" />
++        </shape>
++    </item>
++</selector>
+\ No newline at end of file

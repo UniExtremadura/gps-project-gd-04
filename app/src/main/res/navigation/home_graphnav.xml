@@ -1,0 +1,84 @@
+<?xml version="1.0" encoding="utf-8"?>
+<navigation xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/home_graphnav"
+    app:startDestination="@id/recetasFragment">
+
+    <action
+        android:id="@+id/action_home_to_settingsFragment"
+        app:destination="@id/settingsFragment" />
+    <fragment
+        android:id="@+id/recetasFragment"
+        android:name="es.unex.giis.asee.gepeto.view.home.recetas.RecetasFragment"
+        android:label="@string/recetas_option"
+        tools:layout="@layout/fragment_recetas">
+        <action
+            android:id="@+id/action_recetasFragment_to_favoritasFragment"
+            app:destination="@id/favoritasFragment" />
+        <action
+            android:id="@+id/action_recetasFragment_to_historialFragment"
+            app:destination="@id/historialFragment" />
+        <action
+            android:id="@+id/action_recetasFragment_to_recetaDetailFragment"
+            app:destination="@id/recetaDetailFragment" />
+    </fragment>
+    <fragment
+        android:id="@+id/listaFragment"
+        android:name="es.unex.giis.asee.gepeto.view.home.ListaFragment"
+        android:label="@string/lista_option"
+        tools:layout="@layout/fragment_lista" />
+    <fragment
+        android:id="@+id/ingredientesFragment"
+        android:name="es.unex.giis.asee.gepeto.view.home.IngredientesFragment"
+        android:label="@string/ingredientes_option"
+        tools:layout="@layout/fragment_ingredientes" >
+        <action
+            android:id="@+id/action_ingredientesFragment_to_observacionesFragment"
+            app:destination="@id/observacionesFragment" />
+    </fragment>
+    <fragment
+        android:id="@+id/equipamientoFragment"
+        android:name="es.unex.giis.asee.gepeto.view.home.EquipamientoFragment"
+        android:label="@string/equipamiento_option"
+        tools:layout="@layout/fragment_equipamiento"/>
+
+    <fragment
+        android:id="@+id/recetaDetailFragment"
+        android:name="es.unex.giis.asee.gepeto.view.home.recetas.RecetaDetailFragment"
+        android:label="Detalles de la receta"
+        tools:layout="@layout/fragment_receta_detail">
+        <argument
+            android:name="receta"
+            app:argType="es.unex.giis.asee.gepeto.model.Receta" />
+    </fragment>
+    <fragment
+        android:id="@+id/favoritasFragment"
+        android:name="es.unex.giis.asee.gepeto.view.home.recetas.FavoritasFragment"
+        android:label="@string/favoritas_option"
+        tools:layout="@layout/fragment_favoritas"/>
+    <fragment
+        android:id="@+id/historialFragment"
+        android:name="es.unex.giis.asee.gepeto.view.home.recetas.HistorialFragment"
+        android:label="fragment_historial"
+        tools:layout="@layout/fragment_historial" />
+    <fragment
+        android:id="@+id/observacionesFragment"
+        android:name="es.unex.giis.asee.gepeto.view.home.ObservacionesFragment"
+        android:label="@string/observaciones_option"
+        tools:layout="@layout/fragment_observaciones" >
+
+        <argument
+            android:name="ingredientes"
+            app:argType="string"/>
+        <action
+            android:id="@+id/action_observacionesFragment_to_recetaDetailFragment"
+            app:destination="@id/recetaDetailFragment" />
+
+    </fragment>
+    <fragment
+        android:id="@+id/settingsFragment"
+        android:name="es.unex.giis.asee.gepeto.view.home.SettingsFragment"
+        android:label="Preferencias"
+        tools:layout="@layout/fragment_settings" />
+</navigation>
