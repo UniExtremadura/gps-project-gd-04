@@ -40,7 +40,7 @@ class IngredientesFragment : Fragment() {
 
     private fun getIngredientes () : TreeSet<String> {
         val ingredientes = Session.getValue("ingredientesSeleccionados") as TreeSet<*>? ?: TreeSet<String>()
-        val ingredientesFiltrados = TreeSet<String>()
+        val ingredientesFiltrados = TreeSet<String>(todosLosIngredientes)
 
         if (ingredientes.isEmpty()) {
             return ingredientesFiltrados
@@ -54,7 +54,7 @@ class IngredientesFragment : Fragment() {
     }
 
     // Esta lista almacenará todos los cambios que se hagan en la lista de todos los ingredientes
-    private var listaIngredientes : TreeSet<String> = TreeSet()
+    private var listaIngredientes : TreeSet<String> = getIngredientes()
     // Utilizo un treeset porque no admite duplicados y los elementos están ordenados automaticamente
 
     override fun onCreateView(
@@ -95,14 +95,20 @@ class IngredientesFragment : Fragment() {
     private fun setUpButtonListener() {
         with(binding) {
             btnCrearReceta.setOnClickListener() {
-                
+                val ingredientes = ingredientesSeleccionadosAdapter.getSet()
+
+                if (ingredientes.isEmpty()) {
+                    advertenciaLabel.visibility = View.VISIBLE
+                } else {
+                    listener.onCrearRecetaClick(ingredientesSeleccionadosAdapter.getSet())
+                }
             }
         }
     }
 
     private fun setUpAllRecyclerView () {
         todosIngredientesAdapter = ItemSwapAdapter(
-            itemSet = TreeSet<String>(),
+            itemSet = TreeSet<String>(todosLosIngredientes),
             onClick = {
 
                 with(binding.advertenciaLabel) {
