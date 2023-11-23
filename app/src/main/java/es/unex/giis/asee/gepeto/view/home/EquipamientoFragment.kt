@@ -26,6 +26,7 @@ class EquipamientoFragment : Fragment() {
 
     private lateinit var _binding: FragmentEquipamientoBinding
 
+
     private lateinit var equipamientosAdapter: ItemSwapAdapter
     private lateinit var seleccionadosAdapter: ItemSwapAdapter
 
