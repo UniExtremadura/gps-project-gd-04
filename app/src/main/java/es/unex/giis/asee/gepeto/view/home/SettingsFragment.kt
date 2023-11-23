@@ -46,6 +46,8 @@ class SettingsFragment : PreferenceFragmentCompat() {
 
         editor.apply()
     }
+
+    // Función para mostrar un cuadro de diálogo de edición de sugerencias
     private fun showSuggestionDialog() {
         val builder = AlertDialog.Builder(requireContext())
         builder.setTitle("Enviar Sugerencia")
