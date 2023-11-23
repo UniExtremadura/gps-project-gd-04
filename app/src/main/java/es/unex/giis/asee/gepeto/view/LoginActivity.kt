@@ -107,7 +107,6 @@ class LoginActivity : AppCompatActivity() {
         JoinActivity.start(this, responseLauncher)
     }
 
-
     private fun notifyInvalidCredentials(msg: String) {
         Toast.makeText(this, msg, Toast.LENGTH_SHORT).show()
     }
