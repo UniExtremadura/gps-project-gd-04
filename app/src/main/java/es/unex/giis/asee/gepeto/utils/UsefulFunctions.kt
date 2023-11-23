@@ -32,6 +32,7 @@ fun ocultarBottomNavigation ( view: View, bottomNavigationView: BottomNavigation
     })
 }
 
+
 fun filtrarLista ( buscador: EditText, itemSet: TreeSet<String>, adapter: ItemSwapAdapter ) {
     buscador.addTextChangedListener( object : TextWatcher {
         override fun beforeTextChanged(s: CharSequence?, start: Int, count: Int, after: Int) {
