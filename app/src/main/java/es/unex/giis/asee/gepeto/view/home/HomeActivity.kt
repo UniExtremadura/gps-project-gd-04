@@ -5,6 +5,7 @@ import android.os.Bundle
 import es.unex.giis.asee.gepeto.R
 
 class HomeActivity : AppCompatActivity() {
+
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
     }
