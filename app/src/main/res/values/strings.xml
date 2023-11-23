@@ -54,4 +54,6 @@
     <string name="Restore">Recuperar Contraseña</string>
     <string name="no_hay_recetas">No existen Recetas</string>
     <string name="no_hay_favortias">No existen Favoritos</string>
+    <string name="buscar_receta">Buscar receta:</string>
+    <string name="buscar_favorita">Buscar favoritas:</string>
 </resources>

@@ -14,6 +14,44 @@
         android:layout_height="wrap_content"
         tools:ignore="MissingConstraints">
 
+        <LinearLayout
+            android:id="@+id/buscador_favoritas_container"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="vertical"
+            android:paddingStart="16dp"
+            android:paddingEnd="16dp"
+            android:paddingTop="4dp"
+            android:background="@color/white" >
+
+            <TextView
+                android:id="@+id/buscar_favorita"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:textColor="@color/title_color"
+                android:text="@string/buscar_favorita"
+                android:textSize="22sp"
+                android:textStyle="bold" />
+
+            <EditText
+                android:id="@+id/buscador_de_favoritas"
+                style="@style/Widget.AppCompat.EditText"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+
+                android:ems="10"
+
+                android:hint="Pumpkin Pie"
+                android:inputType="text"
+                android:textSize="22sp" />
+
+            <androidx.recyclerview.widget.RecyclerView
+                android:id="@+id/rv_favoritas_list"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent" />
+
+        </LinearLayout>
+
         <TextView
             android:id="@+id/no_hay_favoritas"
             android:layout_width="match_parent"
@@ -37,15 +75,6 @@
             android:visibility="visible"
             android:layout_centerHorizontal="true"
             android:layout_marginTop="20dp"/>
-
-        <androidx.recyclerview.widget.RecyclerView
-            android:id="@+id/rv_favoritas_list"
-            android:layout_width="match_parent"
-            android:layout_height="match_parent"
-            app:layout_constraintBottom_toBottomOf="parent"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toTopOf="parent" />
 
     </RelativeLayout>
 

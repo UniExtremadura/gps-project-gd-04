@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="utf-8"?>
-<androidx.constraintlayout.widget.ConstraintLayout
+<FrameLayout
     xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools"
     xmlns:app="http://schemas.android.com/apk/res-auto"
@@ -10,44 +10,75 @@
     tools:context=".view.home.recetas.HistorialFragment">
 
     <RelativeLayout
+        android:id="@+id/relativeLayout"
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        tools:ignore="MissingConstraints">
+        android:layout_height="match_parent"
+        tools:ignore="MissingConstraints,UselessParent"
+        tools:layout_editor_absoluteY="50dp">
+
+        <LinearLayout
+            android:id="@+id/buscador_receta_container"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:orientation="vertical"
+            android:paddingStart="16dp"
+            android:paddingEnd="16dp"
+            android:paddingTop="4dp"
+            android:background="@color/white" >
+
+            <TextView
+                android:id="@+id/buscar_receta"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:textColor="@color/title_color"
+                android:text="@string/buscar_receta"
+                android:textSize="22sp"
+                android:textStyle="bold"
+
+                app:layout_constraintTop_toTopOf="parent"
+
+                tools:text="Buscar recetas:" />
+
+            <EditText
+                android:id="@+id/buscador_de_recetas"
+                style="@style/Widget.AppCompat.EditText"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+
+                android:ems="10"
+
+                android:hint="Pumpkin Pie"
+                android:inputType="text"
+                android:textSize="22sp" />
+
+            <androidx.recyclerview.widget.RecyclerView
+                android:id="@+id/rv_historial_list"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent" />
+
+
+        </LinearLayout>
 
         <TextView
             android:id="@+id/no_hay_recetas"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            app:layout_constraintBottom_toBottomOf="parent"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toTopOf="parent"
-            android:text="@string/no_hay_recetas"
-            android:textSize="24sp"
-            android:visibility="gone"
-            android:textAlignment="center"
             android:layout_marginTop="20dp"
+            android:text="@string/no_hay_recetas"
+            android:textAlignment="center"
             android:textColor="@color/gray"
-            />
+            android:textSize="24sp"
+            android:visibility="gone" />
 
         <ProgressBar
             android:id="@+id/spinner"
             android:layout_width="50dp"
             android:layout_height="50dp"
-            android:visibility="visible"
             android:layout_centerHorizontal="true"
-            android:layout_marginTop="20dp"/>
-
-        <androidx.recyclerview.widget.RecyclerView
-            android:id="@+id/rv_historial_list"
-            android:layout_width="match_parent"
-            android:layout_height="match_parent"
-            app:layout_constraintBottom_toBottomOf="parent"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toTopOf="parent" />
+            android:layout_marginTop="20dp"
+            android:visibility="visible" />
 
     </RelativeLayout>
 
 
-</androidx.constraintlayout.widget.ConstraintLayout>
+</FrameLayout>
