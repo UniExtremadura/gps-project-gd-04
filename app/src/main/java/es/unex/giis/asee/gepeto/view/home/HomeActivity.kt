@@ -55,6 +55,7 @@ class HomeActivity :
         setContentView(binding.root)
 
         setUpUI()
+
     }
 
     private fun setUpUI() {
