@@ -11,6 +11,15 @@ import es.unex.giis.asee.gepeto.database.GepetoDatabase
 import es.unex.giis.asee.gepeto.databinding.ActivityLoginBinding
 import es.unex.giis.asee.gepeto.utils.CredentialCheck
 import kotlinx.coroutines.launch
+import android.widget.Toast
+import androidx.lifecycle.lifecycleScope
+import androidx.preference.PreferenceManager
+import androidx.room.Room
+import es.unex.giis.asee.gepeto.database.GepetoDatabase
+
+import es.unex.giis.asee.gepeto.databinding.ActivityLoginBinding
+import es.unex.giis.asee.gepeto.utils.CredentialCheck
+import kotlinx.coroutines.launch
 
 class LoginActivity : AppCompatActivity() {
 
