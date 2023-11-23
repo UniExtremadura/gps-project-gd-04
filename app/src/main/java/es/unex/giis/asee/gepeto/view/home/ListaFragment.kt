@@ -27,6 +27,7 @@ class ListaFragment : Fragment() {
 
     private fun getSessionIngredients() : TreeSet<String> {
         val todoList = Session.getValue("todoList") as HashMap<String, Boolean>? ?: hashMapOf()
+
         val ingedientesSet = TreeSet(todosLosIngredientes)
 
         if (todoList.isEmpty()) {
