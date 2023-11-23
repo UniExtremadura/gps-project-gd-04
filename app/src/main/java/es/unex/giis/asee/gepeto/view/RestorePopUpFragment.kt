@@ -50,6 +50,7 @@ class PopUpFragment : DialogFragment() {
             val username = restUsername.text.toString()
             val newPassword = newPassword.text.toString()
 
+
             //dado el nombre de usuario, se busca en la base de datos y se actualiza la contraseña antigua por la nueva
             lifecycleScope.launch {
                 //comprueba si la contraseña es correcta
