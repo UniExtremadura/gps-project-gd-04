@@ -31,6 +31,7 @@ class EquipamientoFragment : Fragment() {
 
     private val binding get() = _binding
 
+
     private fun getEquipamientos () : TreeSet<String> {
         val equipamientos = Session.getValue("equipamientosSeleccionados") as TreeSet<*>? ?: TreeSet<String>()
         val equipamientosFiltrados = TreeSet<String>(equipamientosDeCocina)
