@@ -29,6 +29,7 @@ class EquipamientoFragment : Fragment() {
     private lateinit var equipamientosAdapter: ItemSwapAdapter
     private lateinit var seleccionadosAdapter: ItemSwapAdapter
 
+
     private val binding get() = _binding
 
     private fun getEquipamientos () : TreeSet<String> {
