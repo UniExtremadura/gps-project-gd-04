@@ -28,6 +28,7 @@ fun ocultarBottomNavigation ( view: View, bottomNavigationView: BottomNavigation
 
             // Devuelve true para continuar con la animación
             return true
+
         }
     })
 }
