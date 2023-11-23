@@ -18,6 +18,9 @@
             android:name=".view.home.HomeActivity"
             android:exported="false" />
         <activity
+            android:name=".view.JoinActivity"
+            android:exported="false" />
+        <activity
             android:name=".view.LoginActivity"
             android:exported="true">
             <intent-filter>
@@ -26,9 +29,6 @@
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
-        <activity
-            android:name=".view.JoinActivity"
-            android:exported="false" />
     </application>
 
 </manifest>
