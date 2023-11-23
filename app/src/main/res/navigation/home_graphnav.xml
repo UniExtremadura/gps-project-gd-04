@@ -45,7 +45,6 @@
 
     <fragment
         android:id="@+id/recetaDetailFragment"
-        android:name="es.unex.giis.asee.gepeto.view.home.recetas.RecetaDetailFragment"
         android:label="Detalles de la receta"
         tools:layout="@layout/fragment_receta_detail">
         <argument
@@ -64,7 +63,6 @@
         tools:layout="@layout/fragment_historial" />
     <fragment
         android:id="@+id/observacionesFragment"
-        android:name="es.unex.giis.asee.gepeto.view.home.ObservacionesFragment"
         android:label="@string/observaciones_option"
         tools:layout="@layout/fragment_observaciones" >
 

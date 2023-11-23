@@ -123,6 +123,43 @@ class HomeActivity :
         navController.navigate(action)
     }
 
+    override fun onSupportNavigateUp(): Boolean {
+        return navController.navigateUp(appBarConfiguration)
+                || super.onSupportNavigateUp()
+    }
+
+    override fun onCreateOptionsMenu(menu: Menu?): Boolean {
+        menuInflater.inflate(R.menu.appbar_menu, menu)
+
+        // Configure the search info and add any event listeners.
+        return super.onCreateOptionsMenu(menu)
+    }
+
+    fun mostrarLupaAppbar ( mostrar: Boolean ) {
+        val searchView = binding.toolbar.menu.findItem(R.id.action_search)
+        if (searchView != null)
+            searchView.isVisible = mostrar
+    }
+
+    override fun onOptionsItemSelected(item: MenuItem) = when (item.itemId) {
+        R.id.action_settings -> {
+            // User chooses the "Settings" item. Show the app settings UI.
+            val action = RecetasFragmentDirections.actionHomeToSettingsFragment()
+            navController.navigate(action)
+            true
+        }
+
+        else -> {
+            // The user's action isn't recognized.
+            // Invoke the superclass to handle it.
+            super.onOptionsItemSelected(item)
+        }
+    }
+    override fun onRecetaClick(receta: Receta) {
+        val action = RecetasFragmentDirections.actionRecetasFragmentToRecetaDetailFragment(receta)
+        navController.navigate(action)
+    }
+
     override fun onReceta2Click(receta: Receta) {
         val action = RecetasFragmentDirections.actionRecetasFragmentToRecetaDetailFragment(receta)
         navController.navigate(action)
@@ -136,11 +173,6 @@ class HomeActivity :
         navController.navigate(action)
     }
 
-    override fun onGenerarRecetaClick(receta: Receta) {
-        val action = ObservacionesFragmentDirections
-            .actionObservacionesFragmentToRecetaDetailFragment(receta)
-        navController.navigate(action)
-    }
 
     override fun onDestroy() {
         super.onDestroy()
