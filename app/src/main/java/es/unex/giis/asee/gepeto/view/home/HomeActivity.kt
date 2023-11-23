@@ -31,6 +31,7 @@ class HomeActivity :
     IngredientesFragment.OnCrearRecetaListener{
 
     private lateinit var appBarConfiguration: AppBarConfiguration
+
     private lateinit var binding: ActivityHomeBinding
 
     private val navController by lazy {
