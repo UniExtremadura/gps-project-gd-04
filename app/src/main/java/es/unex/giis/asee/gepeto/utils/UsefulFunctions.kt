@@ -25,6 +25,7 @@ fun ocultarBottomNavigation ( view: View, bottomNavigationView: BottomNavigation
             } else {
                 bottomNavigationView.visibility = View.VISIBLE
             }
+
             // Devuelve true para continuar con la animación
             return true
         }

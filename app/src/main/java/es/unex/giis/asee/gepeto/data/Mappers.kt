@@ -6,6 +6,10 @@ import es.unex.giis.asee.gepeto.data.api.Ingredient
 import es.unex.giis.asee.gepeto.data.api.RecipesItem
 import es.unex.giis.asee.gepeto.data.api.StepsItem
 import es.unex.giis.asee.gepeto.model.Ingrediente
+import es.unex.giis.asee.gepeto.model.Equipamiento
+import es.unex.giis.asee.gepeto.model.Ingrediente
+import es.unex.giis.asee.gepeto.model.Pasos
+import es.unex.giis.asee.gepeto.model.Receta
 
 fun RecipesItem.toRecipe() = Receta(
     recetaId = id,
