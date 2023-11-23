@@ -32,6 +32,7 @@ class PopUpFragment : DialogFragment() {
         return binding.root
     }
 
+    //funcion que se ejecuta al crear la vista
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
