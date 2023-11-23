@@ -10,6 +10,7 @@ import androidx.lifecycle.lifecycleScope
 import androidx.recyclerview.widget.LinearLayoutManager
 import es.unex.giis.asee.gepeto.adapters.RecetasAdapter
 import es.unex.giis.asee.gepeto.data.Session
+import es.unex.giis.asee.gepeto.database.GepetoDatabase
 import es.unex.giis.asee.gepeto.databinding.FragmentFavoritasBinding
 import es.unex.giis.asee.gepeto.model.Receta
 import es.unex.giis.asee.gepeto.model.User
@@ -23,6 +24,7 @@ class FavoritasFragment : Fragment() {
         fun onReceta2Click(receta: Receta)
     }
 
+    private lateinit var db: GepetoDatabase
     private lateinit var recetasFav: List<Receta>
 
     private var _binding: FragmentFavoritasBinding? = null
@@ -31,6 +33,7 @@ class FavoritasFragment : Fragment() {
 
     override fun onAttach(context: android.content.Context) {
         super.onAttach(context)
+        db = GepetoDatabase.getInstance(context)!!
         if (context is OnReceta2ClickListener) {
             listener = context
         } else {
@@ -49,6 +52,7 @@ class FavoritasFragment : Fragment() {
 
     override fun onResume() {
         super.onResume()
+        loadRecetasFavoritas()
         (activity as HomeActivity?)?.mostrarLupaAppbar(true)
     }
 
@@ -65,8 +69,10 @@ class FavoritasFragment : Fragment() {
     private fun setUpRecyclerView() {
         adapter = RecetasAdapter(recetas = emptyList(),
             onClick = {
+                listener.onReceta2Click(it)
             },
             onLongClick = {
+                unFavReceta(it)
             },
             context = context
         )
@@ -76,6 +82,29 @@ class FavoritasFragment : Fragment() {
         }
     }
 
+    private fun loadRecetasFavoritas () {
+        lifecycleScope.launch {
+            val user = Session.getValue("user") as User
+            recetasFav = db.recetaDao().getUserConRecetas(user.userId!!).recetas.filter { it.favorita }
+
+            binding.spinner.visibility = View.GONE
+            binding.noHayFavoritas.visibility = if (recetasFav.isEmpty()) View.VISIBLE else View.GONE
+
+            adapter.updateData(recetasFav)
+        }
+    }
+
+    private fun unFavReceta(receta: Receta) {
+
+        if (!receta.favorita) return
+
+        lifecycleScope.launch {
+            receta.favorita = !receta.favorita
+            db.recetaDao().update(receta)
+            loadRecetasFavoritas()
+            Toast.makeText(context, "Receta eliminada de favoritos!", Toast.LENGTH_SHORT).show()
+        }
+    }
 
     override fun onDestroyView() {
         super.onDestroyView()

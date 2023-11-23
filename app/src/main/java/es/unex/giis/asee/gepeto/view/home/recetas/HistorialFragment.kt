@@ -10,6 +10,7 @@ import androidx.lifecycle.lifecycleScope
 import androidx.recyclerview.widget.LinearLayoutManager
 import es.unex.giis.asee.gepeto.adapters.RecetasAdapter
 import es.unex.giis.asee.gepeto.data.Session
+import es.unex.giis.asee.gepeto.database.GepetoDatabase
 import es.unex.giis.asee.gepeto.databinding.FragmentHistorialBinding
 import es.unex.giis.asee.gepeto.model.Receta
 import es.unex.giis.asee.gepeto.model.User
@@ -20,6 +21,7 @@ import kotlinx.coroutines.launch
 class HistorialFragment : Fragment() {
 
     private var recetas: List<Receta> = emptyList()
+    private lateinit var db: GepetoDatabase
 
     private lateinit var listener: OnRecetaClickListener
     interface OnRecetaClickListener {
@@ -32,6 +34,7 @@ class HistorialFragment : Fragment() {
 
     override fun onAttach(context: android.content.Context) {
         super.onAttach(context)
+        db = GepetoDatabase.getInstance(context)!!
         if (context is OnRecetaClickListener) {
             listener = context
         } else {
@@ -68,6 +71,7 @@ class HistorialFragment : Fragment() {
     private fun loadRecetasFromDB() {
         lifecycleScope.launch {
             val user = Session.getValue("user") as User
+            recetas = db.recetaDao().getUserConRecetas(user.userId!!).recetas
             binding.spinner.visibility = View.GONE
 
             if ( recetas.isEmpty() ) {
@@ -83,10 +87,10 @@ class HistorialFragment : Fragment() {
     private fun setUpRecyclerView() {
         adapter = RecetasAdapter(recetas = emptyList(),
             onClick = {
-
+                listener.onRecetaClick(it)
             },
             onLongClick = {
-
+                setRecetaFav(it)
             }
             , context = context
         )
@@ -102,6 +106,7 @@ class HistorialFragment : Fragment() {
 
         lifecycleScope.launch {
             receta.favorita = !receta.favorita
+            db.recetaDao().update(receta)
             Toast.makeText(context, "Receta añadida a favoritos!", Toast.LENGTH_SHORT).show()
         }
     }

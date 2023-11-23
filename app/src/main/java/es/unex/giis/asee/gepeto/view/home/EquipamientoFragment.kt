@@ -26,7 +26,6 @@ class EquipamientoFragment : Fragment() {
 
     private lateinit var _binding: FragmentEquipamientoBinding
 
-
     private lateinit var equipamientosAdapter: ItemSwapAdapter
     private lateinit var seleccionadosAdapter: ItemSwapAdapter
 
@@ -101,6 +100,9 @@ class EquipamientoFragment : Fragment() {
             itemSet = Session.getValue("equipamientosSeleccionados") as TreeSet<String>? ?: TreeSet<String>(),
             onClick = {
 
+                equipamientosAdapter.add(it)
+                seleccionadosAdapter.remove(it)
+                equipamientosSet.add(it)
 
                 Session.setValue("equipamientosSeleccionados", seleccionadosAdapter.getSet())
             })
