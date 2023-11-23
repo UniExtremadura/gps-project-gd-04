@@ -5,13 +5,12 @@
     xmlns:app="http://schemas.android.com/apk/res-auto">
 
 
+
     <LinearLayout
 
         android:id="@+id/linearLayout"
-
         android:layout_width="350sp"
         android:layout_height="wrap_content"
-        android:background="@color/white"
         android:orientation="vertical"
         android:padding="32dp"
         app:layout_constraintBottom_toBottomOf="parent"
@@ -23,10 +22,10 @@
             android:id="@+id/textView6"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_marginBottom="10sp"
             android:text="@string/Restore"
             android:textAlignment="center"
             android:textColor="@color/black"
+            android:layout_marginBottom="10sp"
             android:textSize="27sp"
             android:textStyle="bold"
             app:layout_constraintBottom_toTopOf="@+id/linearLayout"
