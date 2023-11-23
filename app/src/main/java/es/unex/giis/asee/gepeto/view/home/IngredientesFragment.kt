@@ -18,6 +18,7 @@ import es.unex.giis.asee.gepeto.utils.ocultarBottomNavigation
 import java.lang.RuntimeException
 import java.util.TreeSet
 
+
 /**
  * A simple [Fragment] subclass.
  * Use the [IngredientesFragment.newInstance] factory method to
@@ -104,7 +105,20 @@ class IngredientesFragment : Fragment() {
     private fun setUpAllRecyclerView () {
         todosIngredientesAdapter = ItemSwapAdapter(
             itemSet = TreeSet<String>(todosLosIngredientes),
-            onClick = {})
+            onClick = {
+
+                with(binding.advertenciaLabel) {
+                    if (visibility == View.VISIBLE) {
+                        visibility = View.GONE
+                    }
+                }
+
+                ingredientesSeleccionadosAdapter.add(it)
+                todosIngredientesAdapter.remove(it)
+                listaIngredientes.remove(it)
+
+                Session.setValue("ingredientesSeleccionados", ingredientesSeleccionadosAdapter.getSet())
+            })
 
         with(binding.rvTodosIngredientes) {
             adapter = todosIngredientesAdapter
@@ -113,6 +127,16 @@ class IngredientesFragment : Fragment() {
     }
 
     private fun setUpSelectedRecyclerView () {
-        
+        ingredientesSeleccionadosAdapter = ItemSwapAdapter(
+            itemSet = Session.getValue("ingredientesSeleccionados") as TreeSet<String>? ?: TreeSet<String>(),
+            onClick = {
+
+                Session.setValue("ingredientesSeleccionados", ingredientesSeleccionadosAdapter.getSet())
+            })
+
+        with(binding.rvIngredientesSeleccionados) {
+            adapter = ingredientesSeleccionadosAdapter
+            layoutManager = GridLayoutManager(context,3)
+        }
     }
 }

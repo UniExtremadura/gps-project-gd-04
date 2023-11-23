@@ -45,7 +45,6 @@ class HomeActivity :
             val intent = Intent(context, HomeActivity::class.java).apply {
                 putExtra(USER_INFO, user)
             }
-
             context.startActivity(intent)
         }
     }
