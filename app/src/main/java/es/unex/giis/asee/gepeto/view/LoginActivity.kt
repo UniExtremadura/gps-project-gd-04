@@ -86,7 +86,49 @@ class LoginActivity : AppCompatActivity() {
                 correctLogin()
             }
 
+            btRegister.setOnClickListener {
+                navigateToJoin()
+            }
+
+            btRestore.setOnClickListener {
+                navigateToRestore()
+            }
+
         }
+    }
+
+    private fun correctLogin(){
+        val credentialCheck = CredentialCheck.login(binding.etUsername.text.toString(), binding.etPassword.text.toString())
+
+        if (credentialCheck.fail) {
+            notifyInvalidCredentials(credentialCheck.msg)
+            return
+        }
+
+        lifecycleScope.launch{
+            val user = db?.userDao()?.findByName(binding.etUsername.text.toString()) //?: User(-1, etUsername.text.toString(), etPassword.text.toString())
+            if (user != null) {
+                // db.userDao().insert(User(-1, etUsername.text.toString(), etPassword.text.toString()))
+                val passwordCheck = CredentialCheck.passwordOk(binding.etPassword.text.toString(), user.password)
+                if (passwordCheck.fail) notifyInvalidCredentials(passwordCheck.msg)
+                else Toast.makeText(this@LoginActivity, "Login successful", Toast.LENGTH_SHORT).show()
+            }
+            else notifyInvalidCredentials("Invalid username")
+        }
+    }
+
+    private fun navigateToJoin() {
+        JoinActivity.start(this, responseLauncher)
+    }
+
+    private fun navigateToRestore() {
+        val showPopUp = PopUpFragment()
+        showPopUp.show(supportFragmentManager, "showPopUp")
+    }
+
+
+    private fun notifyInvalidCredentials(msg: String) {
+        Toast.makeText(this, msg, Toast.LENGTH_SHORT).show()
     }
 
     private fun correctLogin(){
