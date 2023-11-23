@@ -10,7 +10,6 @@
         android:id="@+id/toolbar"
         android:layout_width="match_parent"
         android:layout_height="?attr/actionBarSize"
-        android:background="#4A5BB6"
         android:elevation="4dp"
         android:popupTheme="@style/ThemeOverlay.AppCompat.Light"
         android:theme="@style/Toolbar"
@@ -31,7 +30,8 @@
         app:layout_constraintVertical_bias="0.0"
 
         app:defaultNavHost="true"
-        app:navGraph="@navigation/home_graphnav"/>
+        app:navGraph="@navigation/home_graphnav"
+        />
 
 
     <com.google.android.material.bottomnavigation.BottomNavigationView

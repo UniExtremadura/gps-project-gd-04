@@ -43,6 +43,7 @@ class ListaFragment : Fragment() {
     private val todoList : HashMap<String, Boolean> =
         Session.getValue("todoList") as HashMap<String, Boolean>? ?: hashMapOf()
 
+    private var ingredientesSet: TreeSet<String> = TreeSet()
     private var ingredientesSet: TreeSet<String> = getSessionIngredients()
 
 

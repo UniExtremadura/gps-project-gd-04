@@ -29,14 +29,4 @@
             app:useSimpleSummaryProvider="true" />
     </PreferenceCategory>
 
-    <PreferenceCategory
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:title="@string/suggestions_header">
-
-        <Preference
-            android:key="edit_suggestion"
-            android:title="@string/edit_suggestion_title" />
-
-    </PreferenceCategory>
 </PreferenceScreen>
