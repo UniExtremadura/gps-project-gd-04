@@ -11,6 +11,7 @@ import androidx.lifecycle.lifecycleScope
 import androidx.preference.PreferenceManager
 import es.unex.giis.asee.gepeto.R
 import es.unex.giis.asee.gepeto.data.Session
+import es.unex.giis.asee.gepeto.database.GepetoDatabase
 
 import es.unex.giis.asee.gepeto.databinding.ActivityLoginBinding
 import es.unex.giis.asee.gepeto.model.User
@@ -21,6 +22,8 @@ import kotlinx.coroutines.launch
 class LoginActivity : AppCompatActivity() {
 
     private lateinit var binding: ActivityLoginBinding
+
+    private lateinit var db: GepetoDatabase
 
     private val responseLauncher =
         registerForActivityResult(ActivityResultContracts.StartActivityForResult()) { result ->
@@ -49,6 +52,8 @@ class LoginActivity : AppCompatActivity() {
         //view binding and set content view
         binding = ActivityLoginBinding.inflate(layoutInflater)
         setContentView(binding.root)
+
+        db = GepetoDatabase.getInstance(applicationContext)!!
 
         //views initialization and listeners
         setUpUI()
@@ -81,29 +86,48 @@ class LoginActivity : AppCompatActivity() {
                 correctLogin()
             }
 
+            btRegister.setOnClickListener {
+                navigateToJoin()
+            }
+
+            btRestore.setOnClickListener {
+                navigateToRestore()
+            }
+
         }
     }
 
     private fun correctLogin(){
         val credentialCheck = CredentialCheck.login(binding.etUsername.text.toString(), binding.etPassword.text.toString())
 
-        //crea un nuevo usuario prueba
-        val user = User(1, binding.etUsername.text.toString(), "")
+        if (credentialCheck.fail) {
+            notifyInvalidCredentials(credentialCheck.msg)
+            return
+        }
 
-        navigateToHomeActivity(user)
+        lifecycleScope.launch{
+            val user = db?.userDao()?.findByName(binding.etUsername.text.toString()) //?: User(-1, etUsername.text.toString(), etPassword.text.toString())
+            if (user != null) {
+                // db.userDao().insert(User(-1, etUsername.text.toString(), etPassword.text.toString()))
+                val passwordCheck = CredentialCheck.passwordOk(binding.etPassword.text.toString(), user.password)
+                if (passwordCheck.fail) notifyInvalidCredentials(passwordCheck.msg)
+                else Toast.makeText(this@LoginActivity, "Login successful", Toast.LENGTH_SHORT).show()
+            }
+            else notifyInvalidCredentials("Invalid username")
+        }
     }
 
-    private fun navigateToHomeActivity(user: User) {
-        Toast.makeText(this, "Welcome ${user.name}!!", Toast.LENGTH_SHORT).show()
-        Session.setValue("user", user)
-        HomeActivity.start(this, user)
+    private fun navigateToJoin() {
+        JoinActivity.start(this, responseLauncher)
+    }
+
+    private fun navigateToRestore() {
+        val showPopUp = PopUpFragment()
+        showPopUp.show(supportFragmentManager, "showPopUp")
     }
 
 
     private fun notifyInvalidCredentials(msg: String) {
         Toast.makeText(this, msg, Toast.LENGTH_SHORT).show()
     }
-
-
-
 }

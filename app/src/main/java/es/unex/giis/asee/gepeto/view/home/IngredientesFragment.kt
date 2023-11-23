@@ -56,7 +56,6 @@ class IngredientesFragment : Fragment() {
     private var listaIngredientes : TreeSet<String> = getIngredientes()
     // Utilizo un treeset porque no admite duplicados y los elementos están ordenados automaticamente
 
-
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
