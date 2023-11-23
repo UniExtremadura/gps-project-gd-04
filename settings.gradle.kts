@@ -13,6 +13,6 @@ dependencyResolutionManagement {
     }
 }
 
-rootProject.name = "La Nevera de GePeTo"
+rootProject.name = "La Nevera de Gepeto"
 include(":app")
  
