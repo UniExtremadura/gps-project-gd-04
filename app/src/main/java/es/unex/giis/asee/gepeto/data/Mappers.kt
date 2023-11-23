@@ -21,6 +21,9 @@ fun RecipesItem.toRecipe() = Receta(
     imagenPath = image
 )
 
+fun Ingredient.toIngredients() = Ingrediente(
+    nombre = strIngredient ?: "",
+)
 
 fun StepsItem.toRecipe() = Pasos (
     descripcion = steps.map { it.step },

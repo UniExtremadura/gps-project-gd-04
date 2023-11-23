@@ -1,13 +1,29 @@
 package es.unex.giis.asee.gepeto.view.home.recetas
 
+import android.content.Context
 import es.unex.giis.asee.gepeto.adapters.ViewPagerAdapter
 import android.os.Bundle
+import android.util.Log
 import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.widget.Button
+import android.widget.Toast
+import androidx.navigation.NavController
+import androidx.navigation.Navigation
+import androidx.navigation.fragment.findNavController
+import androidx.viewpager2.widget.ViewPager2
+import com.google.android.material.tabs.TabLayout
 import com.google.android.material.tabs.TabLayoutMediator
+import es.unex.giis.asee.gepeto.R
+import es.unex.giis.asee.gepeto.api.APIError
+import es.unex.giis.asee.gepeto.api.getNetworkService
 import es.unex.giis.asee.gepeto.databinding.FragmentRecetasBinding
+import es.unex.giis.asee.gepeto.utils.BACKGROUND
+import es.unex.giis.asee.gepeto.view.home.IngredientesFragment
+import java.lang.RuntimeException
+import java.util.TreeSet
 
 
 class RecetasFragment : Fragment() {

@@ -8,6 +8,8 @@ import android.view.ViewGroup
 import android.widget.Toast
 import androidx.lifecycle.lifecycleScope
 import androidx.recyclerview.widget.LinearLayoutManager
+import com.google.android.material.bottomnavigation.BottomNavigationView
+import es.unex.giis.asee.gepeto.R
 import es.unex.giis.asee.gepeto.adapters.RecetasAdapter
 import es.unex.giis.asee.gepeto.data.Session
 import es.unex.giis.asee.gepeto.database.GepetoDatabase
@@ -15,6 +17,7 @@ import es.unex.giis.asee.gepeto.databinding.FragmentFavoritasBinding
 import es.unex.giis.asee.gepeto.model.Receta
 import es.unex.giis.asee.gepeto.model.User
 import es.unex.giis.asee.gepeto.utils.filtrarReceta
+import es.unex.giis.asee.gepeto.utils.ocultarBottomNavigation
 import kotlinx.coroutines.launch
 
 

@@ -8,6 +8,7 @@ class CredentialCheck private constructor() {
 
     companion object{
 
+        private val TAG = CredentialCheck::class.java.canonicalName
         private val MINCHARS = 4
 
         private val checks = arrayOf(

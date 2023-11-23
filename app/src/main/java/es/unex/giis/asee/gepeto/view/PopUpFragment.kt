@@ -1,13 +1,19 @@
 package es.unex.giis.asee.gepeto.view
 
+import android.content.Context
+import android.content.Intent
 import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.widget.Button
 import android.widget.Toast
+import androidx.activity.result.ActivityResultLauncher
 import androidx.fragment.app.DialogFragment
 import androidx.lifecycle.lifecycleScope
+import es.unex.giis.asee.gepeto.R
 import es.unex.giis.asee.gepeto.database.GepetoDatabase
+import es.unex.giis.asee.gepeto.databinding.ActivityLoginBinding
 import es.unex.giis.asee.gepeto.databinding.RestorePwdPopupBinding
 import es.unex.giis.asee.gepeto.model.User
 import es.unex.giis.asee.gepeto.utils.CredentialCheck

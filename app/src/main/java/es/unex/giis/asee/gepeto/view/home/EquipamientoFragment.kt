@@ -17,6 +17,11 @@ import es.unex.giis.asee.gepeto.utils.filtrarLista
 import es.unex.giis.asee.gepeto.utils.ocultarBottomNavigation
 import java.util.TreeSet
 
+/**
+ * A simple [Fragment] subclass.
+ * Use the [EquipamientoFragment.newInstance] factory method to
+ * create an instance of this fragment.
+ */
 class EquipamientoFragment : Fragment() {
 
     private lateinit var _binding: FragmentEquipamientoBinding
@@ -50,7 +55,7 @@ class EquipamientoFragment : Fragment() {
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
-    ): View {
+    ): View? {
         // Inflate the layout for this fragment
         _binding = FragmentEquipamientoBinding.inflate(inflater, container, false)
         return _binding.root

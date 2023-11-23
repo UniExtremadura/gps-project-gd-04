@@ -48,6 +48,10 @@ class ItemSwapAdapter(
         holder.bind(itemSet.elementAt(position))
     }
 
+    private fun indexOf(item: String): Int {
+        return itemSet.indexOf(item)
+    }
+
     @SuppressLint("NotifyDataSetChanged")
     fun remove(item: String) {
         itemSet.remove(item)
@@ -60,6 +64,10 @@ class ItemSwapAdapter(
         notifyDataSetChanged()
     }
 
+    fun getList(): TreeSet<String> {
+        return itemSet
+    }
+
     @SuppressLint("NotifyDataSetChanged")
     fun swap(newItemSet: TreeSet<String>) {
         itemSet = newItemSet
@@ -69,4 +77,12 @@ class ItemSwapAdapter(
     fun getSet(): TreeSet<String> {
         return itemSet
     }
+
+    @SuppressLint("NotifyDataSetChanged")
+    fun updateData(newIngredients: List<Ingrediente>) {
+        this.ingredients = newIngredients
+        notifyDataSetChanged()
+    }
+
+
 }

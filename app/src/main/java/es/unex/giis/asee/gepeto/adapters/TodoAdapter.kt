@@ -7,6 +7,7 @@ import android.view.ViewGroup
 import androidx.recyclerview.widget.RecyclerView
 import es.unex.giis.asee.gepeto.data.Session
 import es.unex.giis.asee.gepeto.databinding.RecyclerTodoItemBinding
+import es.unex.giis.asee.gepeto.utils.Tuple
 
 class TodoAdapter (
     private val todoMap: HashMap<String, Boolean>,

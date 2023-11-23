@@ -5,6 +5,7 @@ import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.view.ViewTreeObserver
 import androidx.recyclerview.widget.GridLayoutManager
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.google.android.material.bottomnavigation.BottomNavigationView
@@ -18,7 +19,11 @@ import es.unex.giis.asee.gepeto.utils.ocultarBottomNavigation
 import java.lang.RuntimeException
 import java.util.TreeSet
 
-
+/**
+ * A simple [Fragment] subclass.
+ * Use the [IngredientesFragment.newInstance] factory method to
+ * create an instance of this fragment.
+ */
 class IngredientesFragment : Fragment() {
 
     private lateinit var _binding: FragmentIngredientesBinding

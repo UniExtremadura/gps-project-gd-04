@@ -8,6 +8,7 @@ import es.unex.giis.asee.gepeto.database.dao.RecetaDao
 import es.unex.giis.asee.gepeto.database.dao.UserDao
 import es.unex.giis.asee.gepeto.model.Receta
 import es.unex.giis.asee.gepeto.model.User
+import es.unex.giis.asee.gepeto.model.UserConRecetas
 import es.unex.giis.asee.gepeto.model.UsuarioRecetasCrossRef
 
 @Database(entities = [User::class,Receta::class,UsuarioRecetasCrossRef::class], version = 2)
@@ -28,6 +29,10 @@ abstract class GepetoDatabase : RoomDatabase() {
                 }
             }
             return INSTANCE
+        }
+
+        fun destroyInstance() {
+            INSTANCE = null
         }
     }
 }
