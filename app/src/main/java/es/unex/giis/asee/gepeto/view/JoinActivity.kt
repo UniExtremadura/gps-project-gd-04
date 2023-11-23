@@ -25,6 +25,7 @@ class JoinActivity : AppCompatActivity() {
 
         const val USERNAME = "JOIN_USERNAME"
         const val PASS = "JOIN_PASS"
+
         fun start(
             context: Context,
             responseLauncher: ActivityResultLauncher<Intent>
