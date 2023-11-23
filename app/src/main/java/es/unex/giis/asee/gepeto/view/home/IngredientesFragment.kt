@@ -37,6 +37,7 @@ class IngredientesFragment : Fragment() {
         fun onCrearRecetaClick(ingredientes: TreeSet<String> )
     }
 
+
     private fun getIngredientes () : TreeSet<String> {
         val ingredientes = Session.getValue("ingredientesSeleccionados") as TreeSet<*>? ?: TreeSet<String>()
         val ingredientesFiltrados = TreeSet<String>(todosLosIngredientes)
