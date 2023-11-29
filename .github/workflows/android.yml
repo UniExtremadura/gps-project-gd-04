@@ -2,9 +2,10 @@ name: Android CI
 
 on:
   push:
-    branches: [ "main", "develop" ]
+    branches: [ "main", "develop", "*-TEST" ]
+    
   pull_request:
-    branches: [ "main", "develop" ]
+    branches: [ "main", "develop", "*-TEST" ]
 
 jobs:
   build:
@@ -24,3 +25,16 @@ jobs:
       run: chmod +x gradlew
     - name: Build with Gradle
       run: ./gradlew build
+
+  test:
+    name: Run Unit Tests
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v1
+      - name: Setup JDK
+        uses: actions/setup-java@v1
+        with:
+          java-version: 17
+      - name: Run Tests
+        run: bash ./gradlew test --stacktrace  
