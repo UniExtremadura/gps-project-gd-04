@@ -41,8 +41,13 @@ class Repository private constructor(
         return recetaDao.getUserConRecetas(userId).recetas
     }
 
-    suspend fun tryUpdateRecentShowsCache() {
-//        if (shouldUpdateShowsCache()) fetchRecentRecipes()
+    suspend fun tryUpdateRecentRecipesCache() {
+        if (shouldUpdateShowsCache()) {
+            if (Session.exists("cache")) {
+                val cache = Session.getValue("cache") as Tuple<Recipes, List<String>>
+                fetchRecentRecipe(cache.second)
+            }
+        }
     }
 
     suspend fun getMealSteps(id: String): Instructions {
@@ -96,10 +101,15 @@ class Repository private constructor(
         }
     }
 
-    private suspend fun shouldUpdateShowsCache(): Boolean {
+    private fun shouldUpdateShowsCache(): Boolean {
+        var numeroDeRecetas = 0
+        if (Session.exists("cache")) {
+            val cache = Session.getValue("cache") as Tuple<Recipes, List<String>>
+            numeroDeRecetas = cache.first.size
+        }
         val lastFetchTimeMillis = lastUpdateTimeMillis
         val timeFromLastFetch = System.currentTimeMillis() - lastFetchTimeMillis
-        return timeFromLastFetch > MIN_TIME_FROM_LAST_FETCH_MILLIS //|| RecetaDao.getNumRecetas() == 0L
+        return timeFromLastFetch > MIN_TIME_FROM_LAST_FETCH_MILLIS || numeroDeRecetas == 0
     }
 
     companion object {

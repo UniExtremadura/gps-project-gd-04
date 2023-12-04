@@ -66,6 +66,7 @@ class ObservacionesFragment : Fragment() {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
+        suspend { repository.tryUpdateRecentRecipesCache() }
         val equipamientoSet = Session.getValue("equipamientosSeleccionados") as? TreeSet<*> ?: TreeSet<String>()
 
         with (binding) {
