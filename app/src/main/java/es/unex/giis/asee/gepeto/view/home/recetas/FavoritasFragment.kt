@@ -11,6 +11,8 @@ import androidx.recyclerview.widget.LinearLayoutManager
 import com.google.android.material.bottomnavigation.BottomNavigationView
 import es.unex.giis.asee.gepeto.R
 import es.unex.giis.asee.gepeto.adapters.RecetasAdapter
+import es.unex.giis.asee.gepeto.api.getNetworkService
+import es.unex.giis.asee.gepeto.data.Repository
 import es.unex.giis.asee.gepeto.data.Session
 import es.unex.giis.asee.gepeto.database.GepetoDatabase
 import es.unex.giis.asee.gepeto.databinding.FragmentFavoritasBinding
@@ -28,6 +30,9 @@ class FavoritasFragment : Fragment() {
     }
 
     private lateinit var db: GepetoDatabase
+
+    private lateinit var repository: Repository
+
     private var recetasFav: List<Receta> = emptyList()
 
     private var _binding: FragmentFavoritasBinding? = null
@@ -37,6 +42,7 @@ class FavoritasFragment : Fragment() {
     override fun onAttach(context: android.content.Context) {
         super.onAttach(context)
         db = GepetoDatabase.getInstance(context)!!
+        repository = Repository.getInstance(db.recetaDao(), getNetworkService())
         if (context is OnReceta2ClickListener) {
             listener = context
         } else {
@@ -82,7 +88,9 @@ class FavoritasFragment : Fragment() {
     private fun loadRecetasFavoritas () {
         lifecycleScope.launch {
             val user = Session.getValue("user") as User
-            recetasFav = db.recetaDao().getUserConRecetas(user.userId!!).recetas.filter { it.favorita }
+
+            //recetasFav = db.recetaDao().getUserConRecetas(user.userId!!).recetas.filter { it.favorita }
+            recetasFav = repository.getFavoritas(user.userId!!)
 
             binding.spinner.visibility = View.GONE
             if ( recetasFav.isEmpty() ) {
@@ -109,7 +117,8 @@ class FavoritasFragment : Fragment() {
 
         lifecycleScope.launch {
             receta.favorita = !receta.favorita
-            db.recetaDao().update(receta)
+            repository.recipeToLibrary(receta, (Session.getValue("user") as User).userId!!)
+            //db.recetaDao().update(receta)
             loadRecetasFavoritas()
             Toast.makeText(context, "Receta eliminada de favoritos!", Toast.LENGTH_SHORT).show()
         }

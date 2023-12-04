@@ -10,6 +10,7 @@ import androidx.lifecycle.lifecycleScope
 import androidx.navigation.fragment.navArgs
 import es.unex.giis.asee.gepeto.api.APIError
 import es.unex.giis.asee.gepeto.api.getNetworkService
+import es.unex.giis.asee.gepeto.data.Repository
 import es.unex.giis.asee.gepeto.data.Session
 import es.unex.giis.asee.gepeto.data.api.Recipes
 import es.unex.giis.asee.gepeto.data.api.RecipesItem
@@ -33,6 +34,8 @@ class ObservacionesFragment : Fragment() {
     private var _recipe : Receta? = null
     private lateinit var db: GepetoDatabase
 
+    private lateinit var repository: Repository
+
     private val binding get() = _binding
     private lateinit var listener: OnGenerarRecetaListener
 
@@ -52,6 +55,7 @@ class ObservacionesFragment : Fragment() {
     override fun onAttach(context: android.content.Context) {
         super.onAttach(context)
         db = GepetoDatabase.getInstance(context)!!
+        repository = Repository.getInstance(db.recetaDao(), getNetworkService())
         if ( context is OnGenerarRecetaListener) {
             listener = context
         } else {
@@ -76,7 +80,10 @@ class ObservacionesFragment : Fragment() {
                     try {
                         _recipe = fetchMeal().toRecipe()
                         val user = Session.getValue("user") as User
-                        db.recetaDao().insertAndRelate(_recipe!!, user.userId!!)
+
+                        //db.recetaDao().insertAndRelate(_recipe!!, user.userId!!)
+                        repository.insertAndRelate(_recipe!!, user.userId!!)
+
                         listener.onGenerarRecetaClick(_recipe!!)
                     } catch (e: APIError) {
                         Toast.makeText(context, e.message, Toast.LENGTH_SHORT).show()
@@ -95,8 +102,9 @@ class ObservacionesFragment : Fragment() {
             val ingredientes = args.ingredientes.removeSuffix(".").split(", ")
             val ingredientesString = ingredientes.joinToString(",+")
 
-            // Utiliza los ingredientes para buscar 1 recetaI
-            recipes = getNetworkService().getMealByIngredients(ingredients = ingredientesString)
+            // Utiliza los ingredientes para buscar 1 receta
+            //recipes = getNetworkService().getMealByIngredients(ingredients = ingredientesString)
+            recipes = repository.getMealByIngredients(ingredientesString)
 
             // Generar un valor aleaorio entre 0 y el tamaño de la lista de recetas
             val random = Random.nextInt(0, recipes.size)

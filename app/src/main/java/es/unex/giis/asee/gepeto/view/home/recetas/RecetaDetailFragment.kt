@@ -13,6 +13,8 @@ import com.bumptech.glide.Glide
 import es.unex.giis.asee.gepeto.R
 import es.unex.giis.asee.gepeto.api.APIError
 import es.unex.giis.asee.gepeto.api.getNetworkService
+import es.unex.giis.asee.gepeto.data.Repository
+import es.unex.giis.asee.gepeto.data.Session
 import es.unex.giis.asee.gepeto.data.api.Equipments
 import es.unex.giis.asee.gepeto.data.api.Instructions
 import es.unex.giis.asee.gepeto.data.toEquipamiento
@@ -21,6 +23,7 @@ import es.unex.giis.asee.gepeto.database.GepetoDatabase
 import es.unex.giis.asee.gepeto.databinding.FragmentRecetaDetailBinding
 import es.unex.giis.asee.gepeto.model.Equipamiento
 import es.unex.giis.asee.gepeto.model.Pasos
+import es.unex.giis.asee.gepeto.model.User
 import kotlinx.coroutines.launch
 
 
@@ -37,9 +40,12 @@ class RecetaDetailFragment : Fragment() {
     private var _equipments: List<Equipamiento> = emptyList()
     private lateinit var db: GepetoDatabase
 
+    private lateinit var repository: Repository
+
     override fun onAttach(context: Context) {
         super.onAttach(context)
         db = GepetoDatabase.getInstance(context)!!
+        repository = Repository.getInstance(db.recetaDao(), getNetworkService())
     }
 
     override fun onCreateView(
@@ -99,14 +105,8 @@ class RecetaDetailFragment : Fragment() {
         //Espero 1s
         Thread.sleep(1000)
 
-        //binding.recetaDetalleDescripcion.text = receta.showDescripcion()
-
-        //binding.recetaDetalleEquipamientos.text = receta.listaEquipamiento()
-
         binding.recetaDetalleIngredientes.text = receta.listaIngredientesDetalles()
 
-
-        //binding.recetaDetalleImagen.setImageResource(receta.imagen)
         val imageUrl = receta.imagenPath
 
         Glide.with(requireContext()) // Usa el contexto de tu fragmento o actividad
@@ -120,7 +120,8 @@ class RecetaDetailFragment : Fragment() {
             // Lógica que se ejecuta cuando se hace clic en fav
             receta.favorita = !receta.favorita
             lifecycleScope.launch {
-                db.recetaDao().update(receta)
+                //db.recetaDao().update(receta)
+                repository.recipeToLibrary(receta, (Session.getValue("user") as User).userId!!)
             }
             binding.recetaDetalleFavorita.setImageResource(getHeartIcon(receta.favorita))
         }
@@ -131,7 +132,8 @@ class RecetaDetailFragment : Fragment() {
         val receta = args.receta
         try {
             // Utiliza la letra aleatoria en la llamada a la API
-            pasos = getNetworkService().getMealSteps(receta.recetaId.toString())
+            //pasos = getNetworkService().getMealSteps(receta.recetaId.toString())
+            pasos = repository.getMealSteps(receta.recetaId.toString())
 
             println(pasos)
             println(receta.recetaId.toString())
@@ -146,7 +148,8 @@ class RecetaDetailFragment : Fragment() {
         val receta = args.receta
         val equipamiento : Equipments
         try {
-            equipamiento = getNetworkService().getMealEquipments(receta.recetaId.toString())
+            //equipamiento = getNetworkService().getMealEquipments(receta.recetaId.toString())
+            equipamiento = repository.getMealEquipments(receta.recetaId.toString())
 
             if (equipamiento.equipment.isEmpty()){
                 throw APIError("No hay equipamiento para esta receta", null)

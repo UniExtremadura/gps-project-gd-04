@@ -11,6 +11,8 @@ import androidx.recyclerview.widget.LinearLayoutManager
 import com.google.android.material.bottomnavigation.BottomNavigationView
 import es.unex.giis.asee.gepeto.R
 import es.unex.giis.asee.gepeto.adapters.RecetasAdapter
+import es.unex.giis.asee.gepeto.api.getNetworkService
+import es.unex.giis.asee.gepeto.data.Repository
 import es.unex.giis.asee.gepeto.data.Session
 import es.unex.giis.asee.gepeto.database.GepetoDatabase
 import es.unex.giis.asee.gepeto.databinding.FragmentHistorialBinding
@@ -29,6 +31,9 @@ class HistorialFragment : Fragment() {
     var recetas: List<Receta> = emptyList()
     private lateinit var db: GepetoDatabase
 
+    private lateinit var repository: Repository
+
+
     private lateinit var listener: OnRecetaClickListener
     interface OnRecetaClickListener {
         fun onRecetaClick(receta: Receta)
@@ -41,6 +46,8 @@ class HistorialFragment : Fragment() {
     override fun onAttach(context: android.content.Context) {
         super.onAttach(context)
         db = GepetoDatabase.getInstance(context)!!
+        repository = Repository.getInstance(db.recetaDao(), getNetworkService())
+
         if (context is OnRecetaClickListener) {
             listener = context
         } else {
@@ -71,7 +78,8 @@ class HistorialFragment : Fragment() {
     private fun loadRecetasFromDB() {
         lifecycleScope.launch {
             val user = Session.getValue("user") as User
-            recetas = db.recetaDao().getUserConRecetas(user.userId!!).recetas
+            //recetas = db.recetaDao().getUserConRecetas(user.userId!!).recetas
+            recetas = repository.getHistorial(user.userId!!)
             binding.spinner.visibility = View.GONE
 
             if ( recetas.isEmpty() ) {
@@ -114,7 +122,8 @@ class HistorialFragment : Fragment() {
 
         lifecycleScope.launch {
             receta.favorita = !receta.favorita
-            db.recetaDao().update(receta)
+            //db.recetaDao().update(receta)
+            repository.recipeToLibrary(receta, (Session.getValue("user") as User).userId!!)
             Toast.makeText(context, "Receta añadida a favoritos!", Toast.LENGTH_SHORT).show()
         }
     }

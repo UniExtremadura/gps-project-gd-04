@@ -1,5 +1,6 @@
 package es.unex.giis.asee.gepeto.database.dao
 
+import androidx.lifecycle.LiveData
 import androidx.room.Dao
 import androidx.room.Delete
 import androidx.room.Insert
@@ -38,4 +39,10 @@ interface RecetaDao {
         insert( receta )
         insertUsuarioReceta( UsuarioRecetasCrossRef( userId, receta.recetaId!! ) )
     }
+
+    // Para el REFACTOR
+    @Query("SELECT * FROM Receta")
+    fun  getAllRecetas(): LiveData<List<Receta>>
+
+
 }
