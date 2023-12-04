@@ -77,3 +77,20 @@ fun filtrarReceta(buscador: EditText, recetasList: List<Receta>, adapter: Receta
 
     } )
 }
+
+/**
+ * Devuelve true si existe intersección entre las dos listas
+ * @param lista1 Lista de elementos
+ * @param lista2 Lista de elementos
+ * @return true si existe intersección entre las dos listas
+ */
+fun existeInterseccion(lista1: List<Any>, lista2: List<Any>): Boolean {
+    var interseccion = false
+    for (elemento in lista1) {
+        if (lista2.contains(elemento)) {
+            interseccion = true
+            break
+        }
+    }
+    return interseccion
+}

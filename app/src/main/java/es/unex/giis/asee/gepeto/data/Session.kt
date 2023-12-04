@@ -3,6 +3,10 @@ package es.unex.giis.asee.gepeto.data
 object Session {
     private var data = HashMap<String, Any>()
 
+    fun exists(key: String): Boolean {
+        return data.containsKey(key)
+    }
+
     fun getValue(key: String): Any? {
         return data[key]
     }

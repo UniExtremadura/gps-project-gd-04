@@ -70,7 +70,7 @@ class ObservacionesFragment : Fragment() {
 
         with (binding) {
             ingredientes.text = args.ingredientes
-
+            val listaIngredientes = args.ingredientes.removeSuffix(".").split(", ")
 
             equipamiento.text = equipamientoSet.joinToString(separator = ", ", postfix = "."  )
 
@@ -78,7 +78,7 @@ class ObservacionesFragment : Fragment() {
 
                 lifecycleScope.launch {
                     try {
-                        _recipe = fetchMeal().toRecipe()
+                        _recipe = repository.fetchRecentRecipe(listaIngredientes)
                         val user = Session.getValue("user") as User
 
                         //db.recetaDao().insertAndRelate(_recipe!!, user.userId!!)
@@ -91,32 +91,5 @@ class ObservacionesFragment : Fragment() {
                 }
             }
         }
-    }
-
-    private suspend fun fetchMeal(): RecipesItem {
-        val recipe: RecipesItem
-        val recipes: Recipes
-        try {
-
-            //crear una variable Ingredientes que será un string que contenga todos los valore de args.ingredientes separados por un ",+"
-            val ingredientes = args.ingredientes.removeSuffix(".").split(", ")
-            val ingredientesString = ingredientes.joinToString(",+")
-
-            // Utiliza los ingredientes para buscar 1 receta
-            //recipes = getNetworkService().getMealByIngredients(ingredients = ingredientesString)
-            recipes = repository.getMealByIngredients(ingredientesString)
-
-            // Generar un valor aleaorio entre 0 y el tamaño de la lista de recetas
-            val random = Random.nextInt(0, recipes.size)
-
-            // Obtener la receta de la lista de recetas
-            recipe = recipes[random]
-
-
-        } catch (cause: Throwable) {
-            throw APIError("No existe una receta con esos ingredientes!", cause)
-        }
-
-        return recipe
     }
 }
