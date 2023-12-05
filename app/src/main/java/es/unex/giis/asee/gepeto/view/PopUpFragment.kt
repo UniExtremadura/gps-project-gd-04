@@ -11,7 +11,9 @@ import android.widget.Toast
 import androidx.activity.result.ActivityResultLauncher
 import androidx.fragment.app.DialogFragment
 import androidx.lifecycle.lifecycleScope
+import es.unex.giis.asee.gepeto.GepetoApplication
 import es.unex.giis.asee.gepeto.R
+import es.unex.giis.asee.gepeto.data.Repository
 import es.unex.giis.asee.gepeto.database.GepetoDatabase
 import es.unex.giis.asee.gepeto.databinding.ActivityLoginBinding
 import es.unex.giis.asee.gepeto.databinding.RestorePwdPopupBinding
@@ -23,8 +25,7 @@ class PopUpFragment : DialogFragment() {
 
     //binding
     private lateinit var binding: RestorePwdPopupBinding
-
-    private lateinit var db: GepetoDatabase
+    private lateinit var repository: Repository
 
     override fun onCreateView(
         inflater: LayoutInflater,
@@ -32,14 +33,14 @@ class PopUpFragment : DialogFragment() {
         savedInstanceState: Bundle?
     ): View? {
         binding = RestorePwdPopupBinding.inflate(inflater, container, false)
-
-        db = GepetoDatabase.getInstance(requireContext())!!
-
         return binding.root
     }
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
+
+        val appContainer = (this.activity?.application as GepetoApplication).appContainer
+        repository = appContainer.repository
 
         with(binding) {
             //boton que llama a la funcion que cambia la contraseña
@@ -65,10 +66,12 @@ class PopUpFragment : DialogFragment() {
                     return@launch
                 }
                 else{
-                    val user = db?.userDao()?.findByName(restUsername.text.toString()) //?: User(-1, etUsername.text.toString(), etPassword.text.toString())
+//                    val user = db?.userDao()?.findByName(restUsername.text.toString()) //?: User(-1, etUsername.text.toString(), etPassword.text.toString())
+                    val user = repository.findUserByName(username)
                     if (user != null) {
                         Toast.makeText(context, "Contraseña cambiada", Toast.LENGTH_SHORT).show()
-                        db?.userDao()?.update(User(user.userId, username, newPassword))
+//                        db?.userDao()?.update(User(user.userId, username, newPassword))
+                        repository.updateUser(User(user.userId, username, newPassword))
                     } else {
                         Toast.makeText(context, "Usuario no encontrado", Toast.LENGTH_SHORT).show()
                     }

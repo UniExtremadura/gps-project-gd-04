@@ -28,8 +28,6 @@ class SettingsFragment : PreferenceFragmentCompat() {
     override fun onCreatePreferences(savedInstanceState: Bundle?, rootKey: String?) {
         setPreferencesFromResource(R.xml.preferences, rootKey)
 
-
-
         // Obtener la referencia a la preferencia de edición de sugerencias
         val editSuggestionPreference: Preference? = findPreference("edit_suggestion")
 

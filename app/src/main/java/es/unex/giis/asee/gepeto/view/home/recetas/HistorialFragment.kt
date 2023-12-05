@@ -9,6 +9,7 @@ import android.widget.Toast
 import androidx.lifecycle.lifecycleScope
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.google.android.material.bottomnavigation.BottomNavigationView
+import es.unex.giis.asee.gepeto.GepetoApplication
 import es.unex.giis.asee.gepeto.R
 import es.unex.giis.asee.gepeto.adapters.RecetasAdapter
 import es.unex.giis.asee.gepeto.api.getNetworkService
@@ -29,11 +30,8 @@ import java.util.TreeSet
 class HistorialFragment : Fragment() {
 
     var recetas: List<Receta> = emptyList()
-    private lateinit var db: GepetoDatabase
 
     private lateinit var repository: Repository
-
-
     private lateinit var listener: OnRecetaClickListener
     interface OnRecetaClickListener {
         fun onRecetaClick(receta: Receta)
@@ -45,8 +43,6 @@ class HistorialFragment : Fragment() {
 
     override fun onAttach(context: android.content.Context) {
         super.onAttach(context)
-        db = GepetoDatabase.getInstance(context)!!
-        repository = Repository.getInstance(db.recetaDao(), getNetworkService())
 
         if (context is OnRecetaClickListener) {
             listener = context
@@ -59,7 +55,10 @@ class HistorialFragment : Fragment() {
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View {
-        // Inflate the layout for this fragment
+
+        val appContainer = (this.activity?.application as GepetoApplication).appContainer
+        repository = appContainer.repository
+
         _binding = FragmentHistorialBinding.inflate(inflater, container, false)
         return binding.root
     }

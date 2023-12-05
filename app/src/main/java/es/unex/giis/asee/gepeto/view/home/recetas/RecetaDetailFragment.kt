@@ -10,6 +10,7 @@ import android.widget.Toast
 import androidx.lifecycle.lifecycleScope
 import androidx.navigation.fragment.navArgs
 import com.bumptech.glide.Glide
+import es.unex.giis.asee.gepeto.GepetoApplication
 import es.unex.giis.asee.gepeto.R
 import es.unex.giis.asee.gepeto.api.APIError
 import es.unex.giis.asee.gepeto.api.getNetworkService
@@ -29,24 +30,15 @@ import kotlinx.coroutines.launch
 
 class RecetaDetailFragment : Fragment() {
 
+    private val args: RecetaDetailFragmentArgs by navArgs()
 
     private var _binding: FragmentRecetaDetailBinding? = null
     private val binding get() = _binding!!
 
-    private val args: RecetaDetailFragmentArgs by navArgs()
-
-    private var _steps: List<Pasos> = emptyList()
-
-    private var _equipments: List<Equipamiento> = emptyList()
-    private lateinit var db: GepetoDatabase
+    private var steps: List<Pasos> = emptyList()
+    private var equipments: List<Equipamiento> = emptyList()
 
     private lateinit var repository: Repository
-
-    override fun onAttach(context: Context) {
-        super.onAttach(context)
-        db = GepetoDatabase.getInstance(context)!!
-        repository = Repository.getInstance(db.recetaDao(), getNetworkService())
-    }
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
@@ -63,17 +55,20 @@ class RecetaDetailFragment : Fragment() {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
+        val appContainer = (this.activity?.application as GepetoApplication).appContainer
+        repository = appContainer.repository
+
         val receta = args.receta
 
         binding.recetaDetalleNombre.text = receta.nombre
 
         lifecycleScope.launch {
-            if (_steps.isEmpty()){
+            if (steps.isEmpty()){
 
                 try {
-                    _steps = fetchPasos().filterNotNull().map { it.toRecipe() }
+                    steps = fetchPasos().filterNotNull().map { it.toRecipe() }
 
-                    val descripcionText = _steps.flatMap { it.descripcion }.joinToString("\n\n - ", prefix = "Pasos:\n\n - ")
+                    val descripcionText = steps.flatMap { it.descripcion }.joinToString("\n\n - ", prefix = "Pasos:\n\n - ")
 
                     binding.recetaDetalleDescripcion.text = descripcionText
 
@@ -84,14 +79,14 @@ class RecetaDetailFragment : Fragment() {
         }
 
         lifecycleScope.launch {
-            if (_equipments.isEmpty()){
+            if (equipments.isEmpty()){
 
                 try {
-                    _equipments = listOf(fetchEquipamiento().toEquipamiento())
+                    equipments = listOf(fetchEquipamiento().toEquipamiento())
 
-                    println(_equipments)
+                    println(equipments)
 
-                    val equipamientoText = _equipments.flatMap { it.descripcion.map { desc -> desc.trim().capitalize() } }
+                    val equipamientoText = equipments.flatMap { it.descripcion.map { desc -> desc.trim().capitalize() } }
                         .joinToString("\n\n - ", prefix = "Equipamiento:\n\n - ")
 
                     binding.recetaDetalleEquipamientos.text = equipamientoText

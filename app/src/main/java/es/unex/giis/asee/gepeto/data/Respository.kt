@@ -7,6 +7,7 @@ import es.unex.giis.asee.gepeto.data.api.Instructions
 import es.unex.giis.asee.gepeto.data.api.Recipes
 import es.unex.giis.asee.gepeto.data.api.RecipesItem
 import es.unex.giis.asee.gepeto.database.dao.RecetaDao
+import es.unex.giis.asee.gepeto.database.dao.UserDao
 import es.unex.giis.asee.gepeto.model.Receta
 import es.unex.giis.asee.gepeto.model.User
 import es.unex.giis.asee.gepeto.model.UsuarioRecetasCrossRef
@@ -14,7 +15,8 @@ import es.unex.giis.asee.gepeto.utils.Tuple
 import es.unex.giis.asee.gepeto.utils.existeInterseccion
 import kotlin.random.Random
 
-class Repository private constructor(
+class Repository (
+    private val userDao: UserDao,
     private val recetaDao: RecetaDao,
     private val networkService: MealsAPI
 ) {
@@ -26,10 +28,9 @@ class Repository private constructor(
         recetaDao.insertUsuarioReceta(UsuarioRecetasCrossRef(userId, receta.recetaId!!))
     }
 
-    suspend fun insertAndRelate(_recipe: Receta, userId: Long) {
-        recetaDao.insertAndRelate(_recipe, userId)
+    suspend fun insertAndRelate(recipe: Receta, userId: Long) {
+        recetaDao.insertAndRelate(recipe, userId)
     }
-
 
         // Función que devuelve las recetas FAVORITAS
     suspend fun getFavoritas(userId: Long): List<Receta> {
@@ -112,18 +113,15 @@ class Repository private constructor(
         return timeFromLastFetch > MIN_TIME_FROM_LAST_FETCH_MILLIS || numeroDeRecetas == 0
     }
 
+    suspend fun findUserByName(username: String): User {
+        return userDao.findByName(username)
+    }
+
+    suspend fun updateUser(user: User) {
+        userDao.update(user)
+    }
+
     companion object {
         private const val MIN_TIME_FROM_LAST_FETCH_MILLIS: Long = 30000
-
-        @Volatile private var INSTANCE: Repository? = null
-
-        fun getInstance(
-            recetaDao: RecetaDao,
-             mealsAPI: MealsAPI
-        ): Repository {
-            return INSTANCE ?: synchronized(this) {
-                INSTANCE ?: Repository(recetaDao, mealsAPI).also { INSTANCE = it }
-            }
-        }
     }
 }

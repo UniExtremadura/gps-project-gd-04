@@ -9,6 +9,7 @@ import android.widget.Toast
 import androidx.lifecycle.lifecycleScope
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.google.android.material.bottomnavigation.BottomNavigationView
+import es.unex.giis.asee.gepeto.GepetoApplication
 import es.unex.giis.asee.gepeto.R
 import es.unex.giis.asee.gepeto.adapters.RecetasAdapter
 import es.unex.giis.asee.gepeto.api.getNetworkService
@@ -29,8 +30,6 @@ class FavoritasFragment : Fragment() {
         fun onReceta2Click(receta: Receta)
     }
 
-    private lateinit var db: GepetoDatabase
-
     private lateinit var repository: Repository
 
     private var recetasFav: List<Receta> = emptyList()
@@ -41,12 +40,11 @@ class FavoritasFragment : Fragment() {
 
     override fun onAttach(context: android.content.Context) {
         super.onAttach(context)
-        db = GepetoDatabase.getInstance(context)!!
-        repository = Repository.getInstance(db.recetaDao(), getNetworkService())
+
         if (context is OnReceta2ClickListener) {
             listener = context
         } else {
-            throw RuntimeException(context.toString() + " must implement OnShowClickListener")
+            throw RuntimeException("$context must implement OnShowClickListener")
         }
     }
 
@@ -66,6 +64,10 @@ class FavoritasFragment : Fragment() {
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
+
+        val appContainer = (this.activity?.application as GepetoApplication).appContainer
+        repository = appContainer.repository
+
         setUpRecyclerView()
     }
 
