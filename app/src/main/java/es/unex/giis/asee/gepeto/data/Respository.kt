@@ -1,19 +1,19 @@
 package es.unex.giis.asee.gepeto.data
 
+import androidx.lifecycle.LiveData
 import es.unex.giis.asee.gepeto.api.APIError
 import es.unex.giis.asee.gepeto.api.MealsAPI
 import es.unex.giis.asee.gepeto.data.api.Equipments
 import es.unex.giis.asee.gepeto.data.api.Instructions
 import es.unex.giis.asee.gepeto.data.api.Recipes
-import es.unex.giis.asee.gepeto.data.api.RecipesItem
 import es.unex.giis.asee.gepeto.database.dao.RecetaDao
 import es.unex.giis.asee.gepeto.database.dao.UserDao
 import es.unex.giis.asee.gepeto.model.Receta
 import es.unex.giis.asee.gepeto.model.User
+import es.unex.giis.asee.gepeto.model.UserConRecetas
 import es.unex.giis.asee.gepeto.model.UsuarioRecetasCrossRef
 import es.unex.giis.asee.gepeto.utils.Tuple
 import es.unex.giis.asee.gepeto.utils.existeInterseccion
-import kotlin.random.Random
 
 class Repository (
     private val userDao: UserDao,
@@ -21,7 +21,6 @@ class Repository (
     private val networkService: MealsAPI
 ) {
     private var lastUpdateTimeMillis: Long = 0L
-    val recetas = recetaDao.getAllRecetas()
 
     suspend fun recipeToLibrary(receta: Receta, userId: Long) {
         recetaDao.update(receta)
@@ -38,7 +37,7 @@ class Repository (
     }
 
     // Función que devuelve las recetas HISTORIAL
-    suspend fun getHistorial(userId: Long): List<Receta> {
+    suspend fun getRecetas(userId: Long): List<Receta> {
         return recetaDao.getUserConRecetas(userId).recetas
     }
 

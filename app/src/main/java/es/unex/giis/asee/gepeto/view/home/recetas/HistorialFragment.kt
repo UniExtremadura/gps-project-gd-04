@@ -6,25 +6,19 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.Toast
+import androidx.fragment.app.viewModels
 import androidx.lifecycle.lifecycleScope
 import androidx.recyclerview.widget.LinearLayoutManager
-import com.google.android.material.bottomnavigation.BottomNavigationView
 import es.unex.giis.asee.gepeto.GepetoApplication
-import es.unex.giis.asee.gepeto.R
 import es.unex.giis.asee.gepeto.adapters.RecetasAdapter
-import es.unex.giis.asee.gepeto.api.getNetworkService
 import es.unex.giis.asee.gepeto.data.Repository
 import es.unex.giis.asee.gepeto.data.Session
-import es.unex.giis.asee.gepeto.database.GepetoDatabase
 import es.unex.giis.asee.gepeto.databinding.FragmentHistorialBinding
 import es.unex.giis.asee.gepeto.model.Receta
 import es.unex.giis.asee.gepeto.model.User
-import es.unex.giis.asee.gepeto.utils.filtrarLista
-import es.unex.giis.asee.gepeto.utils.filtrarReceta
-import es.unex.giis.asee.gepeto.utils.ocultarBottomNavigation
-import es.unex.giis.asee.gepeto.view.home.HomeActivity
+import es.unex.giis.asee.gepeto.utils.filtrarRecetas
+import es.unex.giis.asee.gepeto.utils.filtrarRecetasViewModel
 import kotlinx.coroutines.launch
-import java.util.TreeSet
 
 
 class HistorialFragment : Fragment() {
@@ -41,13 +35,17 @@ class HistorialFragment : Fragment() {
     private val binding get() = _binding!!
     private lateinit var adapter: RecetasAdapter
 
+    private val viewModel: HistorialViewModel by viewModels {
+        HistorialViewModel.Factory
+    }
+
     override fun onAttach(context: android.content.Context) {
         super.onAttach(context)
 
         if (context is OnRecetaClickListener) {
             listener = context
         } else {
-            throw RuntimeException(context.toString() + " must implement OnShowClickListener")
+            throw RuntimeException("$context must implement OnShowClickListener")
         }
     }
 
@@ -56,47 +54,53 @@ class HistorialFragment : Fragment() {
         savedInstanceState: Bundle?
     ): View {
 
-        val appContainer = (this.activity?.application as GepetoApplication).appContainer
-        repository = appContainer.repository
-
         _binding = FragmentHistorialBinding.inflate(inflater, container, false)
         return binding.root
     }
 
     override fun onResume() {
         super.onResume()
-        loadRecetasFromDB()
+        viewModel.refresh()
     }
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
         setUpRecyclerView()
-    }
 
-    private fun loadRecetasFromDB() {
-        lifecycleScope.launch {
-            val user = Session.getValue("user") as User
-            //recetas = db.recetaDao().getUserConRecetas(user.userId!!).recetas
-            recetas = repository.getHistorial(user.userId!!)
-            binding.spinner.visibility = View.GONE
+        viewModel.adapter = adapter
 
-            if ( recetas.isEmpty() ) {
-                binding.buscadorRecetaContainer.visibility = View.GONE
-                binding.noHayRecetas.visibility = View.VISIBLE
-            } else {
-                binding.noHayRecetas.visibility = View.GONE
-                binding.buscadorRecetaContainer.visibility = View.VISIBLE
-            }
+        val appContainer = (this.activity?.application as GepetoApplication).appContainer
+        repository = appContainer.repository
 
-            filtrarReceta(
-                binding.buscadorDeRecetas,
-                recetas,
-                adapter
-            )
-
-            adapter.updateData(recetas)
+        // show the spinner when [spinner] is true
+        viewModel.spinner.observe(viewLifecycleOwner) { receta ->
+            binding.spinner.visibility = if (receta) View.VISIBLE else View.GONE
         }
+
+        // show the buscador when [buscador] is true
+        viewModel.buscador.observe(viewLifecycleOwner) { receta ->
+            binding.buscadorDeRecetas.visibility = if (receta) View.VISIBLE else View.GONE
+        }
+
+        // show the noRecetasMessage when [noRecetasMessage] is true
+        viewModel.noHayRecetasMessage.observe(viewLifecycleOwner) { receta ->
+            binding.noHayRecetas.visibility = if (receta) View.VISIBLE else View.GONE
+        }
+
+        // Show a Toast whenever the [toast] is updated a non-null value
+        viewModel.toast.observe(viewLifecycleOwner) { text ->
+            text?.let {
+                Toast.makeText(context, text, Toast.LENGTH_SHORT).show()
+                viewModel.onToastShown()
+            }
+        }
+
+        filtrarRecetasViewModel(
+            binding.buscadorDeRecetas,
+            viewModel,
+            adapter
+        )
     }
 
     private fun setUpRecyclerView() {
@@ -105,25 +109,13 @@ class HistorialFragment : Fragment() {
                 listener.onRecetaClick(it)
             },
             onLongClick = {
-                setRecetaFav(it)
+                viewModel.setRecetaFav(it)
             }
             , context = context
         )
         with(binding) {
             rvHistorialList.layoutManager = LinearLayoutManager(context)
             rvHistorialList.adapter = adapter
-        }
-    }
-
-    private fun setRecetaFav(receta: Receta) {
-
-        if (receta.favorita) return
-
-        lifecycleScope.launch {
-            receta.favorita = !receta.favorita
-            //db.recetaDao().update(receta)
-            repository.recipeToLibrary(receta, (Session.getValue("user") as User).userId!!)
-            Toast.makeText(context, "Receta añadida a favoritos!", Toast.LENGTH_SHORT).show()
         }
     }
 
