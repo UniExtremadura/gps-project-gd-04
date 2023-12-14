@@ -7,28 +7,22 @@ import android.os.Bundle
 import android.view.Menu
 import android.view.MenuItem
 import android.view.View
-import android.widget.Toast
-import androidx.appcompat.widget.SearchView
-import androidx.lifecycle.lifecycleScope
+import androidx.activity.viewModels
 import androidx.navigation.fragment.NavHostFragment
 import androidx.navigation.ui.AppBarConfiguration
 import androidx.navigation.ui.navigateUp
 import androidx.navigation.ui.setupActionBarWithNavController
 import androidx.navigation.ui.setupWithNavController
 import es.unex.giis.asee.gepeto.R
-import es.unex.giis.asee.gepeto.adapters.RecetasAdapter
 import es.unex.giis.asee.gepeto.data.Session
-import es.unex.giis.asee.gepeto.database.GepetoDatabase
 
 import es.unex.giis.asee.gepeto.model.User
 import es.unex.giis.asee.gepeto.view.home.recetas.FavoritasFragment
 import es.unex.giis.asee.gepeto.view.home.recetas.HistorialFragment
 import es.unex.giis.asee.gepeto.databinding.ActivityHomeBinding
 import es.unex.giis.asee.gepeto.model.Receta
-import es.unex.giis.asee.gepeto.view.home.recetas.RecetasFragment
 
 import es.unex.giis.asee.gepeto.view.home.recetas.RecetasFragmentDirections
-import kotlinx.coroutines.launch
 import java.util.TreeSet
 
 class HomeActivity :
@@ -45,6 +39,7 @@ class HomeActivity :
         (supportFragmentManager.findFragmentById(R.id.nav_host_fragment) as NavHostFragment).navController
     }
 
+    private val viewModel: HomeViewModel by viewModels()
 
     companion object {
         const val USER_INFO = "USER_INFO"
@@ -60,6 +55,8 @@ class HomeActivity :
         super.onCreate(savedInstanceState)
         binding = ActivityHomeBinding.inflate(layoutInflater)
         setContentView(binding.root)
+
+        viewModel.userInSession = intent.getSerializableExtra(USER_INFO) as User
 
         setUpUI()
     }
