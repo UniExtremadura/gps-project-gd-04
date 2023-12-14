@@ -10,7 +10,6 @@ import com.google.android.material.bottomnavigation.BottomNavigationView
 import es.unex.giis.asee.gepeto.adapters.ItemSwapAdapter
 import es.unex.giis.asee.gepeto.adapters.RecetasAdapter
 import es.unex.giis.asee.gepeto.model.Receta
-import es.unex.giis.asee.gepeto.view.home.recetas.HistorialViewModel
 import java.util.TreeSet
 
 
@@ -60,10 +59,10 @@ fun filtrarLista ( buscador: EditText, itemSet: TreeSet<String>, adapter: ItemSw
 /**
  * Filtra las recetas del historial según el texto introducido en el buscador
  * @param buscador EditText del buscador
- * @param viewModel ViewModel del historial
+ * @param container clase que contiene las recetas
  * @param adapter Adaptador de las recetas
  */
-fun filtrarRecetasViewModel(buscador: EditText, viewModel: HistorialViewModel, adapter: RecetasAdapter) {
+fun filtrarRecetasFilter(buscador: EditText, container: RecetasFilter, adapter: RecetasAdapter) {
     buscador.addTextChangedListener( object : TextWatcher {
         override fun beforeTextChanged(s: CharSequence?, start: Int, count: Int, after: Int) {
 
@@ -71,7 +70,7 @@ fun filtrarRecetasViewModel(buscador: EditText, viewModel: HistorialViewModel, a
 
         override fun onTextChanged(s: CharSequence?, start: Int, before: Int, count: Int) {
             val text = s.toString().trim()
-            val listaFiltrada = viewModel.recetas.filter {
+            val listaFiltrada = container.getRecetasIntf().filter {
                 Log.w("Filtrando", it.nombre)
                 it.nombre.contains(text, ignoreCase = true)
             }

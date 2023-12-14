@@ -14,15 +14,15 @@ import es.unex.giis.asee.gepeto.utils.RecetasFilter
 import kotlinx.coroutines.Job
 import kotlinx.coroutines.launch
 
-class HistorialViewModel (
+class FavoritasViewModel (
     private val repository: Repository
 ) : ViewModel(), RecetasFilter {
     val user = repository.getUser()
-    var recetas : List<Receta> = emptyList()
+    var favoritas : List<Receta> = emptyList()
     var adapter : RecetasAdapter? = null
 
     override fun getRecetasIntf(): List<Receta> {
-        return recetas
+        return favoritas
     }
 
     private val _toast = MutableLiveData<String?>()
@@ -36,9 +36,9 @@ class HistorialViewModel (
     val buscador: LiveData<Boolean>
         get() = _buscador
 
-    private val _noHayRecetasMessage = MutableLiveData<Boolean>(true)
-    val noHayRecetasMessage: LiveData<Boolean>
-        get() = _noHayRecetasMessage
+    private val _noHayFavoritasMessage = MutableLiveData<Boolean>(true)
+    val noHayFavoritasMessage: LiveData<Boolean>
+        get() = _noHayFavoritasMessage
 
     init {
         refresh()
@@ -46,15 +46,15 @@ class HistorialViewModel (
 
     fun refresh() {
         launchDataLoad {
-            recetas = repository.getRecetas(user.userId!!)
-            if (recetas.isEmpty()) {
-                _noHayRecetasMessage.value = true
+            favoritas = repository.getRecetas(user.userId!!).filter { it.favorita }
+            if (favoritas.isEmpty()) {
+                _noHayFavoritasMessage.value = true
                 _buscador.value = false
             } else {
-                _noHayRecetasMessage.value = false
+                _noHayFavoritasMessage.value = false
                 _buscador.value = true
             }
-            adapter?.updateData(recetas)
+            adapter?.updateData(favoritas)
         }
     }
 
@@ -75,13 +75,12 @@ class HistorialViewModel (
         _toast.value = null
     }
 
-    fun setRecetaFav(receta: Receta) {
+    fun unFavReceta(receta: Receta) {
 
-        if (receta.favorita) return
+        if (!receta.favorita) return
 
-        receta.favorita = true
-        //db.recetaDao().update(receta)
         viewModelScope.launch {
+            receta.favorita = false
             repository.updateReceta(receta, user.userId!!)
             _toast.value = "Receta añadida a favoritos!"
         }
@@ -98,7 +97,7 @@ class HistorialViewModel (
                 // Get the Application object from extras
                 val application =
                     checkNotNull(extras[ViewModelProvider.AndroidViewModelFactory.APPLICATION_KEY])
-                return HistorialViewModel(
+                return FavoritasViewModel(
                     (application as
                             GepetoApplication).appContainer.repository,
                 ) as T

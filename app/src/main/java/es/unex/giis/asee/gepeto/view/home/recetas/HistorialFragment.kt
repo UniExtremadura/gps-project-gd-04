@@ -7,18 +7,13 @@ import android.view.View
 import android.view.ViewGroup
 import android.widget.Toast
 import androidx.fragment.app.viewModels
-import androidx.lifecycle.lifecycleScope
 import androidx.recyclerview.widget.LinearLayoutManager
 import es.unex.giis.asee.gepeto.GepetoApplication
 import es.unex.giis.asee.gepeto.adapters.RecetasAdapter
 import es.unex.giis.asee.gepeto.data.Repository
-import es.unex.giis.asee.gepeto.data.Session
 import es.unex.giis.asee.gepeto.databinding.FragmentHistorialBinding
 import es.unex.giis.asee.gepeto.model.Receta
-import es.unex.giis.asee.gepeto.model.User
-import es.unex.giis.asee.gepeto.utils.filtrarRecetas
-import es.unex.giis.asee.gepeto.utils.filtrarRecetasViewModel
-import kotlinx.coroutines.launch
+import es.unex.giis.asee.gepeto.utils.filtrarRecetasFilter
 
 
 class HistorialFragment : Fragment() {
@@ -49,18 +44,17 @@ class HistorialFragment : Fragment() {
         }
     }
 
+    override fun onResume() {
+        super.onResume()
+        viewModel.refresh()
+    }
+
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View {
-
         _binding = FragmentHistorialBinding.inflate(inflater, container, false)
         return binding.root
-    }
-
-    override fun onResume() {
-        super.onResume()
-        viewModel.refresh()
     }
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
@@ -73,6 +67,16 @@ class HistorialFragment : Fragment() {
         val appContainer = (this.activity?.application as GepetoApplication).appContainer
         repository = appContainer.repository
 
+        setObservers()
+
+        filtrarRecetasFilter(
+            binding.buscadorDeRecetas,
+            viewModel,
+            adapter
+        )
+    }
+
+    private fun setObservers() {
         // show the spinner when [spinner] is true
         viewModel.spinner.observe(viewLifecycleOwner) { receta ->
             binding.spinner.visibility = if (receta) View.VISIBLE else View.GONE
@@ -80,7 +84,7 @@ class HistorialFragment : Fragment() {
 
         // show the buscador when [buscador] is true
         viewModel.buscador.observe(viewLifecycleOwner) { receta ->
-            binding.buscadorDeRecetas.visibility = if (receta) View.VISIBLE else View.GONE
+            binding.buscadorRecetaContainer.visibility = if (receta) View.VISIBLE else View.GONE
         }
 
         // show the noRecetasMessage when [noRecetasMessage] is true
@@ -95,12 +99,6 @@ class HistorialFragment : Fragment() {
                 viewModel.onToastShown()
             }
         }
-
-        filtrarRecetasViewModel(
-            binding.buscadorDeRecetas,
-            viewModel,
-            adapter
-        )
     }
 
     private fun setUpRecyclerView() {

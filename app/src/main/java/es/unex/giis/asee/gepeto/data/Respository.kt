@@ -1,6 +1,5 @@
 package es.unex.giis.asee.gepeto.data
 
-import androidx.lifecycle.LiveData
 import es.unex.giis.asee.gepeto.api.APIError
 import es.unex.giis.asee.gepeto.api.MealsAPI
 import es.unex.giis.asee.gepeto.data.api.Equipments
@@ -10,7 +9,6 @@ import es.unex.giis.asee.gepeto.database.dao.RecetaDao
 import es.unex.giis.asee.gepeto.database.dao.UserDao
 import es.unex.giis.asee.gepeto.model.Receta
 import es.unex.giis.asee.gepeto.model.User
-import es.unex.giis.asee.gepeto.model.UserConRecetas
 import es.unex.giis.asee.gepeto.model.UsuarioRecetasCrossRef
 import es.unex.giis.asee.gepeto.utils.Tuple
 import es.unex.giis.asee.gepeto.utils.existeInterseccion
@@ -22,7 +20,7 @@ class Repository (
 ) {
     private var lastUpdateTimeMillis: Long = 0L
 
-    suspend fun recipeToLibrary(receta: Receta, userId: Long) {
+    suspend fun updateReceta(receta: Receta, userId: Long) {
         recetaDao.update(receta)
         recetaDao.insertUsuarioReceta(UsuarioRecetasCrossRef(userId, receta.recetaId!!))
     }
@@ -39,6 +37,10 @@ class Repository (
     // Función que devuelve las recetas HISTORIAL
     suspend fun getRecetas(userId: Long): List<Receta> {
         return recetaDao.getUserConRecetas(userId).recetas
+    }
+
+    suspend fun getRecetaById(recetaId: Int): Receta {
+        return recetaDao.findById(recetaId)
     }
 
     suspend fun tryUpdateRecentRecipesCache() {
@@ -118,6 +120,10 @@ class Repository (
 
     suspend fun updateUser(user: User) {
         userDao.update(user)
+    }
+
+    fun getUser(): User {
+        return Session.getValue("user") as User
     }
 
     companion object {

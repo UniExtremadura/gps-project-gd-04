@@ -6,32 +6,33 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.Toast
-import androidx.lifecycle.lifecycleScope
+import androidx.fragment.app.viewModels
 import androidx.recyclerview.widget.LinearLayoutManager
 import es.unex.giis.asee.gepeto.GepetoApplication
 import es.unex.giis.asee.gepeto.adapters.RecetasAdapter
 import es.unex.giis.asee.gepeto.data.Repository
-import es.unex.giis.asee.gepeto.data.Session
 import es.unex.giis.asee.gepeto.databinding.FragmentFavoritasBinding
 import es.unex.giis.asee.gepeto.model.Receta
-import es.unex.giis.asee.gepeto.model.User
-import es.unex.giis.asee.gepeto.utils.filtrarRecetas
-import kotlinx.coroutines.launch
+import es.unex.giis.asee.gepeto.utils.filtrarRecetasFilter
 
 
 class FavoritasFragment : Fragment() {
+
+    private var recetasFav: List<Receta> = emptyList()
+
+    private lateinit var repository: Repository
     private lateinit var listener: OnReceta2ClickListener
     interface OnReceta2ClickListener {
         fun onReceta2Click(receta: Receta)
     }
 
-    private lateinit var repository: Repository
-
-    private var recetasFav: List<Receta> = emptyList()
-
     private var _binding: FragmentFavoritasBinding? = null
     private val binding get() = _binding!!
     private lateinit var adapter: RecetasAdapter
+
+    private val viewModel: FavoritasViewModel by viewModels {
+        FavoritasViewModel.Factory
+    }
 
     override fun onAttach(context: android.content.Context) {
         super.onAttach(context)
@@ -43,27 +44,36 @@ class FavoritasFragment : Fragment() {
         }
     }
 
+    override fun onResume() {
+        super.onResume()
+        viewModel.refresh()
+    }
+
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View {
-        // Inflate the layout for this fragment
         _binding = FragmentFavoritasBinding.inflate(inflater, container, false)
         return binding.root
-    }
-
-    override fun onResume() {
-        super.onResume()
-        loadRecetasFavoritas()
     }
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
+        setUpRecyclerView()
+
+        viewModel.adapter = adapter
+
         val appContainer = (this.activity?.application as GepetoApplication).appContainer
         repository = appContainer.repository
 
-        setUpRecyclerView()
+        setObservers()
+
+        filtrarRecetasFilter(
+            binding.buscadorDeFavoritas,
+            viewModel,
+            adapter
+        )
     }
 
     private fun setUpRecyclerView() {
@@ -72,7 +82,8 @@ class FavoritasFragment : Fragment() {
                 listener.onReceta2Click(it)
             },
             onLongClick = {
-                unFavReceta(it)
+                viewModel.unFavReceta(it)
+                viewModel.refresh()
             },
             context = context
         )
@@ -82,42 +93,28 @@ class FavoritasFragment : Fragment() {
         }
     }
 
-    private fun loadRecetasFavoritas () {
-        lifecycleScope.launch {
-            val user = Session.getValue("user") as User
-
-            //recetasFav = db.recetaDao().getUserConRecetas(user.userId!!).recetas.filter { it.favorita }
-            recetasFav = repository.getFavoritas(user.userId!!)
-
-            binding.spinner.visibility = View.GONE
-            if ( recetasFav.isEmpty() ) {
-                binding.buscadorFavoritasContainer.visibility = View.GONE
-                binding.noHayFavoritas.visibility = View.VISIBLE
-            } else {
-                binding.noHayFavoritas.visibility = View.GONE
-                binding.buscadorFavoritasContainer.visibility = View.VISIBLE
-            }
-
-            filtrarRecetas(
-                binding.buscadorDeFavoritas,
-                recetasFav,
-                adapter
-            )
-
-            adapter.updateData(recetasFav)
+    private fun setObservers() {
+        // show the spinner when [spinner] is true
+        viewModel.spinner.observe(viewLifecycleOwner) { receta ->
+            binding.spinner.visibility = if (receta) View.VISIBLE else View.GONE
         }
-    }
 
-    private fun unFavReceta(receta: Receta) {
+        // show the buscador when [buscador] is true
+        viewModel.buscador.observe(viewLifecycleOwner) { receta ->
+            binding.buscadorFavoritasContainer.visibility = if (receta) View.VISIBLE else View.GONE
+        }
 
-        if (!receta.favorita) return
+        // show the noRecetasMessage when [noRecetasMessage] is true
+        viewModel.noHayFavoritasMessage.observe(viewLifecycleOwner) { receta ->
+            binding.noHayFavoritas.visibility = if (receta) View.VISIBLE else View.GONE
+        }
 
-        lifecycleScope.launch {
-            receta.favorita = !receta.favorita
-            repository.recipeToLibrary(receta, (Session.getValue("user") as User).userId!!)
-            //db.recetaDao().update(receta)
-            loadRecetasFavoritas()
-            Toast.makeText(context, "Receta eliminada de favoritos!", Toast.LENGTH_SHORT).show()
+        // Show a Toast whenever the [toast] is updated a non-null value
+        viewModel.toast.observe(viewLifecycleOwner) { text ->
+            text?.let {
+                Toast.makeText(context, text, Toast.LENGTH_SHORT).show()
+                viewModel.onToastShown()
+            }
         }
     }
 
