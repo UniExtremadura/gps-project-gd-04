@@ -45,6 +45,7 @@ android {
 dependencies {
 
 
+    testImplementation("org.junit.jupiter:junit-jupiter:5.8.1")
     val room_version = "2.5.0"
 
     implementation("androidx.preference:preference-ktx:1.2.1")
@@ -75,7 +76,7 @@ dependencies {
     androidTestImplementation("androidx.navigation:navigation-testing:$nav_version")
 
     // Jetpack Compose Integration
-    implementation("androidx.navigation:navigation-compose:$nav_version")
+    //implementation("androidx.navigation:navigation-compose:$nav_version")
 
     implementation("androidx.core:core-ktx:1.9.0")
     implementation("androidx.appcompat:appcompat:1.6.1")
@@ -95,5 +96,19 @@ dependencies {
 
     implementation("org.apache.poi:poi:5.1.0")
     implementation("org.apache.poi:poi-ooxml:5.1.0")
+
+    testImplementation("junit:junit:4.13.2")
+    testImplementation("org.mockito:mockito-core:4.6.1")
+    testImplementation("org.mockito:mockito-junit-jupiter:4.6.1")
+    testImplementation("com.squareup.okhttp3:mockwebserver:4.9.1")
+    androidTestImplementation("androidx.test.ext:junit:1.1.5")
+
+    // Espresso dependencies
+    androidTestImplementation("androidx.test.espresso:espresso-core:3.5.1")
+    androidTestImplementation("androidx.test:runner:1.5.1")
+    androidTestImplementation("androidx.test:rules:1.5.0")
+
+    //import androidx.test.espresso.contrib.RecyclerViewActions.actionOnItemAtPosition
+    androidTestImplementation("androidx.test.espresso:espresso-contrib:3.5.1")
 
 }
