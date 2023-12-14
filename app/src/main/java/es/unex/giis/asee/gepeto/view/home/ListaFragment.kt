@@ -25,7 +25,7 @@ class ListaFragment : Fragment() {
     private lateinit var todoAdapter: TodoAdapter
     private lateinit var ingredientesAdapter: ItemSwapAdapter
 
-    private fun getSessionIngredients() : TreeSet<String> {
+    fun getSessionIngredients() : TreeSet<String> {
         val todoList = Session.getValue("todoList") as HashMap<String, Boolean>? ?: hashMapOf()
         val ingedientesSet = TreeSet(todosLosIngredientes)
 
