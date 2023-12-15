@@ -10,7 +10,6 @@ import androidx.fragment.app.activityViewModels
 import androidx.fragment.app.viewModels
 import androidx.navigation.fragment.navArgs
 import es.unex.giis.asee.gepeto.databinding.FragmentObservacionesBinding
-import es.unex.giis.asee.gepeto.model.Receta
 
 
 class ObservacionesFragment : Fragment() {
@@ -40,7 +39,7 @@ class ObservacionesFragment : Fragment() {
 
         viewModel.user = homeViewModel.userInSession
         viewModel.ingredientesText = args.ingredientes
-        viewModel.equipamientoList = homeViewModel.equipamientoSeleccionados
+        viewModel.equipamientoList = homeViewModel.equipamientoSeleccionado
         viewModel.setAttributes()
 
         with (binding) {

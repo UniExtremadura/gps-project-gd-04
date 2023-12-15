@@ -5,12 +5,13 @@ import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import androidx.fragment.app.activityViewModels
+import androidx.fragment.app.viewModels
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.google.android.material.bottomnavigation.BottomNavigationView
 import es.unex.giis.asee.gepeto.R
 import es.unex.giis.asee.gepeto.adapters.ItemSwapAdapter
 import es.unex.giis.asee.gepeto.adapters.TodoAdapter
-import es.unex.giis.asee.gepeto.data.Session
 import es.unex.giis.asee.gepeto.data.todosLosIngredientes
 import es.unex.giis.asee.gepeto.databinding.FragmentListaBinding
 import es.unex.giis.asee.gepeto.utils.filtrarSwapItemElements
@@ -25,26 +26,10 @@ class ListaFragment : Fragment() {
     private lateinit var todoAdapter: TodoAdapter
     private lateinit var ingredientesAdapter: ItemSwapAdapter
 
-    private fun getSessionIngredients() : TreeSet<String> {
-        val todoList = Session.getValue("todoList") as HashMap<String, Boolean>? ?: hashMapOf()
-        val ingedientesSet = TreeSet(todosLosIngredientes)
-
-        if (todoList.isEmpty()) {
-            return ingedientesSet
-        }
-
-        for ((key, value) in todoList) {
-            ingedientesSet.remove(key)
-        }
-
-        return ingedientesSet
+    private val homeViewModel: HomeViewModel by activityViewModels()
+    private val viewModel: ListaViewModel by viewModels {
+        ListaViewModel.Factory
     }
-
-    private val todoList : HashMap<String, Boolean> =
-        Session.getValue("todoList") as HashMap<String, Boolean>? ?: hashMapOf()
-
-    private var ingredientesSet: TreeSet<String> = getSessionIngredients()
-
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
@@ -52,8 +37,6 @@ class ListaFragment : Fragment() {
     ): View {
         _binding = FragmentListaBinding.inflate(inflater, container, false)
         return _binding.root
-
-
     }
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
@@ -61,26 +44,27 @@ class ListaFragment : Fragment() {
         setUpAllRecyclerView()
         setUpSelectedRecyclerView()
 
+        viewModel.seleccionados = todoAdapter
+        viewModel.todosIngredientes = ingredientesAdapter
+
         val bottomNavigationView = requireActivity().findViewById<BottomNavigationView>(R.id.bottom_navigation)
         ocultarBottomNavigation(view, bottomNavigationView)
 
-//        filtrarSwapItemElements(
-//            binding.buscadorDeIngredientes,
-//            ingredientesSet,
-//            ingredientesAdapter
-//        )
+        filtrarSwapItemElements(
+            binding.buscadorDeIngredientes,
+            viewModel,
+            ingredientesAdapter
+        )
     }
 
     private fun setUpSelectedRecyclerView() {
         todoAdapter = TodoAdapter(
-            todoMap = todoList,
+            todoMap = homeViewModel.todoSeleccionados,
             onClick = {
-                todoAdapter.check(it)
+                viewModel.onClickSeleccionados(it)
             },
             onLongClick = {
-                todoAdapter.remove(it)
-                ingredientesSet.add(it)
-                ingredientesAdapter.add(it)
+                viewModel.onLongClickSeleccionados(it)
             }
         )
 
@@ -93,11 +77,9 @@ class ListaFragment : Fragment() {
 
     private fun setUpAllRecyclerView() {
         ingredientesAdapter = ItemSwapAdapter(
-            itemSet = ingredientesSet,
+            itemSet = TreeSet(todosLosIngredientes),
             onClick = {
-                todoAdapter.add(it)
-                ingredientesAdapter.remove(it)
-                ingredientesSet.remove(it)
+                viewModel.onClickTodos(it)
             }
         )
 

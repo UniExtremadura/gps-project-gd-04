@@ -39,9 +39,8 @@ class HomeViewModel : ViewModel() {
         _generarReceta.value = receta
     }
 
-
     // Seleccionados en Lista, Ingredientes y Equipamiento
     var ingredientesSeleccionados = TreeSet<String>()
-    var equipamientoSeleccionados = TreeSet<String>()
-    var todoSeleccionados = TreeSet<String>()
+    var equipamientoSeleccionado = TreeSet<String>()
+    var todoSeleccionados = HashMap<String, Boolean>()
 }

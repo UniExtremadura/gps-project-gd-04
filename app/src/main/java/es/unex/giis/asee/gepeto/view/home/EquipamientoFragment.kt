@@ -5,57 +5,37 @@ import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import androidx.fragment.app.activityViewModels
+import androidx.fragment.app.viewModels
 import androidx.recyclerview.widget.GridLayoutManager
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.google.android.material.bottomnavigation.BottomNavigationView
 import es.unex.giis.asee.gepeto.R
 import es.unex.giis.asee.gepeto.adapters.ItemSwapAdapter
-import es.unex.giis.asee.gepeto.data.Session
 import es.unex.giis.asee.gepeto.data.equipamientosDeCocina
 import es.unex.giis.asee.gepeto.databinding.FragmentEquipamientoBinding
 import es.unex.giis.asee.gepeto.utils.filtrarSwapItemElements
 import es.unex.giis.asee.gepeto.utils.ocultarBottomNavigation
 import java.util.TreeSet
 
-/**
- * A simple [Fragment] subclass.
- * Use the [EquipamientoFragment.newInstance] factory method to
- * create an instance of this fragment.
- */
+
 class EquipamientoFragment : Fragment() {
 
     private lateinit var _binding: FragmentEquipamientoBinding
+    private val binding get() = _binding
 
     private lateinit var equipamientosAdapter: ItemSwapAdapter
     private lateinit var seleccionadosAdapter: ItemSwapAdapter
 
-    private val binding get() = _binding
-
-    private fun getEquipamientos () : TreeSet<String> {
-        val equipamientos = Session.getValue("equipamientosSeleccionados") as TreeSet<*>? ?: TreeSet<String>()
-        val equipamientosFiltrados = TreeSet<String>(equipamientosDeCocina)
-
-        if (equipamientos.isEmpty()) {
-            return equipamientosFiltrados
-        }
-
-        for ( item in equipamientos ) {
-            equipamientosFiltrados.remove(item)
-        }
-
-        return equipamientosFiltrados
-    }
-
-    private val equipamientosSet : TreeSet<String> = getEquipamientos()
-
-    override fun onCreate(savedInstanceState: Bundle?) {
-        super.onCreate(savedInstanceState)
+    private val homeViewModel: HomeViewModel by activityViewModels()
+    private val viewModel: EquipamientoViewModel by viewModels {
+        EquipamientoViewModel.Factory
     }
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
-    ): View? {
+    ): View {
         // Inflate the layout for this fragment
         _binding = FragmentEquipamientoBinding.inflate(inflater, container, false)
         return _binding.root
@@ -66,27 +46,24 @@ class EquipamientoFragment : Fragment() {
         setUpAllRecyclerView()
         setUpSelectedRecyclerView()
 
+        viewModel.todosEquipamiento = equipamientosAdapter
+        viewModel.seleccionados = seleccionadosAdapter
+
         val bottomNavigationView = requireActivity().findViewById<BottomNavigationView>(R.id.bottom_navigation)
         ocultarBottomNavigation(view, bottomNavigationView)
 
-//        filtrarSwapItemElements(
-//            binding.buscadorDeEquipamientos,
-//            equipamientosSet,
-//            equipamientosAdapter
-//        )
-
+        filtrarSwapItemElements(
+            binding.buscadorDeEquipamientos,
+            viewModel,
+            equipamientosAdapter
+        )
     }
 
     private fun setUpAllRecyclerView () {
         equipamientosAdapter = ItemSwapAdapter(
-            itemSet = equipamientosSet,
+            itemSet = TreeSet(equipamientosDeCocina),
             onClick = {
-
-                seleccionadosAdapter.add(it)
-                equipamientosAdapter.remove(it)
-                equipamientosSet.remove(it)
-
-                Session.setValue("equipamientosSeleccionados", seleccionadosAdapter.getSet())
+                viewModel.onClickTodos(it)
             })
 
         with(binding.rvTodosEquipamientos) {
@@ -97,14 +74,9 @@ class EquipamientoFragment : Fragment() {
 
     private fun setUpSelectedRecyclerView () {
         seleccionadosAdapter = ItemSwapAdapter(
-            itemSet = Session.getValue("equipamientosSeleccionados") as TreeSet<String>? ?: TreeSet<String>(),
+            itemSet = homeViewModel.equipamientoSeleccionado,
             onClick = {
-
-                equipamientosAdapter.add(it)
-                seleccionadosAdapter.remove(it)
-                equipamientosSet.add(it)
-
-                Session.setValue("equipamientosSeleccionados", seleccionadosAdapter.getSet())
+                viewModel.onClickSeleccionados(it)
             })
 
         with(binding.rvEquipamientosSeleccionados) {
