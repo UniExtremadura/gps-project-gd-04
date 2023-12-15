@@ -148,11 +148,6 @@ class HomeActivity : AppCompatActivity() {
             .actionObservacionesFragmentToRecetaDetailFragment(receta)
         navController.navigate(action)
     }
-
-    override fun onDestroy() {
-        super.onDestroy()
-        Session.clear() // Clear session on logout
-    }
 }
 
 

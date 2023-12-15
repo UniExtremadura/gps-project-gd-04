@@ -85,7 +85,7 @@ class FavoritasViewModel (
         viewModelScope.launch {
             receta.favorita = false
             repository.updateReceta(receta, user!!.userId!!)
-            _toast.value = "Receta añadida a favoritos!"
+            _toast.value = "Receta eliminada de favoritos!"
         }
     }
 

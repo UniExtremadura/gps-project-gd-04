@@ -25,6 +25,7 @@ class HistorialViewModel (
     private val _toast = MutableLiveData<String?>()
     val toast: LiveData<String?>
         get() = _toast
+
     private val _spinner = MutableLiveData<Boolean>(false)
     val spinner: LiveData<Boolean>
         get() = _spinner
