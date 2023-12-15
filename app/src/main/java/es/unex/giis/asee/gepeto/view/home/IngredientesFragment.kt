@@ -5,7 +5,8 @@ import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import android.view.ViewTreeObserver
+import androidx.fragment.app.activityViewModels
+import androidx.fragment.app.viewModels
 import androidx.recyclerview.widget.GridLayoutManager
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.google.android.material.bottomnavigation.BottomNavigationView
@@ -14,16 +15,13 @@ import es.unex.giis.asee.gepeto.adapters.ItemSwapAdapter
 import es.unex.giis.asee.gepeto.data.Session
 import es.unex.giis.asee.gepeto.data.todosLosIngredientes
 import es.unex.giis.asee.gepeto.databinding.FragmentIngredientesBinding
-import es.unex.giis.asee.gepeto.utils.filtrarLista
+import es.unex.giis.asee.gepeto.utils.filtrarSwapItemElements
+import es.unex.giis.asee.gepeto.utils.getElementosFiltrados
 import es.unex.giis.asee.gepeto.utils.ocultarBottomNavigation
-import java.lang.RuntimeException
+import es.unex.giis.asee.gepeto.view.home.recetas.IngredientesViewModel
 import java.util.TreeSet
 
-/**
- * A simple [Fragment] subclass.
- * Use the [IngredientesFragment.newInstance] factory method to
- * create an instance of this fragment.
- */
+
 class IngredientesFragment : Fragment() {
 
     private lateinit var _binding: FragmentIngredientesBinding
@@ -32,30 +30,10 @@ class IngredientesFragment : Fragment() {
     private lateinit var todosIngredientesAdapter: ItemSwapAdapter
     private lateinit var ingredientesSeleccionadosAdapter: ItemSwapAdapter
 
-    private lateinit var listener: OnCrearRecetaListener
-
-    interface OnCrearRecetaListener {
-        fun onCrearRecetaClick(ingredientes: TreeSet<String> )
+    private val homeViewModel: HomeViewModel by activityViewModels()
+    private val viewModel: IngredientesViewModel by viewModels {
+        IngredientesViewModel.Factory
     }
-
-    private fun getIngredientes () : TreeSet<String> {
-        val ingredientes = Session.getValue("ingredientesSeleccionados") as TreeSet<*>? ?: TreeSet<String>()
-        val ingredientesFiltrados = TreeSet<String>(todosLosIngredientes)
-
-        if (ingredientes.isEmpty()) {
-            return ingredientesFiltrados
-        }
-
-        for ( item in ingredientes ) {
-            ingredientesFiltrados.remove(item)
-        }
-
-        return ingredientesFiltrados
-    }
-
-    // Esta lista almacenará todos los cambios que se hagan en la lista de todos los ingredientes
-    private var listaIngredientes : TreeSet<String> = getIngredientes()
-    // Utilizo un treeset porque no admite duplicados y los elementos están ordenados automaticamente
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
@@ -66,15 +44,6 @@ class IngredientesFragment : Fragment() {
         return _binding.root
     }
 
-    override fun onAttach(context: android.content.Context) {
-        super.onAttach(context)
-        if ( context is OnCrearRecetaListener ) {
-            listener = context
-        } else {
-            throw RuntimeException(context.toString() + " must implement OnCrearRecetaListener")
-        }
-    }
-
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
@@ -82,12 +51,17 @@ class IngredientesFragment : Fragment() {
         setUpSelectedRecyclerView()
         setUpButtonListener()
 
+        viewModel.todosIngredientes = todosIngredientesAdapter
+        viewModel.seleccionados = ingredientesSeleccionadosAdapter
+        viewModel.homeViewModel = homeViewModel
+        viewModel.refreshElements()
+
         val bottomNavigationView = requireActivity().findViewById<BottomNavigationView>(R.id.bottom_navigation)
         ocultarBottomNavigation(view, bottomNavigationView)
 
-        filtrarLista(
+        filtrarSwapItemElements(
             binding.buscadorDeIngredientes,
-            listaIngredientes,
+            viewModel,
             todosIngredientesAdapter
         )
     }
@@ -100,7 +74,7 @@ class IngredientesFragment : Fragment() {
                 if (ingredientes.isEmpty()) {
                     advertenciaLabel.visibility = View.VISIBLE
                 } else {
-                    listener.onCrearRecetaClick(ingredientesSeleccionadosAdapter.getSet())
+                    homeViewModel.onEnviarIngredientesClick(ingredientes)
                 }
             }
         }
@@ -108,20 +82,10 @@ class IngredientesFragment : Fragment() {
 
     private fun setUpAllRecyclerView () {
         todosIngredientesAdapter = ItemSwapAdapter(
-            itemSet = TreeSet<String>(todosLosIngredientes),
+            itemSet = TreeSet(todosLosIngredientes),
             onClick = {
-
-                with(binding.advertenciaLabel) {
-                    if (visibility == View.VISIBLE) {
-                        visibility = View.GONE
-                    }
-                }
-
-                ingredientesSeleccionadosAdapter.add(it)
-                todosIngredientesAdapter.remove(it)
-                listaIngredientes.remove(it)
-
-                Session.setValue("ingredientesSeleccionados", ingredientesSeleccionadosAdapter.getSet())
+                binding.advertenciaLabel.visibility = View.GONE
+                viewModel.onClickTodos(it)
             })
 
         with(binding.rvTodosIngredientes) {
@@ -132,14 +96,9 @@ class IngredientesFragment : Fragment() {
 
     private fun setUpSelectedRecyclerView () {
         ingredientesSeleccionadosAdapter = ItemSwapAdapter(
-            itemSet = Session.getValue("ingredientesSeleccionados") as TreeSet<String>? ?: TreeSet<String>(),
+            itemSet = homeViewModel.ingredientesSeleccionados,
             onClick = {
-
-                todosIngredientesAdapter.add(it)
-                ingredientesSeleccionadosAdapter.remove(it)
-                listaIngredientes.add(it)
-
-                Session.setValue("ingredientesSeleccionados", ingredientesSeleccionadosAdapter.getSet())
+                viewModel.onClickSeleccionados(it)
             })
 
         with(binding.rvIngredientesSeleccionados) {

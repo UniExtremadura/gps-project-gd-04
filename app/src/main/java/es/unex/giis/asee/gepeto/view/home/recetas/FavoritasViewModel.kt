@@ -10,6 +10,7 @@ import es.unex.giis.asee.gepeto.GepetoApplication
 import es.unex.giis.asee.gepeto.adapters.RecetasAdapter
 import es.unex.giis.asee.gepeto.data.Repository
 import es.unex.giis.asee.gepeto.model.Receta
+import es.unex.giis.asee.gepeto.model.User
 import es.unex.giis.asee.gepeto.utils.RecetasFilter
 import kotlinx.coroutines.Job
 import kotlinx.coroutines.launch
@@ -17,7 +18,7 @@ import kotlinx.coroutines.launch
 class FavoritasViewModel (
     private val repository: Repository
 ) : ViewModel(), RecetasFilter {
-    val user = repository.getUser()
+    var user : User? = null
     var favoritas : List<Receta> = emptyList()
     var adapter : RecetasAdapter? = null
 
@@ -45,16 +46,18 @@ class FavoritasViewModel (
     }
 
     fun refresh() {
-        launchDataLoad {
-            favoritas = repository.getRecetas(user.userId!!).filter { it.favorita }
-            if (favoritas.isEmpty()) {
-                _noHayFavoritasMessage.value = true
-                _buscador.value = false
-            } else {
-                _noHayFavoritasMessage.value = false
-                _buscador.value = true
+        user?.let {
+            launchDataLoad {
+                favoritas = repository.getRecetas(user!!.userId!!).filter { it.favorita }
+                if (favoritas.isEmpty()) {
+                    _noHayFavoritasMessage.value = true
+                    _buscador.value = false
+                } else {
+                    _noHayFavoritasMessage.value = false
+                    _buscador.value = true
+                }
+                adapter?.updateData(favoritas)
             }
-            adapter?.updateData(favoritas)
         }
     }
 
@@ -81,7 +84,7 @@ class FavoritasViewModel (
 
         viewModelScope.launch {
             receta.favorita = false
-            repository.updateReceta(receta, user.userId!!)
+            repository.updateReceta(receta, user!!.userId!!)
             _toast.value = "Receta añadida a favoritos!"
         }
     }

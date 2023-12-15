@@ -13,7 +13,7 @@ import es.unex.giis.asee.gepeto.adapters.ItemSwapAdapter
 import es.unex.giis.asee.gepeto.data.Session
 import es.unex.giis.asee.gepeto.data.equipamientosDeCocina
 import es.unex.giis.asee.gepeto.databinding.FragmentEquipamientoBinding
-import es.unex.giis.asee.gepeto.utils.filtrarLista
+import es.unex.giis.asee.gepeto.utils.filtrarSwapItemElements
 import es.unex.giis.asee.gepeto.utils.ocultarBottomNavigation
 import java.util.TreeSet
 
@@ -69,11 +69,11 @@ class EquipamientoFragment : Fragment() {
         val bottomNavigationView = requireActivity().findViewById<BottomNavigationView>(R.id.bottom_navigation)
         ocultarBottomNavigation(view, bottomNavigationView)
 
-        filtrarLista(
-            binding.buscadorDeEquipamientos,
-            equipamientosSet,
-            equipamientosAdapter
-        )
+//        filtrarSwapItemElements(
+//            binding.buscadorDeEquipamientos,
+//            equipamientosSet,
+//            equipamientosAdapter
+//        )
 
     }
 

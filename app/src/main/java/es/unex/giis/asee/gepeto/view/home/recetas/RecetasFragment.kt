@@ -10,6 +10,7 @@ import android.view.View
 import android.view.ViewGroup
 import android.widget.Button
 import android.widget.Toast
+import androidx.fragment.app.activityViewModels
 import androidx.navigation.NavController
 import androidx.navigation.Navigation
 import androidx.navigation.fragment.findNavController
@@ -21,6 +22,7 @@ import es.unex.giis.asee.gepeto.api.APIError
 import es.unex.giis.asee.gepeto.api.getNetworkService
 import es.unex.giis.asee.gepeto.databinding.FragmentRecetasBinding
 import es.unex.giis.asee.gepeto.utils.BACKGROUND
+import es.unex.giis.asee.gepeto.view.home.HomeViewModel
 import es.unex.giis.asee.gepeto.view.home.IngredientesFragment
 import java.lang.RuntimeException
 import java.util.TreeSet

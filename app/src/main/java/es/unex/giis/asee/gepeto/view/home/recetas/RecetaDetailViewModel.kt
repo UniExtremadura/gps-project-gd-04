@@ -1,12 +1,10 @@
 package es.unex.giis.asee.gepeto.view.home.recetas
 
-import android.widget.Toast
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.ViewModelProvider
 import androidx.lifecycle.ViewModelProvider.AndroidViewModelFactory.Companion.APPLICATION_KEY
-import androidx.lifecycle.lifecycleScope
 import androidx.lifecycle.viewModelScope
 import androidx.lifecycle.viewmodel.CreationExtras
 import es.unex.giis.asee.gepeto.GepetoApplication
@@ -45,17 +43,13 @@ class RecetaDetailViewModel (
     private lateinit var steps: List<Pasos>
     private lateinit var equipments: List<Equipamiento>
 
-    init {
-        user = repository.getUser()
-    }
-
     private fun getReceta() {
         if (receta != null)
             viewModelScope.launch{
                 try{
-                    val _receta = repository.getRecetaById(receta!!.recetaId!!)
-                    _receta.favorita = receta!!.favorita
-                    _recetaDetail.value = _receta
+                    val recetaTemp = repository.getRecetaById(receta!!.recetaId!!)
+                    recetaTemp.favorita = receta!!.favorita
+                    _recetaDetail.value = recetaTemp
                 } catch (error: APIError) {
                     _toast.value = error.message
                 }

@@ -17,20 +17,13 @@ import es.unex.giis.asee.gepeto.R
 import es.unex.giis.asee.gepeto.data.Session
 
 import es.unex.giis.asee.gepeto.model.User
-import es.unex.giis.asee.gepeto.view.home.recetas.FavoritasFragment
-import es.unex.giis.asee.gepeto.view.home.recetas.HistorialFragment
 import es.unex.giis.asee.gepeto.databinding.ActivityHomeBinding
 import es.unex.giis.asee.gepeto.model.Receta
 
 import es.unex.giis.asee.gepeto.view.home.recetas.RecetasFragmentDirections
 import java.util.TreeSet
 
-class HomeActivity :
-    AppCompatActivity(),
-    HistorialFragment.OnRecetaClickListener,
-    FavoritasFragment.OnReceta2ClickListener,
-    IngredientesFragment.OnCrearRecetaListener,
-    ObservacionesFragment.OnGenerarRecetaListener {
+class HomeActivity : AppCompatActivity() {
 
     private lateinit var appBarConfiguration: AppBarConfiguration
     lateinit var binding: ActivityHomeBinding
@@ -58,7 +51,29 @@ class HomeActivity :
 
         viewModel.userInSession = intent.getSerializableExtra(USER_INFO) as User
 
+        setObservers()
         setUpUI()
+    }
+
+    private fun setObservers() {
+        // Navigate to receta detail fragment
+        viewModel.navigateToReceta.observe(this) { receta ->
+            receta?.let {
+                onRecetaClick(receta)
+            }
+        }
+
+        viewModel.enviarIngredientes.observe(this) { ingredientes ->
+            ingredientes?.let {
+                onEnviarIngredientesClick(ingredientes)
+            }
+        }
+
+        viewModel.generarReceta.observe(this) { receta ->
+            receta?.let {
+                onGenerarRecetaClick(receta)
+            }
+        }
     }
 
     private fun setUpUI() {
@@ -81,7 +96,6 @@ class HomeActivity :
             if ((destination.id == R.id.recetaDetailFragment) or
                 (destination.id == R.id.observacionesFragment) or
                 (destination.id == R.id.settingsFragment)){
-//                binding.toolbar.menu.clear()
                 binding.bottomNavigation.visibility = View.GONE
             } else {
                 binding.bottomNavigation.visibility = View.VISIBLE
@@ -115,17 +129,13 @@ class HomeActivity :
             super.onOptionsItemSelected(item)
         }
     }
-    override fun onRecetaClick(receta: Receta) {
+
+    private fun onRecetaClick(receta: Receta) {
         val action = RecetasFragmentDirections.actionRecetasFragmentToRecetaDetailFragment(receta)
         navController.navigate(action)
     }
 
-    override fun onReceta2Click(receta: Receta) {
-        val action = RecetasFragmentDirections.actionRecetasFragmentToRecetaDetailFragment(receta)
-        navController.navigate(action)
-    }
-
-    override fun onCrearRecetaClick(ingredientes: TreeSet<String>) {
+    private fun onEnviarIngredientesClick(ingredientes: TreeSet<String>) {
         val action = IngredientesFragmentDirections
             .actionIngredientesFragmentToObservacionesFragment(
                 ingredientes.joinToString(separator = ", ", prefix = "", postfix = ".")
@@ -133,7 +143,7 @@ class HomeActivity :
         navController.navigate(action)
     }
 
-    override fun onGenerarRecetaClick(receta: Receta) {
+    private fun onGenerarRecetaClick(receta: Receta) {
         val action = ObservacionesFragmentDirections
             .actionObservacionesFragmentToRecetaDetailFragment(receta)
         navController.navigate(action)

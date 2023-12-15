@@ -13,7 +13,7 @@ import es.unex.giis.asee.gepeto.adapters.TodoAdapter
 import es.unex.giis.asee.gepeto.data.Session
 import es.unex.giis.asee.gepeto.data.todosLosIngredientes
 import es.unex.giis.asee.gepeto.databinding.FragmentListaBinding
-import es.unex.giis.asee.gepeto.utils.filtrarLista
+import es.unex.giis.asee.gepeto.utils.filtrarSwapItemElements
 import es.unex.giis.asee.gepeto.utils.ocultarBottomNavigation
 import java.util.TreeSet
 
@@ -64,11 +64,11 @@ class ListaFragment : Fragment() {
         val bottomNavigationView = requireActivity().findViewById<BottomNavigationView>(R.id.bottom_navigation)
         ocultarBottomNavigation(view, bottomNavigationView)
 
-        filtrarLista(
-            binding.buscadorDeIngredientes,
-            ingredientesSet,
-            ingredientesAdapter
-        )
+//        filtrarSwapItemElements(
+//            binding.buscadorDeIngredientes,
+//            ingredientesSet,
+//            ingredientesAdapter
+//        )
     }
 
     private fun setUpSelectedRecyclerView() {

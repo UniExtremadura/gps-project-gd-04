@@ -10,6 +10,7 @@ import es.unex.giis.asee.gepeto.GepetoApplication
 import es.unex.giis.asee.gepeto.adapters.RecetasAdapter
 import es.unex.giis.asee.gepeto.data.Repository
 import es.unex.giis.asee.gepeto.model.Receta
+import es.unex.giis.asee.gepeto.model.User
 import es.unex.giis.asee.gepeto.utils.RecetasFilter
 import kotlinx.coroutines.Job
 import kotlinx.coroutines.launch
@@ -17,13 +18,9 @@ import kotlinx.coroutines.launch
 class HistorialViewModel (
     private val repository: Repository
 ) : ViewModel(), RecetasFilter {
-    val user = repository.getUser()
+    var user : User? = null
     var recetas : List<Receta> = emptyList()
     var adapter : RecetasAdapter? = null
-
-    override fun getRecetasIntf(): List<Receta> {
-        return recetas
-    }
 
     private val _toast = MutableLiveData<String?>()
     val toast: LiveData<String?>
@@ -45,17 +42,23 @@ class HistorialViewModel (
     }
 
     fun refresh() {
-        launchDataLoad {
-            recetas = repository.getRecetas(user.userId!!)
-            if (recetas.isEmpty()) {
-                _noHayRecetasMessage.value = true
-                _buscador.value = false
-            } else {
-                _noHayRecetasMessage.value = false
-                _buscador.value = true
+        user?.let {// If user is not null
+            launchDataLoad {
+                recetas = repository.getRecetas(user!!.userId!!)
+                if (recetas.isEmpty()) {
+                    _noHayRecetasMessage.value = true
+                    _buscador.value = false
+                } else {
+                    _noHayRecetasMessage.value = false
+                    _buscador.value = true
+                }
+                adapter?.updateData(recetas)
             }
-            adapter?.updateData(recetas)
         }
+    }
+
+    override fun getRecetasIntf(): List<Receta> {
+        return recetas
     }
 
     private fun launchDataLoad(block: suspend () -> Unit): Job {
@@ -82,7 +85,7 @@ class HistorialViewModel (
         receta.favorita = true
         //db.recetaDao().update(receta)
         viewModelScope.launch {
-            repository.updateReceta(receta, user.userId!!)
+            repository.updateReceta(receta, user!!.userId!!)
             _toast.value = "Receta añadida a favoritos!"
         }
     }

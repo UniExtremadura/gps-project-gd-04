@@ -6,42 +6,25 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.Toast
+import androidx.fragment.app.activityViewModels
 import androidx.fragment.app.viewModels
 import androidx.recyclerview.widget.LinearLayoutManager
-import es.unex.giis.asee.gepeto.GepetoApplication
 import es.unex.giis.asee.gepeto.adapters.RecetasAdapter
-import es.unex.giis.asee.gepeto.data.Repository
 import es.unex.giis.asee.gepeto.databinding.FragmentHistorialBinding
-import es.unex.giis.asee.gepeto.model.Receta
 import es.unex.giis.asee.gepeto.utils.filtrarRecetasFilter
+import es.unex.giis.asee.gepeto.view.home.HomeViewModel
 
 
 class HistorialFragment : Fragment() {
 
-    var recetas: List<Receta> = emptyList()
-
-    private lateinit var repository: Repository
-    private lateinit var listener: OnRecetaClickListener
-    interface OnRecetaClickListener {
-        fun onRecetaClick(receta: Receta)
-    }
+    private lateinit var adapter: RecetasAdapter
 
     private var _binding: FragmentHistorialBinding? = null
     private val binding get() = _binding!!
-    private lateinit var adapter: RecetasAdapter
 
+    private val homeViewModel: HomeViewModel by activityViewModels()
     private val viewModel: HistorialViewModel by viewModels {
         HistorialViewModel.Factory
-    }
-
-    override fun onAttach(context: android.content.Context) {
-        super.onAttach(context)
-
-        if (context is OnRecetaClickListener) {
-            listener = context
-        } else {
-            throw RuntimeException("$context must implement OnShowClickListener")
-        }
     }
 
     override fun onResume() {
@@ -64,9 +47,6 @@ class HistorialFragment : Fragment() {
 
         viewModel.adapter = adapter
 
-        val appContainer = (this.activity?.application as GepetoApplication).appContainer
-        repository = appContainer.repository
-
         setObservers()
 
         filtrarRecetasFilter(
@@ -77,6 +57,13 @@ class HistorialFragment : Fragment() {
     }
 
     private fun setObservers() {
+
+        // Observe the user in session
+        homeViewModel.user.observe(viewLifecycleOwner) { user ->
+            viewModel.user = user
+            viewModel.refresh()
+        }
+
         // show the spinner when [spinner] is true
         viewModel.spinner.observe(viewLifecycleOwner) { receta ->
             binding.spinner.visibility = if (receta) View.VISIBLE else View.GONE
@@ -104,7 +91,7 @@ class HistorialFragment : Fragment() {
     private fun setUpRecyclerView() {
         adapter = RecetasAdapter(recetas = emptyList(),
             onClick = {
-                listener.onRecetaClick(it)
+                homeViewModel.onRecetaClick(it)
             },
             onLongClick = {
                 viewModel.setRecetaFav(it)

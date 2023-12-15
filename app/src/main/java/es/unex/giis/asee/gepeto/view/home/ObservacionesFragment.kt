@@ -23,15 +23,9 @@ import java.util.TreeSet
 class ObservacionesFragment : Fragment() {
 
     private val args: ObservacionesFragmentArgs by navArgs()
-    private lateinit var repository: Repository
-    private lateinit var listener: OnGenerarRecetaListener
 
     private lateinit var _binding: FragmentObservacionesBinding
     private val binding get() = _binding
-
-    interface OnGenerarRecetaListener {
-        fun onGenerarRecetaClick( receta: Receta )
-    }
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
@@ -42,23 +36,10 @@ class ObservacionesFragment : Fragment() {
         return _binding.root
     }
 
-    override fun onAttach(context: android.content.Context) {
-        super.onAttach(context)
-
-        val appContainer = (this.activity?.application as GepetoApplication).appContainer
-        repository = appContainer.repository
-
-        if ( context is OnGenerarRecetaListener) {
-            listener = context
-        } else {
-            throw RuntimeException("$context must implement OnGenerarRecetaListener")
-        }
-    }
-
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
-        suspend { repository.tryUpdateRecentRecipesCache() }
+//        suspend { repository.tryUpdateRecentRecipesCache() }
         val equipamientoSet = Session.getValue("equipamientosSeleccionados") as? TreeSet<*> ?: TreeSet<String>()
 
         with (binding) {
@@ -69,19 +50,19 @@ class ObservacionesFragment : Fragment() {
 
             crearRecetaBtn.setOnClickListener {
 
-                lifecycleScope.launch {
-                    try {
-                        val recipe = repository.fetchRecentRecipe(listaIngredientes)
-                        val user = Session.getValue("user") as User
-
-                        //db.recetaDao().insertAndRelate(_recipe!!, user.userId!!)
-                        repository.insertAndRelate(recipe, user.userId!!)
-
-                        listener.onGenerarRecetaClick(recipe)
-                    } catch (e: APIError) {
-                        Toast.makeText(context, e.message, Toast.LENGTH_SHORT).show()
-                    }
-                }
+//                lifecycleScope.launch {
+//                    try {
+//                        val recipe = repository.fetchRecentRecipe(listaIngredientes)
+//                        val user = Session.getValue("user") as User
+//
+//                        //db.recetaDao().insertAndRelate(_recipe!!, user.userId!!)
+//                        repository.insertAndRelate(recipe, user.userId!!)
+//
+//                        listener.onGenerarRecetaClick(recipe)
+//                    } catch (e: APIError) {
+//                        Toast.makeText(context, e.message, Toast.LENGTH_SHORT).show()
+//                    }
+//                }
             }
         }
     }
