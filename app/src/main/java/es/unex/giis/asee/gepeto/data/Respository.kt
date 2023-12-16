@@ -86,7 +86,7 @@ class Repository (
         try {
 //            lastUpdateTimeMillis = System.currentTimeMillis()
 
-            val ingredientesQuery = ingredientes[0]
+            val ingredientesQuery = ingredientes.joinToString(";")
             val recetaCache = recetaCacheDao.getAndDelete(ingredientesQuery)
             if (recetaCache != null) {
                 _receta.value = recetaCache.toReceta()
