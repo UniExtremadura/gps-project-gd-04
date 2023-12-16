@@ -32,9 +32,5 @@ abstract class GepetoDatabase : RoomDatabase() {
             }
             return INSTANCE
         }
-
-        fun destroyInstance() {
-            INSTANCE = null
-        }
     }
 }
