@@ -10,7 +10,8 @@ import retrofit2.http.GET
 import retrofit2.http.Path
 import retrofit2.http.Query
 
-private const val apikey = "apiKey=01056f554f044a46ac4b0a23c19fc6ba"
+// 01056f554f044a46ac4b0a23c19fc6ba
+private const val apikey = "apiKey=1541f2b0ab204bc8ab6a8b69be301e86"
 
 private val service: MealsAPI by lazy {
     val okHttpClient = OkHttpClient.Builder()
