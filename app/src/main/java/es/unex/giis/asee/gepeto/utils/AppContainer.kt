@@ -9,7 +9,7 @@ import es.unex.giis.asee.gepeto.view.home.HomeViewModel
 class AppContainer (context: Context?) {
     private val networkService = getNetworkService()
     private val db = GepetoDatabase.getInstance(context!!)
-    val repository = Repository(db!!.userDao(), db.recetaDao(), networkService)
+    val repository = Repository(db!!.userDao(), db.recetaDao(), networkService, db.recetaCacheDao())
     val homeViewModel : HomeViewModel by lazy {
         HomeViewModel()
     }

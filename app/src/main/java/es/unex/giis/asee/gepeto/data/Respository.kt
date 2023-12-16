@@ -1,24 +1,32 @@
 package es.unex.giis.asee.gepeto.data
 
+import androidx.lifecycle.LiveData
+import androidx.lifecycle.MutableLiveData
 import es.unex.giis.asee.gepeto.api.APIError
 import es.unex.giis.asee.gepeto.api.MealsAPI
 import es.unex.giis.asee.gepeto.data.api.Equipments
 import es.unex.giis.asee.gepeto.data.api.Instructions
 import es.unex.giis.asee.gepeto.data.api.Recipes
+import es.unex.giis.asee.gepeto.database.dao.RecetaCacheDao
 import es.unex.giis.asee.gepeto.database.dao.RecetaDao
 import es.unex.giis.asee.gepeto.database.dao.UserDao
 import es.unex.giis.asee.gepeto.model.Receta
+import es.unex.giis.asee.gepeto.model.RecetaCache
 import es.unex.giis.asee.gepeto.model.User
 import es.unex.giis.asee.gepeto.model.UsuarioRecetasCrossRef
 import es.unex.giis.asee.gepeto.utils.Tuple
-import es.unex.giis.asee.gepeto.utils.existeInterseccion
 
 class Repository (
     private val userDao: UserDao,
     private val recetaDao: RecetaDao,
-    private val networkService: MealsAPI
+    private val networkService: MealsAPI,
+    private val recetaCacheDao: RecetaCacheDao,
 ) {
-    private var lastUpdateTimeMillis: Long = 0L
+//    private var lastUpdateTimeMillis: Long = 0L
+
+    private var _receta = MutableLiveData<Receta?>()
+    val receta: LiveData<Receta?>
+        get() = _receta
 
     suspend fun updateReceta(receta: Receta, userId: Long) {
         recetaDao.update(receta)
@@ -43,14 +51,14 @@ class Repository (
         return recetaDao.findById(recetaId)
     }
 
-    suspend fun tryUpdateRecentRecipesCache() {
-        if (shouldUpdateShowsCache()) {
-            if (Session.exists("cache")) {
-                val cache = Session.getValue("cache") as Tuple<Recipes, List<String>>
-                fetchRecentRecipe(cache.second)
-            }
-        }
-    }
+//    suspend fun tryUpdateRecentRecipesCache() {
+//        if (shouldUpdateShowsCache()) {
+//            if (Session.exists("cache")) {
+//                val cache = Session.getValue("cache") as Tuple<Recipes, List<String>>
+//                fetchRecentRecipe(cache.second)
+//            }
+//        }
+//    }
 
     suspend fun getMealSteps(id: String): Instructions {
         return networkService.getMealSteps(id)
@@ -67,7 +75,6 @@ class Repository (
             val ingredientesString = ingredientes.joinToString(",+")
 
             // Utiliza los ingredientes para buscar 1 receta
-            //recipes = getNetworkService().getMealByIngredients(ingredients = ingredientesString)
             recipes = networkService.getMealByIngredients(ingredients = ingredientesString)
 
         } catch (cause: Throwable) {
@@ -77,42 +84,40 @@ class Repository (
         return recipes
     }
 
-    suspend fun fetchRecentRecipe( ingredientes: List<String> ): Receta {
+    suspend fun fetchRecentRecipe( ingredientes: List<String> ) {
         try {
-            lastUpdateTimeMillis = System.currentTimeMillis()
-            var recipes: Recipes
+//            lastUpdateTimeMillis = System.currentTimeMillis()
 
-            if (Session.exists("cache")) {
-                val cache = Session.getValue("cache") as Tuple<Recipes, List<String>>
-                recipes = cache.first
-                val listaIngredientes = cache.second
-
-                if ( recipes.isNotEmpty() ) {
-                    if (existeInterseccion(ingredientes, listaIngredientes)) {
-                        return recipes.removeAt(0).toRecipe()
-                    }
-                }
+            val ingredientesQuery = ingredientes[0]
+            val recetaCache = recetaCacheDao.getAndDelete(ingredientesQuery)
+            if (recetaCache != null) {
+                _receta.value = recetaCache.toReceta()
+                return // No need to fetch from network
             }
 
-            recipes = fetchMeal(ingredientes)
-            Session.setValue("cache", Tuple(recipes, ingredientes))
-            return recipes.removeAt(0).toRecipe()
+            val recipes = fetchMeal(ingredientes)
+            recetaCacheDao.insertAll(recipes.map { it.toRecipe().toRecetaCache(ingredientesQuery)})
+            _receta.value = recetaCacheDao.getAndDelete(ingredientesQuery)!!.toReceta()
 
         } catch (cause: Throwable) {
             throw APIError("Unable to fetch data from API", cause)
         }
     }
 
-    private fun shouldUpdateShowsCache(): Boolean {
-        var numeroDeRecetas = 0
-        if (Session.exists("cache")) {
-            val cache = Session.getValue("cache") as Tuple<Recipes, List<String>>
-            numeroDeRecetas = cache.first.size
-        }
-        val lastFetchTimeMillis = lastUpdateTimeMillis
-        val timeFromLastFetch = System.currentTimeMillis() - lastFetchTimeMillis
-        return timeFromLastFetch > MIN_TIME_FROM_LAST_FETCH_MILLIS || numeroDeRecetas == 0
+    fun onRecetaSent() {
+        _receta.value = null
     }
+
+//    private fun shouldUpdateShowsCache(): Boolean {
+//        var numeroDeRecetas = 0
+//        if (Session.exists("cache")) {
+//            val cache = Session.getValue("cache") as Tuple<Recipes, List<String>>
+//            numeroDeRecetas = cache.first.size
+//        }
+//        val lastFetchTimeMillis = lastUpdateTimeMillis
+//        val timeFromLastFetch = System.currentTimeMillis() - lastFetchTimeMillis
+//        return timeFromLastFetch > MIN_TIME_FROM_LAST_FETCH_MILLIS || numeroDeRecetas == 0
+//    }
 
     suspend fun findUserByName(username: String): User {
         return userDao.findByName(username)
@@ -122,11 +127,7 @@ class Repository (
         userDao.update(user)
     }
 
-    fun getUser(): User {
-        return Session.getValue("user") as User
-    }
-
-    companion object {
-        private const val MIN_TIME_FROM_LAST_FETCH_MILLIS: Long = 30000
-    }
+//    companion object {
+//        private const val MIN_TIME_FROM_LAST_FETCH_MILLIS: Long = 30000
+//    }
 }

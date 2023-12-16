@@ -16,6 +16,17 @@ data class Receta(
     val imagen: Int,
     @ColumnInfo( name = "image_path" ) val imagenPath: String
 ) : Serializable {
+
+    fun toRecetaCache(queryParam: String): RecetaCache {
+        return RecetaCache(
+            recetaId,
+            nombre,
+            ingredientes,
+            queryParam,
+            imagenPath
+        )
+    }
+
     fun getIngredientesPreview(): String {
         //Filtramos los ingredientes que no estén vacíos
         val ingredientesNoVacios = ingredientes.split(';')
