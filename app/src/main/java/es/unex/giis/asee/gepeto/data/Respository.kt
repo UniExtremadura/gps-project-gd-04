@@ -24,7 +24,7 @@ import es.unex.giis.asee.gepeto.database.dao.UserDao
 import es.unex.giis.asee.gepeto.model.Receta
 import es.unex.giis.asee.gepeto.model.User
 import es.unex.giis.asee.gepeto.model.UsuarioRecetasCrossRef
-import kotlin.random.Random
+import java.util.UUID
 import kotlin.time.Duration.Companion.seconds
 
 class Repository (
@@ -166,7 +166,8 @@ class Repository (
             )
 
             _receta.value = Receta(
-                recetaId = Random.nextInt(1000),
+                recetaId = System.currentTimeMillis().toInt(),
+                //recetaId = UUID.randomUUID().hashCode(),
                 nombre = textResultArray[0].replace("\n", ""),
                 descripcion = textResultArray[1],
                 favorita = false,
