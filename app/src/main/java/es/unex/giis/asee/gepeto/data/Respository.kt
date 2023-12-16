@@ -1,7 +1,18 @@
 package es.unex.giis.asee.gepeto.data
 
+import android.util.Log
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
+import com.aallam.openai.api.chat.ChatCompletion
+import com.aallam.openai.api.chat.ChatCompletionRequest
+import com.aallam.openai.api.chat.ChatMessage
+import com.aallam.openai.api.chat.ChatRole
+import com.aallam.openai.api.http.Timeout
+import com.aallam.openai.api.image.ImageCreation
+import com.aallam.openai.api.image.ImageSize
+import com.aallam.openai.api.model.ModelId
+import com.aallam.openai.client.OpenAI
+import es.unex.giis.asee.gepeto.R
 import es.unex.giis.asee.gepeto.api.APIError
 import es.unex.giis.asee.gepeto.api.MealsAPI
 import es.unex.giis.asee.gepeto.data.api.Equipments
@@ -13,6 +24,8 @@ import es.unex.giis.asee.gepeto.database.dao.UserDao
 import es.unex.giis.asee.gepeto.model.Receta
 import es.unex.giis.asee.gepeto.model.User
 import es.unex.giis.asee.gepeto.model.UsuarioRecetasCrossRef
+import kotlin.random.Random
+import kotlin.time.Duration.Companion.seconds
 
 class Repository (
     private val userDao: UserDao,
@@ -99,6 +112,69 @@ class Repository (
 
         } catch (cause: Throwable) {
             throw APIError("Unable to fetch data from API", cause)
+        }
+    }
+
+    suspend fun fetchAIRecipe(ingredientes: List<String>, equipamientos: List<Any>, observaciones : String) {
+        val openAI = OpenAI(
+            token = "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",
+            timeout = Timeout(socket = 60.seconds)
+        )
+
+        try {
+            val chatCompletionRequest = ChatCompletionRequest(
+                model = ModelId("gpt-3.5-turbo"),
+                messages = listOf(
+                    ChatMessage(
+                        role = ChatRole.User,
+                        content="Generate a recipe based on the provided list of ingredients, kitchen equipment, and observations. " +
+                                "The recipe must have only the five following attributes, each separated by '%%%' (there should be only 4 '%%%'):\n"+
+                                "1.name\n"+
+                                "2.steps\n"+
+                                "3.ingredients (only their names and separated by ';')\n"+
+                                "4.equipment (only their names and separated by ';')\n"+
+                                "5.image url of the recipe\n"+
+                                "It must have the format of the following example:\n"+
+                                "Omelette %%% \n1. Use eggs\n2.Create Omelette \n%%% Apple;Amaretto %%% Blender;Oven %%% https://spoonacular.com/recipeImages/650871-312x231.jpg\n"+
+
+                                "Ensure that the generated recipe includes only the specified sections and does not include any additional text " +
+                                "beyond the given five sections."+
+                                "Use the provided arrays for ingredients, equipment and observations:\n"+
+                                "Ingredients: ${ingredientes.joinToString(separator = ", ")}\n" +
+                                "Equipament: ${equipamientos.joinToString(separator = ", ")}\n" +
+                                "Observations: $observaciones\n"
+                    )
+                )
+            )
+
+            val completion: ChatCompletion = openAI.chatCompletion(chatCompletionRequest)
+
+            val response = completion.choices.first().message?.content
+            print(response)
+            val textResultArray=response?.split("%%%") ?: listOf("","","","")
+
+           val images = openAI.imageURL(
+                creation = ImageCreation(
+                    prompt = textResultArray[0],
+                    n = 1,
+                    size = ImageSize.is1024x1024
+                )
+            )
+
+            _receta.value = Receta(
+                recetaId = Random.nextInt(1000),
+                nombre = textResultArray[0].replace("\n", ""),
+                descripcion = textResultArray[1],
+                favorita = false,
+                ingredientes = textResultArray[2].replace("\n", ""),
+                equipamientos = textResultArray[3].replace("\n", ""),
+                imagen = R.drawable.ejemplo_plato,
+                //imagenPath = textResultArray[4].replace("\n", ""),
+                imagenPath = images[0].url
+            )
+
+        } catch (e: Exception) {
+            Log.v("GPT_Petition", "getGPTResponse: ERROR: ${e.message ?: ""}")
         }
     }
 

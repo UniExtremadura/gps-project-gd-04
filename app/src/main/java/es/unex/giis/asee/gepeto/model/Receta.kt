@@ -64,4 +64,16 @@ data class Receta(
             )
         }
     }
+    fun listaEquipamiento(): String {
+
+        //Si no hay ingredientes, devolvemos un mensaje
+        return if (equipamientos.isEmpty()) {
+            "No hay equipamiento."
+        } else {
+            //Si hay ingredientes, los devolvemos separados por "-"
+            "Equipamiento / Medidas:\n\n - " + equipamientos.split(";").joinToString(
+                separator = "\n - "
+            )
+        }
+    }
 }

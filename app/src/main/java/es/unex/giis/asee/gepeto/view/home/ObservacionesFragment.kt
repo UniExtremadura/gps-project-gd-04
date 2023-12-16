@@ -40,13 +40,18 @@ class ObservacionesFragment : Fragment() {
         viewModel.user = homeViewModel.userInSession
         viewModel.ingredientesText = args.ingredientes
         viewModel.equipamientoList = homeViewModel.equipamientoSeleccionado
+        viewModel.observaciones = binding.observacionesInput.text.toString()
         viewModel.setAttributes()
 
         with (binding) {
             ingredientes.text = viewModel.ingredientesText
 
             crearRecetaBtn.setOnClickListener {
-                viewModel.generarReceta()
+                if(iaGeneratorSwitch.isChecked){
+                    viewModel.generarRecetaIA()
+                } else {
+                    viewModel.generarReceta()
+                }
             }
         }
     }

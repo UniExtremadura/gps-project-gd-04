@@ -96,4 +96,14 @@ dependencies {
     implementation("org.apache.poi:poi:5.1.0")
     implementation("org.apache.poi:poi-ooxml:5.1.0")
 
+    //GPT
+    implementation("com.squareup.okhttp3:okhttp:4.10.0")
+
+    // import Kotlin API client BOM
+    implementation("com.aallam.openai:openai-client-bom:3.6.1")
+
+    // define dependencies without versions
+    implementation("com.aallam.openai:openai-client")
+    runtimeOnly("io.ktor:ktor-client-okhttp")
+
 }

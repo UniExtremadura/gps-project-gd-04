@@ -1,5 +1,7 @@
 package es.unex.giis.asee.gepeto.view.home.recetas
 
+import android.os.SystemClock
+import android.util.Log
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
@@ -48,34 +50,42 @@ class RecetaDetailViewModel (
         if (receta != null)
             viewModelScope.launch{
                 try{
-                    val recetaTemp = repository.getRecetaById(receta!!.recetaId!!)
+                    var recetaTemp = repository.getRecetaById(receta!!.recetaId!!)
+                    while(recetaTemp == null){
+                        SystemClock.sleep(1000)
+                        recetaTemp = repository.getRecetaById(receta!!.recetaId!!)
+                    }
+                    //var recetaTemp = repository.getRecetaById(11)
                     recetaTemp.favorita = receta!!.favorita
                     _recetaDetail.value = recetaTemp
-                } catch (error: APIError) {
-                    _toast.value = error.message
-                }
 
-                try {
-                    steps = fetchPasos().filterNotNull().map { it.toRecipe() } // Pasos
+                    //Descripcion
+                    if(recetaTemp.descripcion.isEmpty()){
+                        steps = fetchPasos().filterNotNull().map { it.toRecipe() } // Pasos
 
-                    descriptionText.value = steps.flatMap { it.descripcion }.joinToString("\n\n - ", prefix = "Pasos:\n\n - ")
+                        descriptionText.value = steps.flatMap { it.descripcion }.joinToString("\n\n - ", prefix = "Pasos:\n\n - ")
+                    }
+                    else{
+                        descriptionText.value = recetaTemp.descripcion
+                    }
 
-                } catch (error: APIError) {
-                    _toast.value = error.message
-                }
+                    //Equipamientos
+                    if(recetaTemp.equipamientos.isEmpty()){
+                        equipments = listOf(fetchEquipamiento().toEquipamiento())
 
-                try {
-                    equipments = listOf(fetchEquipamiento().toEquipamiento())
-
-                    equipmentText.value = equipments.flatMap { equipamiento ->
-                        equipamiento.descripcion.map {
-                            desc ->
-                            desc.trim()
-                                .replaceFirstChar {
-                                    if (it.isLowerCase()) it.titlecase(Locale.ROOT) else it.toString()
-                                }
-                        }
-                    }.joinToString("\n\n - ", prefix = "Equipamiento:\n\n - ")
+                        equipmentText.value = equipments.flatMap { equipamiento ->
+                            equipamiento.descripcion.map {
+                                    desc ->
+                                desc.trim()
+                                    .replaceFirstChar {
+                                        if (it.isLowerCase()) it.titlecase(Locale.ROOT) else it.toString()
+                                    }
+                            }
+                        }.joinToString("\n\n - ", prefix = "Equipamiento:\n\n - ")
+                    }
+                    else{
+                        equipmentText.value = recetaTemp.listaEquipamiento()
+                    }
 
                 } catch (error: APIError) {
                     _toast.value = error.message
