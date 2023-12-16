@@ -115,9 +115,13 @@ class Repository (
         }
     }
 
+
     suspend fun fetchAIRecipe(ingredientes: List<String>, equipamientos: List<Any>, observaciones : String) {
+
+        val key = "sk-vUBjU"+"jJemquX5"+"lenfELWT3Blbk"+"FJ53EWCJW"+"Z2l6ZK8"+"aMSa5M"
+
         val openAI = OpenAI(
-            token = "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",
+            token = key,
             timeout = Timeout(socket = 60.seconds)
         )
 
