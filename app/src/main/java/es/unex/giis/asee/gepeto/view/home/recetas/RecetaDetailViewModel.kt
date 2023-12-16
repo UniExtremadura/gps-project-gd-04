@@ -19,6 +19,7 @@ import es.unex.giis.asee.gepeto.model.Pasos
 import es.unex.giis.asee.gepeto.model.Receta
 import es.unex.giis.asee.gepeto.model.User
 import kotlinx.coroutines.launch
+import java.util.Locale
 
 class RecetaDetailViewModel (
     private val repository: Repository
@@ -66,8 +67,15 @@ class RecetaDetailViewModel (
                 try {
                     equipments = listOf(fetchEquipamiento().toEquipamiento())
 
-                    equipmentText.value = equipments.flatMap { it.descripcion.map { desc -> desc.trim().capitalize() } }
-                        .joinToString("\n\n - ", prefix = "Equipamiento:\n\n - ")
+                    equipmentText.value = equipments.flatMap { equipamiento ->
+                        equipamiento.descripcion.map {
+                            desc ->
+                            desc.trim()
+                                .replaceFirstChar {
+                                    if (it.isLowerCase()) it.titlecase(Locale.ROOT) else it.toString()
+                                }
+                        }
+                    }.joinToString("\n\n - ", prefix = "Equipamiento:\n\n - ")
 
                 } catch (error: APIError) {
                     _toast.value = error.message

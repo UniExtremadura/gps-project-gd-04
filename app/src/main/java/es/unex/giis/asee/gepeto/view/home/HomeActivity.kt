@@ -14,7 +14,6 @@ import androidx.navigation.ui.navigateUp
 import androidx.navigation.ui.setupActionBarWithNavController
 import androidx.navigation.ui.setupWithNavController
 import es.unex.giis.asee.gepeto.R
-import es.unex.giis.asee.gepeto.data.Session
 
 import es.unex.giis.asee.gepeto.model.User
 import es.unex.giis.asee.gepeto.databinding.ActivityHomeBinding

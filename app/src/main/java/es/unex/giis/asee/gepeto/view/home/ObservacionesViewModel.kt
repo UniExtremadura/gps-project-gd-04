@@ -18,14 +18,16 @@ class ObservacionesViewModel (
     private val repository: Repository
 ) : ViewModel() {
 
-    var receta = MutableLiveData<Receta>(null)
+    private var _receta = MutableLiveData<Receta?>()
+    val receta : LiveData<Receta?>
+        get() = _receta
 
     var user : User? = null
 
     var ingredientesText = ""
     private var ingredientesList = MutableLiveData<TreeSet<String>>(null)
 
-    var equipamientoText = MutableLiveData<String>("")
+    var equipamientoText = MutableLiveData("")
     var equipamientoList = TreeSet<String>()
 
     private val _toast = MutableLiveData<String?>()
@@ -42,12 +44,16 @@ class ObservacionesViewModel (
             try {
                 val recipe = repository.fetchRecentRecipe(ingredientesList.value!!.toList())
                 repository.insertAndRelate(recipe, user!!.userId!!)
-                receta.value = recipe
+                _receta.value = recipe
 
             } catch (e: APIError) {
                 _toast.value = e.message
             }
         }
+    }
+
+    fun onRecetaSent() {
+        _receta.value = null
     }
 
     fun onToastShown() {

@@ -61,6 +61,7 @@ class ObservacionesFragment : Fragment() {
         viewModel.receta.observe(viewLifecycleOwner) { receta ->
             receta?.let {
                 homeViewModel.onGenerarRecetaClick(receta)
+                viewModel.onRecetaSent()
             }
         }
 
