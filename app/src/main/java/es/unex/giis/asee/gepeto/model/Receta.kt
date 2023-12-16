@@ -55,7 +55,9 @@ data class Receta(
             "No hay ingredientes."
         } else {
             //Si hay ingredientes, los devolvemos separados por "-"
-            val ingredientesConMayuscula = ingredientes.split(";").map { it.trim().capitalize() }
+            val ingredientesConMayuscula = ingredientes.split(";").map { ingrediente ->
+                ingrediente.trim()
+                .replaceFirstChar { if (it.isLowerCase()) it.titlecase(Locale.ROOT) else it.toString() } }
 
             "Ingredientes:\n\n - " + ingredientesConMayuscula.joinToString(
                 separator = "\n - "

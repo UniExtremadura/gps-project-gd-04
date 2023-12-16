@@ -9,7 +9,6 @@ import android.widget.EditText
 import com.google.android.material.bottomnavigation.BottomNavigationView
 import es.unex.giis.asee.gepeto.adapters.ItemSwapAdapter
 import es.unex.giis.asee.gepeto.adapters.RecetasAdapter
-import es.unex.giis.asee.gepeto.model.Receta
 import java.util.TreeSet
 
 
