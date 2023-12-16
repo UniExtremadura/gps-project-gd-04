@@ -9,8 +9,6 @@ import android.widget.EditText
 import com.google.android.material.bottomnavigation.BottomNavigationView
 import es.unex.giis.asee.gepeto.adapters.ItemSwapAdapter
 import es.unex.giis.asee.gepeto.adapters.RecetasAdapter
-import es.unex.giis.asee.gepeto.data.Session
-import es.unex.giis.asee.gepeto.data.equipamientosDeCocina
 import es.unex.giis.asee.gepeto.model.Receta
 import java.util.TreeSet
 
@@ -93,28 +91,6 @@ fun filtrarRecetasFilter(buscador: EditText, container: RecetasFilter, adapter: 
         override fun onTextChanged(s: CharSequence?, start: Int, before: Int, count: Int) {
             val text = s.toString().trim()
             val listaFiltrada = container.getRecetasIntf().filter {
-                Log.w("Filtrando", it.nombre)
-                it.nombre.contains(text, ignoreCase = true)
-            }
-            adapter.updateData(listaFiltrada)
-        }
-
-        override fun afterTextChanged(s: Editable?) {
-
-        }
-
-    } )
-}
-
-fun filtrarRecetas(buscador: EditText, recetas: List<Receta>, adapter: RecetasAdapter) {
-    buscador.addTextChangedListener( object : TextWatcher {
-        override fun beforeTextChanged(s: CharSequence?, start: Int, count: Int, after: Int) {
-
-        }
-
-        override fun onTextChanged(s: CharSequence?, start: Int, before: Int, count: Int) {
-            val text = s.toString().trim()
-            val listaFiltrada = recetas.filter {
                 Log.w("Filtrando", it.nombre)
                 it.nombre.contains(text, ignoreCase = true)
             }

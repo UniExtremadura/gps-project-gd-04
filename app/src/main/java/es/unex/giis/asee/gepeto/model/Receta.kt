@@ -4,6 +4,7 @@ import androidx.room.ColumnInfo
 import androidx.room.Entity
 import androidx.room.PrimaryKey
 import java.io.Serializable
+import java.util.Locale
 
 @Entity
 data class Receta(
@@ -36,7 +37,9 @@ data class Receta(
             "No hay ingredientes."
         } else {
             //Si hay ingredientes, los devolvemos separados por "-"
-            val ingredientesConMayuscula = ingredientesNoVacios.map { it.trim().capitalize() }
+            val ingredientesConMayuscula = ingredientesNoVacios.map { ingrediente ->
+                ingrediente.trim()
+                .replaceFirstChar { if (it.isLowerCase()) it.titlecase(Locale.ROOT) else it.toString() } }
 
             ingredientesConMayuscula.joinToString(
                 separator = ", ",
@@ -57,28 +60,6 @@ data class Receta(
             "Ingredientes:\n\n - " + ingredientesConMayuscula.joinToString(
                 separator = "\n - "
             )
-        }
-    }
-
-    fun listaEquipamiento(): String {
-
-        //Si no hay ingredientes, devolvemos un mensaje
-        return if (equipamientos.isEmpty()) {
-            "No hay equipamiento."
-        } else {
-            //Si hay ingredientes, los devolvemos separados por "-"
-            "Equipamiento / Medidas:\n\n - " + equipamientos.split(";").joinToString(
-                separator = "\n - "
-            )
-        }
-    }
-
-    fun showDescripcion(): String {
-
-        return if (descripcion.isEmpty()) {
-            "No hay descripción."
-        } else {
-            "Descripción:\n\n$descripcion"
         }
     }
 }

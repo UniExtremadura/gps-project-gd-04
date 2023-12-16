@@ -11,10 +11,8 @@ import es.unex.giis.asee.gepeto.database.dao.RecetaCacheDao
 import es.unex.giis.asee.gepeto.database.dao.RecetaDao
 import es.unex.giis.asee.gepeto.database.dao.UserDao
 import es.unex.giis.asee.gepeto.model.Receta
-import es.unex.giis.asee.gepeto.model.RecetaCache
 import es.unex.giis.asee.gepeto.model.User
 import es.unex.giis.asee.gepeto.model.UsuarioRecetasCrossRef
-import es.unex.giis.asee.gepeto.utils.Tuple
 
 class Repository (
     private val userDao: UserDao,
