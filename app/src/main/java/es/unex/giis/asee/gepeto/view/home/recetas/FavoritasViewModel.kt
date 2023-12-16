@@ -46,9 +46,9 @@ class FavoritasViewModel (
     }
 
     fun refresh() {
-        user?.let {
+        user?.let { user ->
             launchDataLoad {
-                favoritas = repository.getRecetas(user!!.userId!!).filter { it.favorita }
+                favoritas = repository.getFavoritas(user.userId!!)
                 if (favoritas.isEmpty()) {
                     _noHayFavoritasMessage.value = true
                     _buscador.value = false
