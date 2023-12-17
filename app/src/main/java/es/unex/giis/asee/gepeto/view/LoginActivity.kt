@@ -1,16 +1,11 @@
 package es.unex.giis.asee.gepeto.view
 
-import android.content.Intent
-import android.net.Uri
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.widget.Toast
 import androidx.activity.result.contract.ActivityResultContracts
-import androidx.fragment.app.DialogFragment
 import androidx.lifecycle.lifecycleScope
 import androidx.preference.PreferenceManager
-import es.unex.giis.asee.gepeto.R
-import es.unex.giis.asee.gepeto.data.Session
 import es.unex.giis.asee.gepeto.database.GepetoDatabase
 
 import es.unex.giis.asee.gepeto.databinding.ActivityLoginBinding
@@ -106,7 +101,7 @@ class LoginActivity : AppCompatActivity() {
         }
 
         lifecycleScope.launch{
-            val user = db?.userDao()?.findByName(binding.etUsername.text.toString()) //?: User(-1, etUsername.text.toString(), etPassword.text.toString())
+            val user = db.userDao().findByName(binding.etUsername.text.toString()) //?: User(-1, etUsername.text.toString(), etPassword.text.toString())
             if (user != null) {
                 // db.userDao().insert(User(-1, etUsername.text.toString(), etPassword.text.toString()))
                 val passwordCheck = CredentialCheck.passwordOk(binding.etPassword.text.toString(), user.password)
@@ -119,7 +114,6 @@ class LoginActivity : AppCompatActivity() {
 
     private fun navigateToHomeActivity(user: User) {
         Toast.makeText(this, "Welcome ${user.name}!!", Toast.LENGTH_SHORT).show()
-        Session.setValue("user", user)
         HomeActivity.start(this, user)
     }
 

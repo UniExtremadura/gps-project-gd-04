@@ -43,9 +43,9 @@ class RecetaDetailFragment : Fragment() {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
-        viewModel.receta = args.receta
-
         setObservers()
+
+        viewModel.receta = args.receta
     }
 
     private fun setObservers() {

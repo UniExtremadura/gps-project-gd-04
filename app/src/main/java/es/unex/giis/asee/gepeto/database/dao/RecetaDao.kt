@@ -36,8 +36,8 @@ interface RecetaDao {
 
     @Transaction()
     suspend fun insertAndRelate ( receta: Receta, userId: Long ) {
-        insert( receta )
-        insertUsuarioReceta( UsuarioRecetasCrossRef( userId, receta.recetaId!! ) )
+        val recetaId = insert( receta )
+        insertUsuarioReceta( UsuarioRecetasCrossRef(userId, recetaId.toInt()) )
     }
 
     // Para el REFACTOR

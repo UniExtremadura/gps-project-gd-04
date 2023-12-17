@@ -1,7 +1,5 @@
 package es.unex.giis.asee.gepeto.view.home.recetas
 
-import android.os.SystemClock
-import android.util.Log
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
@@ -36,7 +34,9 @@ class RecetaDetailViewModel (
     private val _toast = MutableLiveData<String?>()
     val toast: LiveData<String?>
         get() = _toast
+
     var user: User? = null
+
     var receta: Receta? = null
         set(value) {
             field = value
@@ -50,27 +50,20 @@ class RecetaDetailViewModel (
         if (receta != null)
             viewModelScope.launch{
                 try{
-                    var recetaTemp = repository.getRecetaById(receta!!.recetaId!!)
-                    while(recetaTemp == null){
-                        SystemClock.sleep(1000)
-                        recetaTemp = repository.getRecetaById(receta!!.recetaId!!)
-                    }
-                    //var recetaTemp = repository.getRecetaById(11)
-                    recetaTemp.favorita = receta!!.favorita
-                    _recetaDetail.value = recetaTemp
+                    _recetaDetail.value = receta!!
 
                     //Descripcion
-                    if(recetaTemp.descripcion.isEmpty()){
+                    if(receta!!.descripcion.isEmpty()){
                         steps = fetchPasos().filterNotNull().map { it.toRecipe() } // Pasos
 
                         descriptionText.value = steps.flatMap { it.descripcion }.joinToString("\n\n - ", prefix = "Pasos:\n\n - ")
                     }
                     else{
-                        descriptionText.value = recetaTemp.descripcion
+                        descriptionText.value = receta!!.descripcion
                     }
 
                     //Equipamientos
-                    if(recetaTemp.equipamientos.isEmpty()){
+                    if(receta!!.equipamientos.isEmpty()){
                         equipments = listOf(fetchEquipamiento().toEquipamiento())
 
                         equipmentText.value = equipments.flatMap { equipamiento ->
@@ -84,7 +77,7 @@ class RecetaDetailViewModel (
                         }.joinToString("\n\n - ", prefix = "Equipamiento:\n\n - ")
                     }
                     else{
-                        equipmentText.value = recetaTemp.listaEquipamiento()
+                        equipmentText.value = receta!!.listaEquipamiento()
                     }
 
                 } catch (error: APIError) {

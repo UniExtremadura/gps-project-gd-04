@@ -24,7 +24,6 @@ import es.unex.giis.asee.gepeto.database.dao.UserDao
 import es.unex.giis.asee.gepeto.model.Receta
 import es.unex.giis.asee.gepeto.model.User
 import es.unex.giis.asee.gepeto.model.UsuarioRecetasCrossRef
-import java.util.UUID
 import kotlin.time.Duration.Companion.seconds
 
 class Repository (
@@ -153,7 +152,7 @@ class Repository (
 
             val completion: ChatCompletion = openAI.chatCompletion(chatCompletionRequest)
 
-            val response = completion.choices.first().message?.content
+            val response = completion.choices.first().message.content
             print(response)
             val textResultArray=response?.split("%%%") ?: listOf("","","","")
 
@@ -166,8 +165,7 @@ class Repository (
             )
 
             _receta.value = Receta(
-                recetaId = System.currentTimeMillis().toInt(),
-                //recetaId = UUID.randomUUID().hashCode(),
+                recetaId = null,
                 nombre = textResultArray[0].replace("\n", ""),
                 descripcion = textResultArray[1],
                 favorita = false,

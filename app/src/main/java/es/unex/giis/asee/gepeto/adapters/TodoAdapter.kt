@@ -5,9 +5,7 @@ import android.graphics.Typeface
 import android.view.LayoutInflater
 import android.view.ViewGroup
 import androidx.recyclerview.widget.RecyclerView
-import es.unex.giis.asee.gepeto.data.Session
 import es.unex.giis.asee.gepeto.databinding.RecyclerTodoItemBinding
-import es.unex.giis.asee.gepeto.utils.Tuple
 
 class TodoAdapter (
     private val todoMap: HashMap<String, Boolean>,
@@ -73,22 +71,13 @@ class TodoAdapter (
     }
 
 
-
     fun add(item: String) {
         todoMap[item] = false
-        Session.setValue("todoList", todoMap)
         notifyDataSetChanged()
     }
 
     fun remove(item: String) {
         todoMap.remove(item)
-        Session.setValue("todoList", todoMap)
-        notifyDataSetChanged()
-    }
-
-    fun swap(newItemMap: HashMap<String, Boolean>) {
-        todoMap.clear()
-        todoMap.putAll(newItemMap)
         notifyDataSetChanged()
     }
 
