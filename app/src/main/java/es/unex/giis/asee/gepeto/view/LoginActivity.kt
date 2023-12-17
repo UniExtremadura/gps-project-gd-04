@@ -50,10 +50,7 @@ class LoginActivity : AppCompatActivity() {
 
         db = GepetoDatabase.getInstance(applicationContext)!!
 
-        //views initialization and listeners
-        setUpUI()
         setUpListeners()
-
         readSettings()
     }
 
@@ -68,10 +65,6 @@ class LoginActivity : AppCompatActivity() {
             binding.etUsername.setText(username)
             binding.etPassword.setText(password)
         }
-    }
-
-    private fun setUpUI() {
-        //get attributes from xml using binding
     }
 
     private fun setUpListeners() {
@@ -130,7 +123,4 @@ class LoginActivity : AppCompatActivity() {
     private fun notifyInvalidCredentials(msg: String) {
         Toast.makeText(this, msg, Toast.LENGTH_SHORT).show()
     }
-
-
-
 }

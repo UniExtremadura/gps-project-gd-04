@@ -8,14 +8,11 @@ import android.view.ViewGroup
 import androidx.fragment.app.activityViewModels
 import androidx.fragment.app.viewModels
 import androidx.recyclerview.widget.LinearLayoutManager
-import com.google.android.material.bottomnavigation.BottomNavigationView
-import es.unex.giis.asee.gepeto.R
 import es.unex.giis.asee.gepeto.adapters.ItemSwapAdapter
 import es.unex.giis.asee.gepeto.adapters.TodoAdapter
 import es.unex.giis.asee.gepeto.data.todosLosIngredientes
 import es.unex.giis.asee.gepeto.databinding.FragmentListaBinding
 import es.unex.giis.asee.gepeto.utils.filtrarSwapItemElements
-import es.unex.giis.asee.gepeto.utils.ocultarBottomNavigation
 import java.util.TreeSet
 
 class ListaFragment : Fragment() {
@@ -46,9 +43,6 @@ class ListaFragment : Fragment() {
 
         viewModel.seleccionados = todoAdapter
         viewModel.todosIngredientes = ingredientesAdapter
-
-        val bottomNavigationView = requireActivity().findViewById<BottomNavigationView>(R.id.bottom_navigation)
-        ocultarBottomNavigation(view, bottomNavigationView)
 
         filtrarSwapItemElements(
             binding.buscadorDeIngredientes,
